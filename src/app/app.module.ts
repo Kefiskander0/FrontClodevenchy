@@ -8,6 +8,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { ReclamationComponent } from './reclamation/reclamation.component';
+//import { ToastrService } from 'ngx-toastr';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,11 +20,14 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     NavbarComponent,
     SidebarComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    ReclamationComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,21 @@
+<div class="card-body">
+
+    <form [formGroup]="registerform" (ngSubmit)="createReclamation()">
+
+
+        <div class="form-group">
+          <label class="form-label">Bank</label>
+            <input type="text" class="form-control" id="exampleInputEmail6" formControlName="subject"
+            [(ngModel)]="reclamationToCreate.feedBack" placeholder="Enter date">
+              </div>
+
+
+        <div class="col-5">
+
+            <button  class="btn btn-primary btn-block px-4" >
+                Update
+            </button>
+        </div>
+    </form>
+  </div>
+
