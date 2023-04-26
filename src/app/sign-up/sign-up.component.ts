@@ -14,9 +14,12 @@ export class SignUpComponent {
 
   constructor(private http: HttpClient ) { }
 
- 
+  showSignIn() {
+    document.getElementById('container')!.classList.remove("right-panel-active");
+  }
 
-  save() {
+  showSignUp() {
+    document.getElementById('container')!.classList.remove("right-panel-active");
     let bodyData = {
       "userName" : this.userName,
       "mailAddress" : this.mailAddress,
