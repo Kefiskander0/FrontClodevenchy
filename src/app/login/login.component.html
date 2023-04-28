@@ -9,25 +9,25 @@
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <input placeholder="UserName" type="text" [(ngModel)]="userName " [ngModelOptions]="{standalone: true} " class="form-control " id="userName ">
-                <input placeholder="Email" type="email" [(ngModel)]="mailAddress " [ngModelOptions]="{standalone: true} " class="form-control " id="mailAddress ">
-                <input placeholder="Password" type="password" [(ngModel)]="password " [ngModelOptions]="{standalone: true} " class="form-control " id="password ">
-                <button type="button" (click)="save() ">Sign Up</button>
+                <input placeholder="UserName" type="text" [(ngModel)]="userName" [ngModelOptions]="{standalone: true} " class="form-control" id="userName">
+                <input placeholder="Email" type="email" [(ngModel)]="mailAddress" [ngModelOptions]="{standalone: true} " class="form-control" id="mailAddress">
+                <input placeholder="Password" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true} " class="form-control" id="password">
+                <button type="button" (click)="save()">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in-container ">
             <form action="# ">
                 <h1>Sign in</h1>
                 <div class="social-container ">
-                    <a href="# " class="social "><i class="fab fa-facebook-f "></i></a>
-                    <a href="# " class="social "><i class="fab fa-google-plus-g "></i></a>
-                    <a href="# " class="social "><i class="fab fa-linkedin-in "></i></a>
+                    <a (click)="signInWithGoogle()" class="social "><i class="fab fa-google-plus-g "> </i> <img src="../../../assets/icons8-google-48.png" alt="" height="30px" width="30px"></a>
+                    <a href="" class="social "><i class="fab fa-facebook-f "></i></a>
+                    <a href="" class="social "><i class="fab fa-linkedin-in "></i></a>
                 </div>
                 <span>or use your account</span>
-                <input placeholder="UserName" type="UserName" [(ngModel)]="userName " [ngModelOptions]="{standalone: true} " class="form-control " id="userName ">
-                <input placeholder="Password" type="password" [(ngModel)]="password " [ngModelOptions]="{standalone: true} " class="form-control " id="password ">
-                <a href="# ">Forgot your password?</a>
-                <button type="button" (click)="loginUser() ">Sign in</button>
+                <input placeholder="UserName" type="UserName" [(ngModel)]="userName" [ngModelOptions]="{standalone: true} " class="form-control" id="userName">
+                <input placeholder="Password" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true} " class="form-control" id="password">
+                <a routerLink="/forgetPassword">Forgot your password?</a>
+                <button type="button" (click)="loginUser()">Sign in</button>
             </form>
         </div>
         <div class="overlay-container ">
@@ -35,12 +35,12 @@
                 <div class="overlay-panel overlay-left ">
                     <h1>Welcome Back!</h1>
                     <p>To keep connected with us please login with your personal info</p>
-                    <button (click)="showSignIn() " class="ghost " id="signIn ">Sign In</button>
+                    <button (click)="showSignIn()" class="ghost " id="signIn">Sign In</button>
                 </div>
                 <div class="overlay-panel overlay-right ">
                     <h1>Hello, Friend!</h1>
                     <p>Enter your personal details and start journey with us</p>
-                    <button (click)="showSignUp() " class="ghost " id="signUp ">Sign Up</button>
+                    <button (click)="showSignUp()" class="ghost " id="signUp">Sign Up</button>
                 </div>
             </div>
         </div>
