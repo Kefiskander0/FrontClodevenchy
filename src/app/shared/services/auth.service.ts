@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { GoogleAuthProvider, GithubAuthProvider, FacebookAuthProvider} from '@angular/fire/auth'
+import { GoogleAuthProvider} from '@angular/fire/auth'
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService  {
 
   constructor(private fireauth : AngularFireAuth, private router : Router) { }
 
@@ -16,11 +16,13 @@ export class AuthService {
     return this.fireauth.signInWithPopup(new GoogleAuthProvider).then(res => {
 
       this.router.navigate(['/home']);
-      localStorage.setItem('token',JSON.stringify(res.additionalUserInfo?.username));
+      sessionStorage.setItem('token',JSON.stringify(res.user));
 
     }, err => {
       alert(err.message);
     })
   }
+
+
 
 }

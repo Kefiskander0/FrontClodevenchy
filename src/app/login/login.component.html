@@ -19,8 +19,15 @@
             <form action="# ">
                 <h1>Sign in</h1>
                 <div class="social-container ">
-                    <a (click)="signInWithGoogle()" class="social "><i class="fab fa-google-plus-g "> </i> <img src="../../../assets/icons8-google-48.png" alt="" height="30px" width="30px"></a>
-                    <a href="" class="social "><i class="fab fa-facebook-f "></i></a>
+                    <a (click)="signInWithGoogle()" class="social "><i class="fab fa-google-plus-g "> </i></a>
+                    <a *ngIf="!loggedIn" (click)="signInWithFB()" class="social "><i class="fab fa-facebook-f "></i></a>
+                    <div *ngIf="loggedIn">
+                        <img src="{{ user.response.picture.data.url }}">
+                        <div>
+                            <h4>{{ user.name }}</h4>
+                            <p>{{ user.email }}</p>
+                        </div>
+                    </div>
                     <a href="" class="social "><i class="fab fa-linkedin-in "></i></a>
                 </div>
                 <span>or use your account</span>

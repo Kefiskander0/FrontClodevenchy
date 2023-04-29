@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { SocialAuthService, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,18 @@ export class LoginComponent  {
   mailAddress: string ="";
   password: string ="";
 
-  constructor(private router: Router,private http: HttpClient, private auth : AuthService ) { }
+  constructor(private router: Router,private http: HttpClient, private auth : AuthService, private authService: SocialAuthService ) { }
+
+  user:any;
+  loggedIn:any;
+  ngOnInit() {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(this.user);
+      this.loggedIn = (user != null);
+    });
+  }
+
 
   showSignUp() {
     document.getElementById('container')!.classList.add("right-panel-active");
@@ -71,6 +83,15 @@ export class LoginComponent  {
 
   signInWithGoogle(){
     this.auth.googleSignIn();
+    
+  }
+
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.router.navigate(['/home']);
+    sessionStorage.setItem('token',JSON.stringify(this.user.response));
+    
+    
     
   }
 
