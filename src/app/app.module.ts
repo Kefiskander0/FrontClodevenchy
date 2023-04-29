@@ -21,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http'; // <-- Import the HttpC
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Add this line
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,12 +42,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
     LandingComponent
   ],
   imports: [
+    MatIconModule,
+    MatInputModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule
+  ],
+  exports:[
+    MatIconModule, MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

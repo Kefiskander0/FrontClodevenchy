@@ -217,8 +217,8 @@ closePopupSignal() {
 
 confirmSignal(){
 this.reclamationToCreate.raison=this.filterBadWords(this.reclamationToCreate.raison)
-console.log("feeeeeeed", this.reclamationToCreate.feedback)
-if(this.reclamationToCreate.raison!="" || this.reclamationToCreate.feedback!=""){
+console.log("feeeeeeed", this.reclamationToCreate)
+if(this.reclamationToCreate.raison!="" || this.reclamationToCreate.feedback!="" || this.reclamationToCreate.rateLevel!=-1){
 this.reclamationService.createReclamation(this.reclamationToCreate,1,2).subscribe(data=>{
 this.reclamationToCreate=new Reclamation()
 console.log("receeee", this.reclamationToCreate)
@@ -272,7 +272,13 @@ removeToast(toast: any) {
 
 currentRate = 6;
 isPopupVisible = false;
+rating: number = 0;
+icons: number[] = [1, 2, 3, 4, 5];
 
+rate(value: number) {
+  this.reclamationToCreate=new Reclamation();
+  this.reclamationToCreate.rateLevel = value;
+}
 
 
 showRatingModal=false

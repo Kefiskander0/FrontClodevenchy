@@ -7,7 +7,7 @@ export class Reclamation {
     raison: string;
     isBlock: boolean;
     createdOn: Date;
-
+    rateLevel:number;
 
     
     constructor() {
@@ -19,7 +19,7 @@ export class Reclamation {
       this.raison = "";
       this.isBlock = false;
       this.createdOn = new Date();
-
+      this.rateLevel=-1;
     }
 
     

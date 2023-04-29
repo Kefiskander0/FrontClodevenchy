@@ -1,6 +1,6 @@
 .modal-dialog {
-    width: 40%;
-    height: 40%;
+    width: 50%;
+    height: 50%;
 
     max-width: none;
   }
@@ -25,17 +25,25 @@
 
 
   
-  i {
-    font-size: 1.5rem;
-    padding-right: 0.1rem;
-    color: #b0c4de;
+  .star-rating {
+    padding: 40px;
+    display: inline-flex;
+    align-items: center;
   }
-  .filled {
-    color: #1e90ff;
+  .star-rating mat-icon {
+    padding: 40px;
+    padding-right: 90px;
+    font-size: 100px;
+    color: #ccc;
+    cursor: pointer;
   }
-  .low {
-    color: #deb0b0;
+  .star-rating mat-icon.selected {
+    padding: 40px;
+
+    color: gold;
   }
-  .filled.low {
-    color: #ff1e1e;
+  .star-rating mat-icon:hover {
+    padding: 40px;
+
+    color: gold;
   }

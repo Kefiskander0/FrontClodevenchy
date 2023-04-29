@@ -109,9 +109,12 @@ left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamati
                 
                 </div>
               
+                <div class="star-rating">
+                    <mat-icon *ngFor="let icon of icons" (click)="rate(icon)" [ngClass]="{ 'selected': icon <= this.reclamationToCreate.rateLevel }" style="padding-right: 20px;">star</mat-icon>
+                  </div>
                 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" (click)="openPopupRating()">Annuler</button>
+                  <button type="button" class="btn btn-secondary" (click)="closePopupRating()">Annuler</button>
                   <button type="button" class="btn btn-primary" (click)="confirmSignal()">Confirmer</button>
                 </div>
               </div>
