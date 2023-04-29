@@ -14,9 +14,13 @@ import { CyptoComponent } from './cypto/cypto.component';
 import { MapsComponent } from './maps/maps.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ShopComponent } from './shop/shop.component';
-import { ReclamationComponent } from './reclamation/reclamation.component';
 import { CalandrierComponent } from './calandrier/calandrier.component';
 import { LandingComponent } from './landing/landing.component';
+import { ReclamationComponent } from './reclamation/reclamation.component';
+import { HttpClientModule } from '@angular/common/http'; // <-- Import the HttpClientModule
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Add this line
 
 @NgModule({
   declarations: [
@@ -37,8 +41,12 @@ import { LandingComponent } from './landing/landing.component';
     LandingComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

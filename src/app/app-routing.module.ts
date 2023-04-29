@@ -26,7 +26,7 @@ const routes: Routes = [
       { path: 'maps', component: MapsComponent },
       { path: 'calandrier', component: CalandrierComponent },
       { path: 'shop', component: CheckoutComponent },
-      { path: 'checkout', component: ReclamationComponent },
+      { path: 'reclamation', component: ReclamationComponent },
       {path:'home',component:HomeComponent},
 {path:'like',component:LikeComponent},
 {path:'poste',component:PostComponent},
