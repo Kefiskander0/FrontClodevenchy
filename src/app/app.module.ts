@@ -17,6 +17,8 @@ import { ShopComponent } from './shop/shop.component';
 import { ReclamationComponent } from './reclamation/reclamation.component';
 import { CalandrierComponent } from './calandrier/calandrier.component';
 import { LandingComponent } from './landing/landing.component';
+import {HttpClientModule} from '@angular/common/http';
+import {DataTablesModule} from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -38,8 +40,14 @@ import { LandingComponent } from './landing/landing.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    DataTablesModule,
   ],
+
+
+
+
   providers: [],
   bootstrap: [AppComponent]
 })
