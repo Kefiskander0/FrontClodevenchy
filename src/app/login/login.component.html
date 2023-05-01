@@ -9,9 +9,32 @@
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <input placeholder="UserName" type="text" [(ngModel)]="userName" [ngModelOptions]="{standalone: true} " class="form-control" id="userName">
-                <input placeholder="Email" type="email" [(ngModel)]="mailAddress" [ngModelOptions]="{standalone: true} " class="form-control" id="mailAddress">
-                <input placeholder="Password" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true} " class="form-control" id="password">
+                <input placeholder="UserName" type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true} " class="form-control" id="userName">
+                <input placeholder="Email" type="email" [(ngModel)]="MailAddress" [ngModelOptions]="{standalone: true} " class="form-control" id="mailAddress">
+                <input placeholder="Password" type="password" [(ngModel)]="Password" [ngModelOptions]="{standalone: true} " class="form-control" id="password">
+                <div class="social-container">
+                    <div class="role-container">
+                        <form>
+                            <div style="display:flex;">
+                                <label>
+                                <input type="radio" name="radio" value="Admin" checked="true"  (change)="changeRole($event)">
+                                <span>Admin</span>
+                            </label>
+                                <label>
+                                <input type="radio" value="helper"  name="radio" (change)="changeRole($event)">
+                                <span>Helper</span>
+                            </label>
+                                <label>
+                                <input type="radio" value="Organisation" name="radio" (change)="changeRole($event)">
+                                <span>Organisation</span>
+                            </label>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+                </div>
                 <button type="button" (click)="save()">Sign Up</button>
             </form>
         </div>

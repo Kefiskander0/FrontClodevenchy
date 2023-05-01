@@ -1,5 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LayoutComponent } from './layout/layout.component';
+import { AnalitycsComponent } from './analitycs/analitycs.component';
+import { AuthComponent } from './auth/auth.component';
+import { JobComponent } from './job/job.component';
+import { MapsComponent } from './maps/maps.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CalandrierComponent } from './calandrier/calandrier.component';
+import { LandingComponent } from './landing/landing.component';
 import { HomeComponent } from './home/home.component';
 import { ReclamationComponent } from './reclamation/reclamation.component';
 import { LikeComponent } from './like/like.component';
@@ -11,14 +19,18 @@ import { LoginComponent } from './login/login.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
 import { ActivatedComponent } from './activated/activated.component';
+import { AlarmeComponent } from './alarme/alarme.component';
+import { BackComponent } from './back/back.component';
+import { ProfilComponent } from './profil/profil.component';
 
 
 const routes: Routes = [
+  {
+    path: '', component: HomeComponent, children: [
 {path:'home',component:HomeComponent},
 {path:'reclamation',component:ReclamationComponent},
 {path:'like',component:LikeComponent},
 {path:'poste',component:PostComponent},
-{path:'alarme',component:LoginComponent},
 {path:'appointment',component:HomeComponent},
 {path:'event',component:EventComponent},
 {path:'invit',component:InvitComponent},
@@ -27,8 +39,21 @@ const routes: Routes = [
 { path: 'ResetPwd/:mailAddress', component: ResetPwdComponent },
 { path: 'forgetPassword', component: ForgetPasswordComponent },
 { path: 'activate', component: ActivatedComponent },
+{ path: 'crypto', component: AnalitycsComponent },
+{ path: 'maps', component: MapsComponent },
+{ path: 'calandrier', component: CalandrierComponent },
+{ path: 'shop', component: CheckoutComponent },
+{ path: 'checkout', component: ReclamationComponent },
+{path:'alarme',component: AlarmeComponent},
+{path:'back',component: BackComponent},
+{ path: 'profil', component: ProfilComponent },
+     
+]
+    
+},
 
-
+{ path: 'auth', component: AuthComponent },
+{ path: 'landing', component: LandingComponent },
 ];
 
 @NgModule({

@@ -18,17 +18,38 @@ import { AppointmentComponent } from './appointment/appointment.component';
 import { LoginComponent } from './login/login.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ResetPwdComponent } from './reset-pwd/reset-pwd.component';
+import { AnalitycsComponent } from './analitycs/analitycs.component';
+import { AuthComponent } from './auth/auth.component';
+import { JobComponent } from './job/job.component';
+import { CyptoComponent } from './cypto/cypto.component';
+import { MapsComponent } from './maps/maps.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ShopComponent } from './shop/shop.component';
+import { CalandrierComponent } from './calandrier/calandrier.component';
+import { LandingComponent } from './landing/landing.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ActivatedComponent } from './activated/activated.component';
 import { AngularFireModule } from '@angular/fire/compat'
 import { environment } from 'src/environments/environment';
 import { FacebookLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { BackComponent } from './back/back.component';
+import { ProfilComponent } from './profil/profil.component';
+
 
 
 
 @NgModule({
   declarations: [
+    AnalitycsComponent,
+    AuthComponent,
+    JobComponent,
+    CyptoComponent,
+    MapsComponent,
+    ShopComponent,
+    ReclamationComponent,
+    CalandrierComponent,
+    LandingComponent,
     AppComponent,
     MenuComponent,
     FooterComponent,
@@ -46,7 +67,13 @@ import { FacebookLoginProvider, SocialAuthServiceConfig, SocialLoginModule } fro
     ResetPwdComponent,
     ForgetPasswordComponent,
     ActivatedComponent,
-    LoginComponent
+    LoginComponent,
+    BackComponent,
+    ProfilComponent
+
+
+
+    
   ],
   imports: [
     HttpClientModule,

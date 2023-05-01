@@ -15,7 +15,7 @@ export class AuthService  {
   googleSignIn() {
     return this.fireauth.signInWithPopup(new GoogleAuthProvider).then(res => {
 
-      this.router.navigate(['/home']);
+      this.router.navigate(['/landing']);
       sessionStorage.setItem('token',JSON.stringify(res.user));
 
     }, err => {
