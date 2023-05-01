@@ -4,7 +4,7 @@
 <!-- ============================================================== -->
 <div class="main-content">
   <div class="page-content">
-    <div class="container-fluid">
+    < class="container-fluid">
       <!-- start page title -->
       <div class="row">
         <div class="col-12">
@@ -45,7 +45,7 @@
                         data-bs-toggle="modal"
                         id="create-btn"
                         data-bs-target="#showModal"
-                        (click)="openMyModal(); reset(); clear()"
+                        (click)="openMyModal('effect-13') ;  clear() ; reset()"
                       >
                         <i class="ri-add-line align-bottom me-1"></i> create new
                         event
@@ -96,7 +96,7 @@
                       </tr>
                     </thead>
                     <tbody class="list form-check-all">
-                      <tr *ngFor="let item of anomaliList; let i = index">
+                      <tr *ngFor="let item of eventList; let i = index">
                         <td>
                           <span>{{ item.name }} </span>
                         </td>
@@ -160,10 +160,12 @@
           </div>
         </div>
       </div>
+    
 
       <div style="clear: both"></div>
 
       <!-- Add New Event MODAL -->
+      
       <div class="modal fade" id="event-modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content border-0">
@@ -445,4 +447,3 @@
       <!--end modal -->
     </div>
   </div>
-</div>

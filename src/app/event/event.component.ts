@@ -15,11 +15,6 @@ export class EventComponent implements OnInit {
   submitted = false;
   modifSubmitted = false;
 
-  onSubmit(event: Event): void {
-    event.preventDefault();
-    // ...
-  }
-
   eventList: any;
   evenmentForm!: FormGroup;
   form: any;
@@ -32,18 +27,11 @@ export class EventComponent implements OnInit {
     public httpClient: HttpClient,
     public eventservice: EventService,
 
-    private messageService: MessageService,
+    //private messageService: MessageService,
     private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.displayData();
-    this.evenmentForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      date: [''],
-      lieu: ['', [Validators.required]],
-      description: [''],
-    });
   }
 
   get f() {
@@ -58,7 +46,7 @@ export class EventComponent implements OnInit {
   }
   displayData() {
     this.dtOptions = { pagingType: 'full_numbers', pageLength: 10 };
-    this.eventservice.GetAllEvenment().subscribe(
+    this.eventservice.getAllEvent().subscribe(
       (response) => {
         this.eventList = response;
         //this.dtTrigger.next();
@@ -69,18 +57,19 @@ export class EventComponent implements OnInit {
     );
   }
 
-  openMyModal() {
-    document.querySelector('#' + event)?.classList.add('md-show');
+  openMyModal(eventId: string): void {
+    const element = document.getElementById(eventId);
+    if (element) {
+      element.classList.add('md-show');
+    }
   }
-
   clear() {
     this.submitted = false;
     this.modifSubmitted = false;
   }
- 
 
-  GetAllEvenment() {
-    this.eventservice.GetAllEvenment().subscribe((response) => {
+  getAllEvent() {
+    this.eventservice.getAllEvent().subscribe((response) => {
       this.eventList = response;
     });
   }
