@@ -9,7 +9,7 @@ import{filter} from 'rxjs'
 })
 export class AppComponent {
 showHeader : boolean = false
-  title = 'valzonvelzonfront';
+  title = 'wled_elkhir';
   constructor(private router:Router){
     
   }

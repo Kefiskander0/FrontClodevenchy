@@ -11,7 +11,7 @@
           <div
             class="page-title-box d-sm-flex align-items-center justify-content-between"
           >
-            <h4 class="mb-sm-0">Listjs</h4>
+            <h4 class="mb-sm-0"> page d'evenment</h4>
 
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
@@ -88,10 +88,11 @@
                           </div>
                         </th>
                         <th class="sort" data-sort="customer_name">Evenment</th>
-                        <th class="sort" data-sort="email">Name</th>
-                        <th class="sort" data-sort="phone">Date</th>
-                        <th class="sort" data-sort="date">lieu</th>
-                        <th class="sort" data-sort="status">Description</th>
+                        <th class="sort" data-sort="name">Name</th>
+                        <th class="sort" data-sort="date">Date</th>
+                        <th class="sort" data-sort="lieu">lieu</th>
+                        <th class="sort" data-sort="description">Description</th>
+                        <th class="sort" data-sort="status">Status</th>
                         <th class="sort" data-sort="action">Action</th>
                       </tr>
                     </thead>
@@ -109,9 +110,19 @@
                         <td>
                           <span>{{ item.description }} </span>
                         </td>
+                        <td>
+                          <span>{{ item.status }} </span>
+                        </td>
+                        <td>
+                          <span>{{ item.description }} </span>
+                        </td>
+
+                      
                       </tr>
                     </tbody>
+                    
                   </table>
+                  
                   <div class="noresult" style="display: none">
                     <div class="text-center">
                       <h5 class="mt-2">Sorry! No Result Found</h5>

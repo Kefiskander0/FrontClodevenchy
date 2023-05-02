@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -19,6 +18,9 @@ import { CalandrierComponent } from './calandrier/calandrier.component';
 import { LandingComponent } from './landing/landing.component';
 import {HttpClientModule} from '@angular/common/http';
 import {DataTablesModule} from 'angular-datatables';
+import { RouterModule } from '@angular/router';
+import { EventComponent } from './event/event.component';
+
 
 @NgModule({
   declarations: [
@@ -36,13 +38,16 @@ import {DataTablesModule} from 'angular-datatables';
     ShopComponent,
     ReclamationComponent,
     CalandrierComponent,
-    LandingComponent
+    LandingComponent,
+    EventComponent,
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     HttpClientModule,
     DataTablesModule,
+    
   ],
 
 

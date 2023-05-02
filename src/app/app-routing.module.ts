@@ -20,7 +20,7 @@ import { DonComponent } from './don/don.component';
 const routes: Routes = [
   {
     path: '', component: HomeComponent, children: [
-      // { path: '', component: LayoutComponent },
+       //{ path: '', component: LayoutComponent },
 
       { path: 'crypto', component: AnalitycsComponent },
       { path: 'maps', component: MapsComponent },
@@ -32,7 +32,7 @@ const routes: Routes = [
 {path:'poste',component:PostComponent},
 {path:'alarme',component: LoginComponent},
 {path:'appointment',component:HomeComponent},
-{path:'event',component:EventComponent},
+{path:'evenment',component:EventComponent},
 {path:'invit',component:InvitComponent},
 {path:'don',component:DonComponent},
 {path:'login',component:LoginComponent},
