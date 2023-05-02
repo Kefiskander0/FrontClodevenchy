@@ -16,7 +16,7 @@ export class EventService {
  
 
   getAllEvent(){
-    return this.http.get<Event[]>(this.url)
+    return this.http.get<Event[]>(this.url +'/all')
 
   }
 

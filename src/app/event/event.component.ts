@@ -32,6 +32,7 @@ export class EventComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getAllEvent();
   }
 
   get f() {
@@ -71,6 +72,7 @@ export class EventComponent implements OnInit {
   getAllEvent() {
     this.eventservice.getAllEvent().subscribe((response) => {
       this.eventList = response;
+      console.log(this.eventList);
     });
   }
 }
