@@ -1,0 +1,49 @@
+.modal-dialog {
+    width: 50%;
+    height: 50%;
+
+    max-width: none;
+  }
+  
+
+  .toast-container {
+    z-index: 9999;
+  }
+  
+  .toast {
+    margin-bottom: 10px;
+  }
+  
+  .bg-success {
+    background-color: #28a745 !important;
+  }
+  
+  .bg-danger {
+    background-color: #dc3545 !important;
+  }
+  
+
+
+  
+  .star-rating {
+    padding: 40px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .star-rating mat-icon {
+    padding: 40px;
+    padding-right: 90px;
+    font-size: 100px;
+    color: #ccc;
+    cursor: pointer;
+  }
+  .star-rating mat-icon.selected {
+    padding: 40px;
+
+    color: gold;
+  }
+  .star-rating mat-icon:hover {
+    padding: 40px;
+
+    color: gold;
+  }

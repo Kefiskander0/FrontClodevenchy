@@ -1,0 +1,124 @@
+
+<button  type="button" style=" position: absolute;
+top: 50%;
+left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamation</button>
+
+<div class="modal" tabindex="-1" role="dialog" *ngIf="showModal" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" style="color: white; ">Que voulez-vous faire?</h5>
+         
+        </div>
+        <div class="modal-body custom-modal-body">
+          <div class="row justify-content-center">
+            <div class="col-md-3 text-center mb-3">
+              <button type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupSignal()">
+                <img src="../../assets/images/signal.png" alt="Signal" class="img-fluid mb-3">
+                <div>Signaler un problème</div>
+              </button>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+              <button type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupFeedback()">
+                <img src="../../assets/images/feedback.png" alt="Feedback" class="img-fluid mb-3">
+                <div>Donner un feedback</div>
+              </button>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+              <button type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupBlock()">
+                <img src="../../assets/images/block.png" alt="Block" class="img-fluid mb-3">
+                <div>Bloquer un utilisateur</div>
+              </button>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+              <button type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupRating()">
+                <img src="../../assets/images/rate.png" alt="Rate" class="img-fluid mb-3">
+                <div>Noter une expérience</div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closePopupReclamation()">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+        <!-- SIGNAL and BLOCK POPUP -->
+
+        <div class="modal" tabindex="-1" role="dialog" *ngIf="showSignalPopup" style="display: block;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title" style="color: white;">Rédigez une raison pour cela</h5>
+                
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="reason">Raison:</label>
+                    <textarea class="form-control" id="reason" rows="3" [(ngModel)]="reclamationToCreate.raison"></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="closePopupSignal()">Annuler</button>
+                  <button type="button" class="btn btn-primary" (click)="confirmSignal()">Confirmer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          
+
+           <!-- SIGNAL and BLOCK POPUP -->
+
+           <div class="modal" tabindex="-1" role="dialog" *ngIf="showFeedBackModal" style="display: block;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title" style="color: white;">Qu'en pensez vous ?</h5>
+                
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="reason">Feedback:</label>
+                    <textarea class="form-control" id="reason" rows="3" [(ngModel)]="reclamationToCreate.feedback"></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="closePopupFeedback()">Annuler</button>
+                  <button type="button" class="btn btn-primary" (click)="confirmSignal()">Confirmer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+          <!-- RATING POPUP -->
+
+          <div class="modal" tabindex="-1" role="dialog" *ngIf="showRatingModal" style="display: block;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title" style="color: white;">Qu'en pensez vous ?</h5>
+                
+                </div>
+              
+                <div class="star-rating">
+                    <mat-icon *ngFor="let icon of icons" (click)="rate(icon)" [ngClass]="{ 'selected': icon <= this.reclamationToCreate.rateLevel }" style="padding-right: 20px;">star</mat-icon>
+                  </div>
+                
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="closePopupRating()">Annuler</button>
+                  <button type="button" class="btn btn-primary" (click)="confirmSignal()">Confirmer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
