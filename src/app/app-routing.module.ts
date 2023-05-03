@@ -16,12 +16,13 @@ import { LoginComponent } from './login/login.component';
 import { EventComponent } from './event/event.component';
 import { InvitComponent } from './invit/invit.component';
 import { DonComponent } from './don/don.component';
+import {AppointmentComponent} from "./appointment/appointment.component";
 
 const routes: Routes = [
   {
     path: '', component: HomeComponent, children: [
       // { path: '', component: LayoutComponent },
-
+      { path: 'appointments', component: AppointmentComponent },
       { path: 'crypto', component: AnalitycsComponent },
       { path: 'maps', component: MapsComponent },
       { path: 'calandrier', component: CalandrierComponent },
@@ -36,10 +37,10 @@ const routes: Routes = [
 {path:'invit',component:InvitComponent},
 {path:'don',component:DonComponent},
 {path:'login',component:LoginComponent},
-     
-     
+
+
     ]
-    
+
   },
 
   { path: 'auth', component: AuthComponent },
