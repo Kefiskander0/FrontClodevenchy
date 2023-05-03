@@ -20,7 +20,19 @@ export class ProfilComponent {
   retrieveResonse: any;
   message: string = "";
   imageName: any = " ";
+  name : string ="";
+  phone : string ="";
+  mail : string ="";
+  locat : string ="";
+  certif : string ="";
+  newpassword :String="";
+  oldpassword :String="";
+  confirmpasswoed:String="";
   user1 = new User();
+  username?: string;
+
+
+  
 
   constructor(private Storage: TokenStorageService, private router: Router, private httpClient: HttpClient,private storageService: TokenStorageService) { }
   public onFileChanged(event: any) {
@@ -41,20 +53,23 @@ export class ProfilComponent {
   save(): void {
     const user = new User();
     user.imageProfile= this.imageName;
-    user.mailAddress="";
+    user.mailAddress=this.mail;
     user.password="";
-    user.userPhone="";
-    user.location="";
-    user.certificate="";
-    user.userName="amen";
+    user.userPhone=this.phone;
+    user.location=this.locat;
+    user.certificate=this.certif;
+    user.userName=this.name;
     user.verified=true;
+
     
 
     console.log(user);
     this.httpClient.put(`http://localhost:8083/update/${this.idUser}`, user ).subscribe((resultData: any)=>{
       console.log(resultData);     
       this.storageService.saveUser(resultData);
+     
     });
+    
  
 
     
@@ -66,9 +81,42 @@ export class ProfilComponent {
     if (this.isLoggedIn) {
       const user = this.Storage.getUser();
       this.roles = user.roles;
+      this.name = user.user.userName;
+      this.imageName = user.user.imageProfile;
+      this.mail=user.user.mailAddress;
+      this.phone=user.user.userPhone;
+      this.locat=user.user.location;
+      this.certif=user.user.certificate;
     }
-    this.imageName= this.user.user.imageProfile;
+  
 
+
+  
+
+  }
+
+
+  changePwd(): void {
+    let body = {
+      "newpassword" : this.newpassword,
+      "oldpassword": this.oldpassword
+    }
+    if(this.confirmpasswoed == this.newpassword){ 
+      this.httpClient.put(` http://localhost:8083/changepassword/${this.idUser}`, body ).subscribe((resultData: any)=>{
+        console.log(resultData.statusCode);
+         
+         
+         
+       });
+    }
+
+  }
+
+  logout(){
+    this.Storage.signOut();
+    
+    this.router.navigateByUrl("/login");
+  
   }
 
 }

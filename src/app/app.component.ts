@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import{filter} from 'rxjs'
-import { SocialAuthService, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { TokenStorageService } from './shared/services/token-storage.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class AppComponent {
   showAdminBoard = false;
   showModeratorBoard = false;
   username?: string;
-  constructor(private router:Router,private authService: SocialAuthService,private storageService: TokenStorageService) { }
+  constructor(private router:Router,private storageService: TokenStorageService) { }
   ngOnInit(){
     this.router.events.pipe(
       filter((event: any) => event instanceof NavigationEnd)
@@ -29,7 +28,5 @@ export class AppComponent {
       }
     });
   }
-  signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
+ 
 }

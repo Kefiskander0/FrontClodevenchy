@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { SocialAuthService, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { TokenStorageService } from '../shared/services/token-storage.service';
 import { Role } from '../shared/models/role';
 
@@ -29,7 +28,7 @@ export class LoginComponent implements OnInit  {
 
   
 
-  constructor(private router: Router,private http: HttpClient, private auth : AuthService, private authService: SocialAuthService,private storageService: TokenStorageService  ) { }
+  constructor(private router: Router,private http: HttpClient, private auth : AuthService,private storageService: TokenStorageService  ) { }
 
   user:any;
   loggedIn:any;
@@ -37,11 +36,7 @@ export class LoginComponent implements OnInit  {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
     }
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(this.user);
-      this.loggedIn = (user != null);
-    });
+    
   }
 
 
@@ -135,14 +130,7 @@ export class LoginComponent implements OnInit  {
     
   }
 
-  signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);  
-    sessionStorage.setItem('token',JSON.stringify(this.user.response));
-    this.router.navigate(['/landing']);
-    
-    
-    
-  }
+
 
   
  

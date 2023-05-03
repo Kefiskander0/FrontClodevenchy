@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
 <div class="content">
     <div class="container" id="container">
         <div class="form-container sign-up-container">
@@ -42,20 +43,12 @@
             <form action="# ">
                 <h1>Sign in</h1>
                 <div class="social-container ">
-                    <a (click)="signInWithGoogle()" class="social "><i class="fab fa-google-plus-g "> </i></a>
-                    <a *ngIf="!loggedIn" (click)="signInWithFB()" class="social "><i class="fab fa-facebook-f "></i></a>
-                    <div *ngIf="loggedIn">
-                        <img src="{{ user.response.picture.data.url }}">
-                        <div>
-                            <h4>{{ user.name }}</h4>
-                            <p>{{ user.email }}</p>
-                        </div>
-                    </div>
-                    <a href="" class="social "><i class="fab fa-linkedin-in "></i></a>
+                    <a (click)="signInWithGoogle()" class="social"><i class="fab fa-google-plus-g"></i></a>
+
                 </div>
                 <span>or use your account</span>
-                <input placeholder="UserName" type="UserName" [(ngModel)]="userName" [ngModelOptions]="{standalone: true} " class="form-control" id="userName">
-                <input placeholder="Password" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true} " class="form-control" id="password">
+                <input placeholder="UserName" type="UserName" [(ngModel)]="userName" [ngModelOptions]="{standalone: true}" class="form-control" id="userName">
+                <input placeholder="Password" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control" id="password">
                 <a routerLink="/forgetPassword">Forgot your password?</a>
                 <button type="button" (click)="loginUser()">Sign in</button>
             </form>

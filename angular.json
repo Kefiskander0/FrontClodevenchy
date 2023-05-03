@@ -94,6 +94,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "valzonvelzonfront:build:production",
+            "firebaseProject": "frontclodevenchy",
+            "firebaseHostingSite": "frontclodevenchy"
+          }
         }
       }
     }

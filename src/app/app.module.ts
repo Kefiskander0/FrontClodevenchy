@@ -32,9 +32,11 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedComponent } from './activated/activated.component';
 import { AngularFireModule } from '@angular/fire/compat'
 import { environment } from 'src/environments/environment';
-import { FacebookLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { BackComponent } from './back/back.component';
 import { ProfilComponent } from './profil/profil.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 
 
@@ -67,9 +69,9 @@ import { ProfilComponent } from './profil/profil.component';
     ResetPwdComponent,
     ForgetPasswordComponent,
     ActivatedComponent,
-    LoginComponent,
     BackComponent,
-    ProfilComponent
+    LoginComponent,
+    ProfilComponent,
 
 
 
@@ -80,25 +82,14 @@ import { ProfilComponent } from './profil/profil.component';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    SocialLoginModule,
-    FormsModule
+    
+    FormsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore())
   ],
   providers: [
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('1397775311055450')
-          }
-        ],
-        onError: (err) => {
-          console.error(err);
-        }
-      } as SocialAuthServiceConfig,
-    }
+   
   ],
   bootstrap: [AppComponent]
 })
