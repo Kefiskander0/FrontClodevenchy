@@ -34,6 +34,8 @@ import { AngularFireModule } from '@angular/fire/compat'
 import { environment } from 'src/environments/environment';
 import { BackComponent } from './back/back.component';
 import { ProfilComponent } from './profil/profil.component';
+import { ResetPwdSmsComponent } from './reset-pwd-sms/reset-pwd-sms.component';
+import { ToastrModule,ToastContainerModule,ToastNoAnimationModule} from 'ngx-toastr';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
@@ -71,6 +73,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     ActivatedComponent,
     BackComponent,
     LoginComponent,
+    ResetPwdSmsComponent,
     ProfilComponent,
 
 
@@ -82,7 +85,9 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    
+    ToastrModule.forRoot(),
+    ToastNoAnimationModule.forRoot(),
+    ToastContainerModule,    
     FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

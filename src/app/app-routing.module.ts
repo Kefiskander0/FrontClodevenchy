@@ -22,6 +22,7 @@ import { ActivatedComponent } from './activated/activated.component';
 import { AlarmeComponent } from './alarme/alarme.component';
 import { BackComponent } from './back/back.component';
 import { ProfilComponent } from './profil/profil.component';
+import { ResetPwdSmsComponent } from './reset-pwd-sms/reset-pwd-sms.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ const routes: Routes = [
 {path:'alarme',component: AlarmeComponent},
 {path:'back',component: BackComponent},
 { path: 'profil', component: ProfilComponent },
+{ path: 'restSms/:phone', component: ResetPwdSmsComponent },
      
 ]
     

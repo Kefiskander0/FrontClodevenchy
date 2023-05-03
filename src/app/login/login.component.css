@@ -45,8 +45,8 @@ a {
 
 button {
     border-radius: 20px;
-    border: 1px solid #FF4B2B;
-    background-color: #FF4B2B;
+    border: 1px solid #13c56b;
+    background-color: #50c3e6;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -167,9 +167,9 @@ input {
 }
 
 .overlay {
-    background: #FF416C;
-    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    background: #02a8b5;
+    background: -webkit-linear-gradient(to right, #50c3e6, #02a8b5);
+    background: linear-gradient(to right, #50c3e6, #02a8b5);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;
@@ -254,7 +254,7 @@ footer p {
 }
 
 footer i {
-    color: red;
+    color: #13c56b;
 }
 
 footer a {
@@ -283,12 +283,12 @@ footer a {
 }
 
 .role-container label input:checked+span {
-    background-color: #FF416C;
+    background-color: #02a8b5;
     color: white;
 }
 
 .role-container label input:checked+span:before {
-    box-shadow: inset 0 0 0 0.4375em #FF4B2B;
+    box-shadow: inset 0 0 0 0.4375em #50c3e6;
 }
 
 .role-container label span {
@@ -297,7 +297,7 @@ footer a {
     padding: 0.375em 0.75em 0.375em 0.375em;
     border-radius: 99em;
     transition: 0.25s ease;
-    color: red;
+    color: #13c56b;
 }
 
 .role-container label span:hover {
@@ -314,5 +314,5 @@ footer a {
     border-radius: 50%;
     margin-right: 0.375em;
     transition: 0.25s ease;
-    box-shadow: inset 0 0 0 0.125em #FF4B2B;
+    box-shadow: inset 0 0 0 0.125em #13c56b;
 }

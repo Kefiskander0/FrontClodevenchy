@@ -3,6 +3,7 @@ import { TokenStorageService } from '../shared/services/token-storage.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from '../shared/models/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profil',
@@ -34,7 +35,7 @@ export class ProfilComponent {
 
   
 
-  constructor(private Storage: TokenStorageService, private router: Router, private httpClient: HttpClient,private storageService: TokenStorageService) { }
+  constructor(private Storage: TokenStorageService, private router: Router, private httpClient: HttpClient,private storageService: TokenStorageService, private toastr: ToastrService) { }
   public onFileChanged(event: any) {
 
     var reader = new FileReader();
@@ -104,13 +105,22 @@ export class ProfilComponent {
     if(this.confirmpasswoed == this.newpassword){ 
       this.httpClient.put(` http://localhost:8083/changepassword/${this.idUser}`, body ).subscribe((resultData: any)=>{
         console.log(resultData.statusCode);
-         
-         
-         
-       });
-    }
-
+        if(resultData.statusCode == 200){
+          this.toastr.success('Password changed successfully', 'Well done',{timeOut: 3000});
+        }
+        else if(resultData.statusCode == 400){
+          this.toastr.error('Your old password is incorrect', ' ERROR',{timeOut: 3000});}
+       
+     });
   }
+  else{
+    this.toastr.error('You have to write the same passwords', ' ERROR',{timeOut: 3000});
+  }
+
+
+}
+
+
 
   logout(){
     this.Storage.signOut();
