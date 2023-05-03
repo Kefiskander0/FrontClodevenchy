@@ -29,7 +29,25 @@ export class EventService {
         catchError(this.handleError<any>('/all'))
       );
     }
+   // deleteEvent(id: any): Observable<any> {
+     // const url = `${this.API_URL}/delete/${id}`;
+      //return this.http.delete(url)
+        //.pipe(
+          //catchError(this.handleError<any>(`${this.API_URL}/delete/${id}`))
+        //);
+    //}
 
+
+    deleteEvent(id: any) {
+console.log("service deletd id ",id)
+      return this.http.delete(`${this.API_URL}/delete/${id}`)
+        .pipe(map(response => response || {}),
+          catchError(this.handleError<any>('/delete/'))
+        );
+    }
+  
+
+   
 
     errorHandler(error: HttpErrorResponse) {
       return throwError(error.message || 'Server Error');
