@@ -75,23 +75,13 @@ export class EventComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  get f() {
-    return this.evenmentForm.controls;
-  }
+ 
 
-  reset() {
-    this.evenmentForm.reset();
-  }
+
   handleClear() {
     this.evenmentForm.controls['compte'].reset();
   }
   
-  openMyModal(eventId: string): void {
-    const element = document.getElementById(eventId);
-    if (element) {
-      element.classList.add('md-show');
-    }
-  }
 
   clear() {
     this.submitted = false;

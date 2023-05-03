@@ -19,7 +19,7 @@ const httpOptions = {
 export class EventService {
 
 
-  readonly API_URL = 'http://localhost:8089/api/event';
+  public API_URL = 'http://localhost:8089/api/event';
   
   constructor(private http:HttpClient) { }
  
