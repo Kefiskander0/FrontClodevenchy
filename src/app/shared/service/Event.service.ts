@@ -39,7 +39,7 @@ export class EventService {
 
 
     deleteEvent(id: any) {
-console.log("service deletd id ",id)
+               console.log("service deletd id ",id)
       return this.http.delete(`${this.API_URL}/delete/${id}`)
         .pipe(map(response => response || {}),
           catchError(this.handleError<any>('/delete/'))
