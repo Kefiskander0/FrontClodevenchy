@@ -47,7 +47,9 @@ export class EventService {
     }
   
 
-   
+    addEvent(event : any) {
+      return this.http.post(`${this.API_URL}/add`,event)
+    }
 
     errorHandler(error: HttpErrorResponse) {
       return throwError(error.message || 'Server Error');

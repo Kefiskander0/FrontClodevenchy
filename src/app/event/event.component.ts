@@ -20,7 +20,7 @@ export class EventComponent implements OnInit {
   modifSubmitted = false;
 
   event!: Evenment[];
-
+  addevent!: Evenment;
 
 
   eventList: any;
@@ -44,6 +44,8 @@ export class EventComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllEvent();
+    this.addevent=new Evenment()
+  
   }
 
   getAllEvent() {
@@ -101,6 +103,14 @@ export class EventComponent implements OnInit {
     this.eventList.splice(i,1);
     this.eventservice.deleteEvent(id).subscribe((response) => {
       // Faire quelque chose après la suppression de l'événement
+    });
+  }
+
+  addEvent() {
+    this.eventservice.addEvent(this.addevent).subscribe(() => {
+      console.log("form",this.addevent);
+      this.getAllEvent();
+      this.form = false;
     });
   }
 }

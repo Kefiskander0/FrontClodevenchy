@@ -124,7 +124,7 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <form>
+                <form #form="ngForm">
                   <div class="mb-3">
                     <label for="lib"> Nom Evenment </label>
                     <div class="input-group">
@@ -133,12 +133,24 @@
                         class="form-control"
                         type="text"
                         placeholder="le nom d'evenment"
+                        [(ngModel)]="addevent.name"
+                        #name="ngModel"
+                        [ngModelOptions]="{standalone: true}"
+                        required
+                        minlength="3"
                       />
+                      <div class="text-danger" *ngIf="name.invalid && name.touched">
+                        <div *ngIf="name.hasError('required')">
+                            field is required
+                        </div>
+                        <div *ngIf="name.hasError('minlength')">
+                            minlength
+                        </div>
+                    </div>
                     </div>
                   </div>
                   <div class="mb-3">
                     <label for="date">Date Evenment</label>
-                     
                     <div class="input-group">
                       <input
                         id="date"
@@ -147,6 +159,10 @@
                         type="date"
                         class="form-control flatpickr flatpickr-input"
                         placeholder="Select date"
+                        [(ngModel)]="addevent.date"
+                        #date="ngModel"
+                        [ngModelOptions]="{standalone: true}"
+
                       />
                     </div>
                    
@@ -159,6 +175,10 @@
                         class="form-control"
                         type="text"
                         placeholder="lieu de cette evenment"
+                        [(ngModel)]="addevent.lieu"
+                        #lieu="ngModel"
+                        [ngModelOptions]="{standalone: true}"
+
                       />
                     </div>
                   </div>
@@ -166,10 +186,15 @@
                     <label for="description"> la description de cette event </label>
                     <div class="input-group">
                       <input
-                        id="qteM"
+                        id="description"
                         class="form-control"
                         type="text"
                         placeholder="Votre description"
+                        [(ngModel)]="addevent.description"
+                        #description="ngModel"
+                        [ngModelOptions]="{standalone: true}"
+
+                        
                       />
                     </div>
                   </div>
@@ -179,6 +204,7 @@
                 <button
                   type="button"
                   class="btn btn-success"
+                  (click)="addEvent()"
                   (click)="modal1.close('Save click')"
                 >
                   Add
@@ -186,6 +212,7 @@
                 <button
                   type="button"
                   class="btn btn-danger"
+                
                   (click)="modal1.close('Save click')"
                 >
                   Cancel

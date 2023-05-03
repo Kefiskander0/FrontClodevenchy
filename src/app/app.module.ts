@@ -23,6 +23,7 @@ import { RouterModule } from '@angular/router';
 import { EventComponent } from './event/event.component';
 import { ModalBasicComponent } from './shared/modal-basic/modal-basic.component';
 import {ModalAnimationComponent} from './shared/modal-animation/modal-animation.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -56,6 +57,7 @@ import {ModalAnimationComponent} from './shared/modal-animation/modal-animation.
     DataTablesModule,
     NgbModalModule,
     NgbModule,
+    FormsModule
 
     
   ],
