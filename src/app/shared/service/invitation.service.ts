@@ -1,7 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { map, tap, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { Invitation } from '../models/invitation.model';
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 
 
 
@@ -21,15 +24,25 @@ export class InvitationService {
   }
 
 
-  getAllInvitation() {
-    return this.http.get<Invitation[]>(this.API_URL+'/all')
+  addcontratToEtudiant(idEvent: any, idInvitation:  any ) {
+    return this.http.get(
+      `${this.API_URL}/addcontratToEtudiant/${idEvent}/${idInvitation}`
+    );
   }
 
-
-  addInvitation(invit:Invitation) {
-    return this.http.post(this.API_URL +'/add',invit)
+  getListInvitService(): Observable<Invitation[]> {
+    return this.http.get<Invitation[]>(`${this.API_URL}/all`);
+  }
+  addInvitService(invitation: Invitation) {
+    return this.http.post(`${this.API_URL}/add`, invitation);
   }
 
-
-
-}
+  //deleteContratService(idcontrat: number) {
+    //return this.http.delete(`${baseUrl}/delete/${idcontrat}`);
+ // }
+  //updateContratService(Contrat: Contrat) {
+  //  return this.http.put(`${baseUrl}/update`, Contrat);
+  //}
+  //getContratById(id: number) {
+  //  return this.http.get(`${baseUrl}/display/${id}`);
+  }

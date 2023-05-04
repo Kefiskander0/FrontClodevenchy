@@ -26,7 +26,10 @@ export class EventComponent implements OnInit {
   eventList: any;
   evenmentForm!: FormGroup;
 
-  //formInput: FormInput;
+  public length!: number;
+  public page = 1;
+  public pageSize=2;
+  searchText: any;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -75,13 +78,20 @@ export class EventComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
- 
 
+  onSearchByName() {
+    if (!this.searchText) {
+      this.getAllEvent();
+    } else {
+      this.eventservice.searchByNameEvent({page:this.page-1, size:this.pageSize}, this.searchText).subscribe(
+        (data:Evenment[]) => {
+          // @ts-ignore
+          this.teamsList = data['content'];
+        }
+      )
+    }
 
-  handleClear() {
-    this.evenmentForm.controls['compte'].reset();
   }
-  
 
   clear() {
     this.submitted = false;

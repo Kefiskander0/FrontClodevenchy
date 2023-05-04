@@ -24,6 +24,9 @@ import { EventComponent } from './event/event.component';
 import { ModalBasicComponent } from './shared/modal-basic/modal-basic.component';
 import {ModalAnimationComponent} from './shared/modal-animation/modal-animation.component';
 import { FormsModule } from '@angular/forms';
+import { InvitComponent } from './invit/invit.component';
+import { ToastrModule } from "ngx-toastr";
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -47,6 +50,7 @@ import { FormsModule } from '@angular/forms';
     CalandrierComponent,
     LandingComponent,
     EventComponent,
+    InvitComponent,
     
   ],
   imports: [
@@ -57,7 +61,14 @@ import { FormsModule } from '@angular/forms';
     DataTablesModule,
     NgbModalModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    NgApexchartsModule,
+    ToastrModule.forRoot({
+      timeOut: 3500,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }), // ToastrModule added
+    
 
     
   ],

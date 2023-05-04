@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { throwError } from 'rxjs';
+import { Evenment } from '../models/event.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -29,6 +29,7 @@ export class EventService {
         catchError(this.handleError<any>('/all'))
       );
     }
+    
    // deleteEvent(id: any): Observable<any> {
      // const url = `${this.API_URL}/delete/${id}`;
       //return this.http.delete(url)
@@ -36,7 +37,18 @@ export class EventService {
           //catchError(this.handleError<any>(`${this.API_URL}/delete/${id}`))
         //);
     //}
+    getEventbyName(name : any ){
+      return this.http.get<Event>(this.API_URL+'/allName/'+name)
+    }
 
+
+    searchByNameEvent(request: any, search: any){
+      const params = request;
+      const name = search;
+      return this.http.get<Evenment[]>(this.API_URL+'/search/'+name, {params})
+    }
+  
+  
 
     deleteEvent(id: any) {
                console.log("service deletd id ",id)
@@ -46,6 +58,7 @@ export class EventService {
         );
     }
   
+    
 
     addEvent(event : any) {
       return this.http.post(`${this.API_URL}/add`,event)
