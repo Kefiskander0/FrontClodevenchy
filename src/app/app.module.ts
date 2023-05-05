@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Add this line
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { AlarmComponent } from './alarm/alarm.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { MatInputModule } from '@angular/material/input';
     ShopComponent,
     ReclamationComponent,
     CalandrierComponent,
-    LandingComponent
+    LandingComponent,
+    AlarmComponent
   ],
   imports: [
     MatIconModule,

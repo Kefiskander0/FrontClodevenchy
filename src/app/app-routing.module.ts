@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { EventComponent } from './event/event.component';
 import { InvitComponent } from './invit/invit.component';
 import { DonComponent } from './don/don.component';
+import { AlarmComponent } from './alarm/alarm.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,8 @@ const routes: Routes = [
 {path:'invit',component:InvitComponent},
 {path:'don',component:DonComponent},
 {path:'login',component:LoginComponent},
-     
+{ path: 'alarm', component: AlarmComponent },
+
      
     ]
     
