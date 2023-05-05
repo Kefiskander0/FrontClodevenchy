@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "frontclodevenchy": {
+      "hosting": {
+        "valzonvelzonfront": [
+          "frontclodevenchy"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "frontclodevenchy"
+  }
+}

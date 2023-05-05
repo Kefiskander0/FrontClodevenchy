@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import{filter} from 'rxjs'
+import { TokenStorageService } from './shared/services/token-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +9,14 @@ import{filter} from 'rxjs'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-showHeader : boolean = false
+  showHeader : boolean = false
   title = 'valzonvelzonfront';
-  constructor(private router:Router){
-    
-  }
-
+  private roles: string[] = [];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username?: string;
+  constructor(private router:Router,private storageService: TokenStorageService) { }
   ngOnInit(){
     this.router.events.pipe(
       filter((event: any) => event instanceof NavigationEnd)
@@ -25,4 +28,5 @@ showHeader : boolean = false
       }
     });
   }
+ 
 }
