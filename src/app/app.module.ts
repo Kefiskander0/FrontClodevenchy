@@ -28,7 +28,6 @@ import { ShopComponent } from './shop/shop.component';
 import { CalandrierComponent } from './calandrier/calandrier.component';
 import { LandingComponent } from './landing/landing.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 import { ActivatedComponent } from './activated/activated.component';
 import { AngularFireModule } from '@angular/fire/compat'
 import { environment } from 'src/environments/environment';
@@ -39,6 +38,9 @@ import { ToastrModule,ToastContainerModule,ToastNoAnimationModule} from 'ngx-toa
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import {NgToastModule} from 'ng-angular-popup';
+import { FormsModule , ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -82,7 +84,9 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
   ],
   imports: [
     HttpClientModule,
+    ReactiveFormsModule,
     BrowserModule,
+    NgToastModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     ToastrModule.forRoot(),

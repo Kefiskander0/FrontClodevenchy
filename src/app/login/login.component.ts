@@ -4,6 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { TokenStorageService } from '../shared/services/token-storage.service';
 import { Role } from '../shared/models/role';
+import { ToastrService } from 'ngx-toastr';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+
+
 
 
 
@@ -12,7 +16,9 @@ import { Role } from '../shared/models/role';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit  {
+ 
   role = new Role();
   username:string="";
   Password: string="";
@@ -24,11 +30,12 @@ export class LoginComponent implements OnInit  {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
+  
  
 
   
 
-  constructor(private router: Router,private http: HttpClient, private auth : AuthService,private storageService: TokenStorageService  ) { }
+  constructor(private router: Router,private formBuilder: FormBuilder,private http: HttpClient, private auth : AuthService,private storageService: TokenStorageService, private toastr: ToastrService  ) { }
 
   user:any;
   loggedIn:any;
@@ -36,7 +43,7 @@ export class LoginComponent implements OnInit  {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
     }
-    
+
   }
 
 
@@ -59,15 +66,17 @@ export class LoginComponent implements OnInit  {
       userName: this.userName,
       password: this.password,
     };
+    
 
     this.http.post("http://localhost:8083/authenticate", bodyData).subscribe((resultData: any)=>{
+      this.toastr.success('Login successfully', 'Well done',{timeOut: 3000});
       this.storageService.saveToken(resultData.jwtToken);
       this.storageService.saveUser(resultData);
       this.isLoginFailed = false;
       this.isLoggedIn = true;
       console.log("login user");
-
       console.log(resultData);
+      
 
       if(resultData.user.role.roleName=="Admin"){
          this.router.navigateByUrl("/back");
@@ -75,8 +84,7 @@ export class LoginComponent implements OnInit  {
      else{
       this.router.navigateByUrl("/profil");
      } 
-      
-     
+
 
     }, 
     (error: any )=> {
@@ -108,8 +116,9 @@ export class LoginComponent implements OnInit  {
 
     this.http.post("http://localhost:8083/registerNewUser", bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
     {
+      this.toastr.success("User Registered Successfully Check your email to verify your account", 'Well done',{timeOut: 3000});
       console.log(resultData);
-      alert("User Registered Successfully Check your email to verify your account");
+     
       window.location.reload();
     });
       

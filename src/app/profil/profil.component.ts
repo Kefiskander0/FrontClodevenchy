@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from '../shared/models/user';
 import { ToastrService } from 'ngx-toastr';
-
+import { NgToastService } from 'ng-angular-popup';
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
@@ -35,7 +35,7 @@ export class ProfilComponent {
 
   
 
-  constructor(private Storage: TokenStorageService, private router: Router, private httpClient: HttpClient,private storageService: TokenStorageService, private toastr: ToastrService) { }
+  constructor(private Storage: TokenStorageService, private router: Router, private httpClient: HttpClient,private storageService: TokenStorageService, private toastr: ToastrService, private toast : NgToastService) { }
   public onFileChanged(event: any) {
 
     var reader = new FileReader();
@@ -44,8 +44,6 @@ export class ProfilComponent {
       output.src = reader.result;
       this.imageName = reader.result!.toString();
 
-      //document.getElementById('update-image-container').style.display = 'flex';
-      //document.getElementById('update-image-container').style.justifyContent = 'center' ;
     }
     reader.readAsDataURL(event.target.files[0]);
 
@@ -58,7 +56,6 @@ export class ProfilComponent {
     user.password="";
     user.userPhone=this.phone;
     user.location=this.locat;
-    user.certificate=this.certif;
     user.userName=this.name;
     user.verified=true;
 
@@ -68,6 +65,7 @@ export class ProfilComponent {
     this.httpClient.put(`http://localhost:8083/update/${this.idUser}`, user ).subscribe((resultData: any)=>{
       console.log(resultData);     
       this.storageService.saveUser(resultData);
+      this.toast.success({detail: "Success Message", summary: "Updated Successfuly",duration:3000});
      
     });
     
@@ -87,13 +85,9 @@ export class ProfilComponent {
       this.mail=user.user.mailAddress;
       this.phone=user.user.userPhone;
       this.locat=user.user.location;
-      this.certif=user.user.certificate;
+      
     }
   
-
-
-  
-
   }
 
 
