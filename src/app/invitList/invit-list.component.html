@@ -35,14 +35,19 @@
           <div class="card-header">
             <h4 class="card-title mb-0">La liste des Invitation</h4>
           </div>
-      <div>
-        <button routerLink="/invit">Aller à la page</button>
-      
-      </div>
+          <div>
+            <button   
+             class="ri-add-line align-bottom me-1"
+            data-bs-target="#showModal"
+            id="create-btn"
+            class="btn btn-round btn-sm btn-success" routerLink="/invit"> 
+            Les Statistiques des invits </button>
+            
+          </div>
 <div class="row">
   <div class="card">
     <div class="d-flex justify-content-between">
-      <h5 class="card-header">Les invitation </h5>
+      <h5 class="card-header">Les invitations </h5>
       <div
         class="row justify-content-center"
         style="margin-top: 20px; margin-right: 15px"
@@ -83,6 +88,7 @@
               <strong>{{ invitation.idInvitation }}</strong>
             </td>
             <td>{{ invitation.status }}</td>
+            
             <td>{{ invitation.dateInvitation | date }}</td>
             <td>{{ invitation.helperInvited }}</td>
             <td *ngIf="invitation.archive">
