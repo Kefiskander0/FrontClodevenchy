@@ -16,8 +16,8 @@ import jsPDF from 'jspdf';
   styleUrls: ['./event.component.css'],
 })
 export class EventComponent implements OnInit {
-  submitted = false;
-  modifSubmitted = false;
+
+
 
   local!:string;
 
@@ -27,19 +27,15 @@ export class EventComponent implements OnInit {
 
   eventList: any;
   evenmentForm!: FormGroup;
-
   public length!: number;
   public page = 1;
   public pageSize=2;
   searchText: any;
-
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
   @Input('modalDefault') modalDefault: any;
 
   form: boolean = false;
   e!: Evenment
-  listE! : Event[];
+  listE! : Evenment[];
  
  
   closeResult!: string;
@@ -51,7 +47,12 @@ export class EventComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.getAllEvent();
+
+
+     
+   this.getAllEvent();
+
+
     this.addevent=new Evenment()
     this.local= new Date().toLocaleDateString();
   
@@ -99,20 +100,17 @@ export class EventComponent implements OnInit {
 
   }
 
-  clear() {
-    this.submitted = false;
-    this.modifSubmitted = false;
-  }
-
   
-  deleteEvent(evenment: Evenment ) {
-    if(confirm("Are you sure to delete "+evenment.name)) {
-      this.eventservice.deleteEvent(evenment.idEvent).subscribe(
+  
+  
+  deleteEtudiant(event : Evenment) {
+    if(confirm("Are you sure to delete ")) {
+      this.eventservice.deleteEvent(event.idEvent).subscribe(
         {
           next: () => {
-            let idEvent = this.eventList.indexOf(evenment)
-            this.listE.splice(idEvent, 1);
-            this.toastr.success(evenment.name+' has been deleted successfully','Success');
+            let i = this.listE.indexOf(event)
+            this.listE.splice(i, 1);
+            this.toastr.success(' has been deleted successfully','Success');
           }, error: (err) => {
             console.log("err" + err);
             this.toastr.error('something went wrong !','Error');
@@ -120,8 +118,6 @@ export class EventComponent implements OnInit {
           }
         }
       )
-     
-      
     }
   }
 
