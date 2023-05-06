@@ -1,27 +1,43 @@
-import { Component, Input,Output, OnInit, EventEmitter,ViewChild } from '@angular/core';
+import {
+  Component,Input, Output,OnInit,EventEmitter,ViewChild,} from '@angular/core';
 import { Invitation } from '../shared/models/invitation.model';
 import { EventService } from 'src/app/shared/service/Event.service';
-import * as jsPDF from 'jspdf';
-import { ToastrModule } from 'ngx-toastr';
+import {ToastrService} from "ngx-toastr";
 import 'jspdf-autotable';
 import { InvitationService } from 'src/app/shared/service/invitation.service';
 import { HttpClient } from '@angular/common/http';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexMarkers, ApexNonAxisChartSeries, ApexPlotOptions, ApexResponsive, ApexStroke, ApexTitleSubtitle, ApexTooltip, ApexXAxis,
-   ApexYAxis, ChartComponent } from 'ng-apexcharts';
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexDataLabels,
+  ApexFill,
+  ApexMarkers,
+  ApexNonAxisChartSeries,
+  ApexPlotOptions,
+  ApexResponsive,
+  ApexTitleSubtitle,
+  ApexTooltip,
+  ApexXAxis,
+  ApexYAxis,
+  ChartComponent,
+} from 'ng-apexcharts';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
+
+
+
+
+
 
 
 @Component({
   selector: 'app-invit',
   templateUrl: './invit.component.html',
-  styleUrls: ['./invit.component.css']
+  styleUrls: ['./invit.component.css'],
 })
-
-
-
-export class InvitComponent implements OnInit{
-
+export class InvitComponent implements OnInit {
   series!: ApexAxisChartSeries;
   chart!: ApexChart;
   dataLabels!: ApexDataLabels;
@@ -39,84 +55,127 @@ export class InvitComponent implements OnInit{
   data: any;
   keyword: any = 'name';
   @Input() InvitationId: any;
-  @Output() newStudentAssigned = new EventEmitter();
-  tempStudent: any;
-  
+  @Output() newEventAssigned = new EventEmitter();
 
-  invitation! : Invitation;
-  listInv! : Invitation[];
-
+  invitation!: Invitation;
+  listInv!: Invitation[];
 
   @Input('modalDefault') modalDefault: any;
 
-
   public length!: number;
   public page = 1;
-  public pageSize=15;
+  public pageSize = 15;
   searchText: any;
-  date!:Date;
-  local!:string;
+  date!: Date;
+  local!: string;
 
   invitList: any;
   invitationForm!: FormGroup;
 
   @Input() inviList!: Invitation[];
 
-
-  static = { Accepted: 0, Refused: 0, InProgress: 0};
+  static = { Accepted: 0, Refused: 0, InProgress: 0 };
   p: number = 1;
-  
+
+  isShowed = false;
+  isNotifShowed = false;
+  currentDate = new Date();
+  toastBody = '';
+  TypeToast = '';
+
+ 
  
 
-  constructor( 
-    public invitService:InvitationService,
+  invitForm!: NgForm;
+  constructor(
+    router: ActivatedRoute,
+    private route: ActivatedRoute,
+    public invitService: InvitationService,
     public eventservice: EventService,
-    public httpClient: HttpClient,) { }
-
+    public httpClient: HttpClient,
+    private toastr: ToastrService
+    
+  ) {}
 
   ngOnInit(): void {
-   this.refreshData(); 
 
-   this.eventservice.getAllEvent().subscribe((res) => {
-    this.data = res;
-  });
-  console.log(this.InvitationId);
 
-   //codeeestatissst
-   console.log(this.inviList);
 
+    this.eventservice.getAllEvent().subscribe((res) => {
+      this.data = res;
+    });
+    console.log(this.InvitationId);
+    //codeeestatissst
+    console.log(this.inviList);
 
     this.invitService.getListInvitService().subscribe((res) => {
       this.initChartData(res);
       this.series1 = [
         this.calculateData(res, 'Accepted'),
         this.calculateData(res, 'Refused'),
-        this.calculateData(res, 'InProgress')
+        this.calculateData(res, 'InProgress'),
       ];
       this.chart1 = {
         width: 410,
-        type: "pie"
+        type: 'pie',
       };
-      this.labels = ["Accepted", "Refused", "InProgress"];
+      this.labels = ['Accepted', 'Refused', 'InProgress'];
       this.responsive = [
         {
           breakpoint: 580,
           options: {
             chart: {
-              width: 410
+              width: 410,
             },
             legend: {
-              position: "bottom"
-            }
+              position: 'bottom',
+            },
+          },
+        },
+      ];
+    });
+
+    this.route.params.subscribe((param) => {
+      this.invitService
+        .displayInvitationByID(+param['id'])
+        .subscribe((r: any) => {
+          this.invitation = r as Invitation;
+          let dateFin: Date = new Date(r.dateFinContrat);
+          console.log(dateFin);
+
+          let difference = dateFin.getTime() - this.currentDate.getTime();
+          let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+          console.log(TotalDays);
+          if (TotalDays < 0) {
+            this.TypeToast = 'danger';
+            this.toastBody = `le contract a expirer`;
+            this.isNotifShowed = true;
+          } else if (TotalDays < 3) {
+            this.TypeToast = 'warning';
+            this.toastBody = `le contract va expirer dans ${TotalDays} jours ! `;
+            this.isNotifShowed = true;
+            //this.isNotifShowed = false;
           }
-        }
-      ]
-    })
+        });
+    });
   }
+
+
+
+ 
+ 
+  showConfirmationMessage(message: string) {
+    // Affichez le message de confirmation de votre choix ici.
+  }
+  
+
+
+
+  //code stat//
   public initChartData(res: any): void {
     this.series = [
       {
-        name: "Invitation",
+        name: 'Invitation',
         data: [
           this.calculateDataChart2(res, 0),
           this.calculateDataChart2(res, 1),
@@ -130,159 +189,124 @@ export class InvitComponent implements OnInit{
           this.calculateDataChart2(res, 9),
           this.calculateDataChart2(res, 10),
           this.calculateDataChart2(res, 11),
-        ]
-      }
+        ],
+      },
     ];
     this.chart = {
       height: 350,
-      type: "bar"
-    }
+      type: 'bar',
+    };
     this.plotOptions = {
       bar: {
         dataLabels: {
-          position: "top" // top, center, bottom
-        }
-      }
-    }
+          position: 'top', // top, center, bottom
+        },
+      },
+    };
     this.dataLabels = {
       enabled: true,
       formatter: function (val) {
-        return val + "%";
+        return val + '%';
       },
       offsetY: -20,
       style: {
-        fontSize: "12px",
-        colors: ["#304758"]
-      }
-    }
+        fontSize: '12px',
+        colors: ['#304758'],
+      },
+    };
     this.xaxis = {
       categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec"
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
       ],
-      position: "top",
+      position: 'top',
       labels: {
-        offsetY: -18
+        offsetY: -18,
       },
       axisBorder: {
-        show: false
+        show: false,
       },
       axisTicks: {
-        show: false
+        show: false,
       },
       crosshairs: {
         fill: {
-          type: "gradient",
+          type: 'gradient',
           gradient: {
-            colorFrom: "#D8E3F0",
-            colorTo: "#BED1E6",
+            colorFrom: '#D8E3F0',
+            colorTo: '#BED1E6',
             stops: [0, 100],
             opacityFrom: 0.4,
-            opacityTo: 0.5
-          }
-        }
+            opacityTo: 0.5,
+          },
+        },
       },
       tooltip: {
         enabled: true,
-        offsetY: -35
-      }
+        offsetY: -35,
+      },
     };
     this.fill = {
-      type: "gradient",
+      type: 'gradient',
       gradient: {
-        shade: "light",
-        type: "horizontal",
+        shade: 'light',
+        type: 'horizontal',
         shadeIntensity: 0.25,
         gradientToColors: undefined,
         inverseColors: true,
         opacityFrom: 1,
         opacityTo: 1,
-        stops: [50, 0, 100, 100]
-      }
+        stops: [50, 0, 100, 100],
+      },
     };
-    this.yaxis = {
+    (this.yaxis = {
       axisBorder: {
-        show: false
+        show: false,
       },
       axisTicks: {
-        show: false
+        show: false,
       },
       labels: {
         show: false,
         formatter: function (val) {
-          return val + "%";
-        }
-      }
-    },
-      this.title = {
-        text: "Nombre du contrats selon la Date",
+          return val + '%';
+        },
+      },
+    }),
+      (this.title = {
+        text: 'Nombre du contrats selon la Date',
         floating: false,
         offsetY: 320,
-        align: "center",
+        align: 'center',
         style: {
-          color: "#444"
-        }
-      }
+          color: '#444',
+        },
+      });
+
+    //fincode stat//
   }
-    
+
   calculateData(res: any, _v: any) {
     return res.filter((r: any) => r.status === _v).length;
   }
   calculateDataChart2(res: any, _v: any) {
-    return res.filter((r: Invitation) => new Date(r.dateInvitation).getMonth() === _v).length;
+    return res.filter(
+      (r: Invitation) => new Date(r.dateInvitation).getMonth() === _v
+    ).length;
   }
+  //Fin code staat
 
-
-
-refreshData() {
-  this.invitService.getListInvitService().subscribe((result) => {
-    console.log(result);
-
-    this.invits= result as Invitation[];
-    this.static.Accepted = result.filter((r: any) => r.status === 'Accepted').length;
-    this.static.Refused= result.filter(
-      (r: any) => r.status === 'Refused'
-    ).length;
-    this.static.InProgress= result.filter(
-      (r: any) => r.status === 'InProgress'
-    ).length;
-  });
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  //code affectation
+ 
 
 }
-

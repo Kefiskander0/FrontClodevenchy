@@ -1,0 +1,151 @@
+<div class="vertical-overlay"></div>
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+  <div class="page-content">
+    <!-- start page title -->
+   
+    <!-- end page title -->
+
+          <!-- end card header -->
+          <div class="content-wrapper">
+            <!-- Content -->
+          
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4">
+          <div class="card-body">
+            <div class="listjs-table" id="customerList">
+              <div class="row g-4 mb-3">
+                <div class="col-sm-auto">
+                  
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+      <span
+        class="text-muted fw-light"
+        style="cursor: pointer"
+        [routerLink]="['/l']"
+        >Liste/</span
+      >
+      {{ editable ? "Modifier" : "Ajouter" }}
+    </h4>
+
+    <!-- Basic Layout & Basic with Icons -->
+    <div class="row">
+      <div class="col-xxl">
+        <div class="card mb-4">
+          <div
+            class="card-header d-flex align-items-center justify-content-between"
+          >
+            <h5 class="mb-0">
+              {{ editable ? "Modifier" : "Ajouter" }} Contrat
+            </h5>
+          </div>
+          <div class="card-body">
+            <form
+            name="form"
+            (ngSubmit)="
+              f.form.valid &&
+                onSubmit()
+            "
+            #f="ngForm"
+            novalidate
+          >
+              <div class="row mb-3">
+                <div class="col-sm-10">
+                    <div class="input-group input-group-merge">
+                <label
+                  class="col-sm-2 col-form-label"
+                  for="basic-icon-default-fullname"
+                  >Status</label
+                >
+                <div class="col-sm-10">
+                  <div class="input-group input-group-merge">
+                    <select
+                      class="form-select"
+                      [(ngModel)]="invitation.status"
+                      required
+                      #status="ngModel"
+                      name="status"
+                      [ngClass]="{
+                        'is-invalid': status.touched && status.invalid
+                      }"
+                    >
+                      <option value="Accepted">Accepted</option>
+                      <option value="Refused">Refussed</option>
+                      <option value="InProgress">InProgress</option>
+                    
+                    </select>
+                  </div>
+                  <div
+                    class="form-text"
+                    *ngIf="status.invalid && status.touched"
+                  >
+                    <div
+                      class="alert alert-danger"
+                      role="alert"
+                      *ngIf="status.hasError('required')"
+                    >
+                      Champ Specialite est obligatoire
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <div class="input-group input-group-merge">
+                <form class=" form-group mb-3 ">
+                    <label for="date-input" class="col-md-2 col-form-label">Date_fondation</label>
+                    <div class="col-md-10">
+                        <input class="form-control" required #d="ngModel" [(ngModel)]="invitation.dateInvitation" name="date_fondation" type="date" value="" id="html5-date-input" />
+                        <div class="alert alert-danger" *ngIf="d.invalid && d.touched">
+                            this field is required
+                        </div>
+                    </div>
+
+        
+              <div class="row mb-3">
+                <label
+                  class="col-sm-2 form-label"
+                  for="basic-icon-default-phone"
+                  >HelperInvited</label
+                >
+                <div class="col-sm-10">
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="text"
+                      [(ngModel)]="invitation.helperInvited"
+                      required
+                      #helperInvited="ngModel"
+                      class="form-control"
+                      name="helperInvited"
+                      [ngClass]="{
+                        'is-invalid':
+                        helperInvited.touched && helperInvited.invalid
+                      }"
+                    />
+                  </div>
+                  <div
+                    class="form-text"
+                    *ngIf="helperInvited.invalid && helperInvited.touched"
+                  >
+                    <div
+                      class="alert alert-danger"
+                      role="alert"
+                      *ngIf="helperInvited.hasError('required')"
+                    >
+                      Champ  est obligatoire
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row justify-content-end">
+                <div class="col-sm-10">
+                  <button class="btn btn-primary" [disabled]="!f.form.valid">
+                    {{ editable ? "Modifier" : "Ajouter" }}
+                  </button>
+                </div>
+          
+              </div>
+            </form>
+

@@ -24,10 +24,19 @@ export class InvitationService {
   }
 
 
-  addcontratToEtudiant(idEvent: any, idInvitation:  any ) {
+  addinvitationToEvent(idEvent:number, idInvitation:number ) {
     return this.http.get(
-      `${this.API_URL}/addcontratToEtudiant/${idEvent}/${idInvitation}`
+      `${this.API_URL}/addinvitationToEvent/${idEvent}/${idInvitation}`
     );
+  }
+
+  updateInvit(idInvitation:number, newInvitation: Invitation) {
+    return this.http.put(this.API_URL+'/update/'+idInvitation,newInvitation)
+  }
+
+
+  displayInvitationByID(idInvitation: number) {
+    return this.http.get(`${this.API_URL}/DisplayById/${idInvitation}`);
   }
 
   getListInvitService(): Observable<Invitation[]> {
@@ -35,6 +44,14 @@ export class InvitationService {
   }
   addInvitService(invitation: Invitation) {
     return this.http.post(`${this.API_URL}/add`, invitation);
+  }
+  deleteInvitService(idInvitation: number) {
+    return this.http.delete(`${this.API_URL}/delete/${idInvitation}`);
+  }
+
+
+  updateInvitService(invitation: Invitation) {
+    return this.http.put(`${this.API_URL}/update`, invitation);
   }
 
   //deleteContratService(idcontrat: number) {

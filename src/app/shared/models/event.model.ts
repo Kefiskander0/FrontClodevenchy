@@ -1,6 +1,6 @@
 export class Evenment {
 
-  idEvent: any;
+  idEvent!: number;
   name: any;
   date: any;
   lieu: any;

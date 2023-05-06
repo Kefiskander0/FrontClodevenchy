@@ -16,21 +16,33 @@ import { LoginComponent } from './login/login.component';
 import { EventComponent } from './event/event.component';
 import { InvitComponent } from './invit/invit.component';
 import { DonComponent } from './don/don.component';
+import { InvitationformComponent } from './invitationform/invitationform.component';
+import { InvitdefiComponent } from './invitdefi/invitdefi.component';
+import { AffectEventComponent } from './affect-event/affect-event.component';
+import { InvitListComponent } from './invitList/invit-list.component';
 
 const routes: Routes = [
   {
+
+
+    
     path: '', component: HomeComponent, children: [
        //{ path: '', component: LayoutComponent },
 
-      { path: 'crypto', component: AnalitycsComponent },
+      { path: 'f', component: InvitationformComponent },
+      { path: 'detailContrat/:id', component: InvitdefiComponent},
+      {path:'a',component: AffectEventComponent},
+      {path:'l',component: InvitListComponent},
       { path: 'maps', component: MapsComponent },
       { path: 'calandrier', component: CalandrierComponent },
       { path: 'shop', component: CheckoutComponent },
-      { path: 'checkout', component: ReclamationComponent },
+
+      
       {path:'home',component:HomeComponent},
+
 {path:'like',component:LikeComponent},
 {path:'poste',component:PostComponent},
-{path:'alarme',component: LoginComponent},
+
 {path:'appointment',component:HomeComponent},
 {path:'evenment',component:EventComponent},
 {path:'invit',component:InvitComponent},
@@ -44,6 +56,7 @@ const routes: Routes = [
 
   { path: 'auth', component: AuthComponent },
   { path: 'landing', component: LandingComponent },
+ 
 ];
 
 @NgModule({

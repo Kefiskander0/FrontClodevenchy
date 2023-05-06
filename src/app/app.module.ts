@@ -26,7 +26,14 @@ import {ModalAnimationComponent} from './shared/modal-animation/modal-animation.
 import { FormsModule } from '@angular/forms';
 import { InvitComponent } from './invit/invit.component';
 import { ToastrModule } from "ngx-toastr";
-import { NgApexchartsModule } from 'ng-apexcharts';
+import { InvitationformComponent } from './invitationform/invitationform.component';
+import { InvitdefiComponent } from './invitdefi/invitdefi.component';
+import { AffectEventComponent } from './affect-event/affect-event.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { InvitListComponent } from './invitList/invit-list.component';
+
 
 
 
@@ -51,7 +58,13 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     LandingComponent,
     EventComponent,
     InvitComponent,
+    InvitationformComponent,
+    InvitdefiComponent,
+    AffectEventComponent,
+    InvitListComponent,
+   
     
+  
   ],
   imports: [
     BrowserModule,
@@ -68,6 +81,10 @@ import { NgApexchartsModule } from 'ng-apexcharts';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }), // ToastrModule added
+    AutocompleteLibModule,
+    NgxPaginationModule,
+    NgApexchartsModule
+
     
 
     
