@@ -67,10 +67,11 @@
                 <div class="social-container ">
                     <a (click)="signInWithGoogle() " class="social "><i class="fab fa-google-plus-g "></i></a>
 
+
                 </div>
                 <span>or use your account</span>
-                <input placeholder="UserName" type="UserName" [(ngModel)]="userName" [ngModelOptions]="{standalone: true} " class="form-control " id="userName">
-                <input placeholder="Password" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true} " class="form-control " id="password">
+                <input placeholder="UserName" type="UserName" [(ngModel)]="userName" [ngModelOptions]="{standalone: true}" class="form-control " id="userName">
+                <input placeholder="Password" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control " id="password">
                 <a routerLink="/forgetPassword ">Forgot your password?</a>
                 <button type="button " (click)="loginUser() ">Sign in</button>
             </form>
