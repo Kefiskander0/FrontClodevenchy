@@ -49,7 +49,7 @@
       >
         <div class="col-sm-12">
           <a
-            [routerLink]="['/backoffice/contrat/ajouter']"
+            [routerLink]="['f']"
             class="btn btn-primary"
             >Ajouter Contrat</a
           >
@@ -86,6 +86,7 @@
             <td>{{ invitation.name }}</td>
             <td>{{ invitation.status }}</td>
             <td>{{ invitation.dateInvitation | date }}</td>
+            <td>{{ invitation.helperInvited }}</td>
             <td>{{ invitation.helperInvited }}</td>
             <td *ngIf="invitation.archive">
               <span

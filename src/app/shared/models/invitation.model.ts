@@ -1,5 +1,4 @@
 
-import { EventComponent } from "src/app/event/event.component";
 import { Status } from "./status";
 
 export class Invitation{

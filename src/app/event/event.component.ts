@@ -2,12 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EventService } from 'src/app/shared/service/Event.service';
-import { DataTablesModule } from 'angular-datatables';
 import { Evenment } from '../shared/models/event.model';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -37,12 +36,15 @@ export class EventComponent implements OnInit {
 
   form: boolean = false;
   e!: Evenment
+  listE! : Event[];
+ 
  
   closeResult!: string;
   constructor(
     public httpClient: HttpClient,
     public eventservice: EventService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastr : ToastrService,
   ){}
 
   ngOnInit(): void {
@@ -98,13 +100,29 @@ export class EventComponent implements OnInit {
     this.modifSubmitted = false;
   }
 
-  deleteEvent(id: any,i :any) {
-    console.log('id to delete', id);
-    this.eventList.splice(i,1);
-    this.eventservice.deleteEvent(id).subscribe((response) => {
-      // Faire quelque chose après la suppression de l'événement
-    });
+  
+  deleteEvent(evenment: Evenment) {
+    if(confirm("Are you sure to delete "+evenment.name)) {
+      this.eventservice.deleteEvent(evenment.idEvent).subscribe(
+        {
+          next: () => {
+            let idEvent = this.eventList.indexOf(evenment)
+            this.listE.splice(idEvent, 1);
+            this.toastr.success(evenment.name+' has been deleted successfully','Success');
+          }, error: (err) => {
+            console.log("err" + err);
+            this.toastr.error('something went wrong !','Error');
+    
+          }
+        }
+      )
+     
+      
+    }
   }
+
+
+
 
   addEvent() {
     this.eventservice.addEvent(this.addevent).subscribe(() => {

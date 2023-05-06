@@ -1,31 +1,50 @@
+
 <div class="vertical-overlay"></div>
 <!-- ============================================================== -->
 <!-- Start right Content here -->
 <!-- ============================================================== -->
 <div class="main-content">
   <div class="page-content">
+    < class="container-fluid" >
     <!-- start page title -->
-   
+    <div class="row">
+      <div class="col-12">
+        <div
+          class="page-title-box d-sm-flex align-items-center justify-content-between"
+        >
+          <h4 class="mb-sm-0">page d'evenment</h4>
+
+          <div class="page-title-right">
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item">
+                <a href="javascript: void(0);">Event et Invit</a>
+              </li>
+
+              <li class="breadcrumb-item active">Evenment</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- end page title -->
 
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title mb-0">La liste des événment</h4>
+          </div>
           <!-- end card header -->
-          <div class="content-wrapper">
-            <!-- Content -->
-          
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4">
-          <div class="card-body">
-            <div class="listjs-table" id="customerList">
-              <div class="row g-4 mb-3">
-                <div class="col-sm-auto">
-                  
 
-<div class="container-xxl flex-grow-1 container-p-y">
+<div class="content-wrapper">
+  <!-- Content -->
+
+  <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
       <span
         class="text-muted fw-light"
         style="cursor: pointer"
-        [routerLink]="['/l']"
+        [routerLink]="['l']"
         >Liste/</span
       >
       {{ editable ? "Modifier" : "Ajouter" }}
@@ -39,26 +58,25 @@
             class="card-header d-flex align-items-center justify-content-between"
           >
             <h5 class="mb-0">
-              {{ editable ? "Modifier" : "Ajouter" }} Contrat
+              {{ editable ? "Modifier" : "Ajouter" }} Invitation
             </h5>
           </div>
           <div class="card-body">
             <form
-            name="form"
-            (ngSubmit)="
+              name="form"
+              (ngSubmit)="
               f.form.valid &&
+                !compare(currentDate, dateInvitation.value) &&
                 onSubmit()
             "
             #f="ngForm"
             novalidate
-          >
+            >
               <div class="row mb-3">
-                <div class="col-sm-10">
-                    <div class="input-group input-group-merge">
                 <label
                   class="col-sm-2 col-form-label"
                   for="basic-icon-default-fullname"
-                  >Status</label
+                  > Stattus</label
                 >
                 <div class="col-sm-10">
                   <div class="input-group input-group-merge">
@@ -67,15 +85,14 @@
                       [(ngModel)]="invitation.status"
                       required
                       #status="ngModel"
-                      name="status"
+                      name="specialite"
                       [ngClass]="{
                         'is-invalid': status.touched && status.invalid
                       }"
                     >
-                      <option value="Accepted">Accepted</option>
-                      <option value="Refused">Refussed</option>
-                      <option value="InProgress">InProgress</option>
-                    
+                      <option value="Accepted"> Accepted </option>
+                      <option value="Refused">Refused</option>
+                      <option value="InProgress">In Progress</option>
                     </select>
                   </div>
                   <div
@@ -87,37 +104,76 @@
                       role="alert"
                       *ngIf="status.hasError('required')"
                     >
-                      Champ Specialite est obligatoire
+                      Champ  est obligatoire
                     </div>
                   </div>
                 </div>
               </div>
-                <div class="input-group input-group-merge">
-                <form class=" form-group mb-3 ">
-                    <label for="date-input" class="col-md-2 col-form-label">Date_fondation</label>
-                    <div class="col-md-10">
-                        <input class="form-control" required #d="ngModel" [(ngModel)]="invitation.dateInvitation" name="date_fondation" type="date" value="" id="html5-date-input" />
-                        <div class="alert alert-danger" *ngIf="d.invalid && d.touched">
-                            this field is required
-                        </div>
-                    </div>
-
-        
               <div class="row mb-3">
                 <label
-                  class="col-sm-2 form-label"
-                  for="basic-icon-default-phone"
-                  >HelperInvited</label
+                  class="col-sm-2 col-form-label"
+                  for="basic-icon-default-company"
+                  >date  Invitation </label
                 >
                 <div class="col-sm-10">
                   <div class="input-group input-group-merge">
                     <input
-                      type="text"
+                      class="form-control"
+                      type="date"
+                      [(ngModel)]="invitation.dateInvitation"
+                      required
+                      #dateInvitation="ngModel"
+                      name="dateInvitation"
+                      [ngClass]="{
+                        'is-invalid':
+                          dateInvitation.touched && dateInvitation.invalid
+                      }"
+                    />
+                  </div>
+                  <div
+                    class="form-text"
+                    *ngIf="dateInvitation.invalid && dateInvitation.touched"
+                  >
+                    <div
+                      class="alert alert-danger"
+                      role="alert"
+                      *ngIf="dateInvitation.hasError('required')"
+                    >
+                      Date est obligatoire
+                    </div>
+                  </div>
+                  <div class="form-text">
+                    <div
+                      class="alert alert-danger"
+                      role="alert"
+                      *ngIf="
+                        dateInvitation.touched &&
+                        !dateInvitation.hasError('required') &&
+                        compare(currentDate, dateInvitation.value)
+                      "
+                    >
+                      Champ date Debut doit etre superieur a la date
+                      d'aujourd'hui
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="row mb-3">
+                <label
+                  class="col-sm-2 form-label"
+                  for="basic-icon-default-phone"
+                  >Helper Invited</label
+                >
+                <div class="col-sm-10">
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="Text"
                       [(ngModel)]="invitation.helperInvited"
                       required
                       #helperInvited="ngModel"
                       class="form-control"
-                      name="helperInvited"
+                      name="HelperInvited"
                       [ngClass]="{
                         'is-invalid':
                         helperInvited.touched && helperInvited.invalid
@@ -133,7 +189,7 @@
                       role="alert"
                       *ngIf="helperInvited.hasError('required')"
                     >
-                      Champ  est obligatoire
+                      Champ montant est obligatoire
                     </div>
                   </div>
                 </div>
@@ -145,7 +201,11 @@
                     {{ editable ? "Modifier" : "Ajouter" }}
                   </button>
                 </div>
-          
               </div>
             </form>
-
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

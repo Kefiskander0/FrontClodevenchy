@@ -36,7 +36,7 @@ const routes: Routes = [
       { path: 'maps', component: MapsComponent },
       { path: 'calandrier', component: CalandrierComponent },
       { path: 'shop', component: CheckoutComponent },
-
+      {path:'evenment',component:EventComponent},
       
       {path:'home',component:HomeComponent},
 
@@ -44,7 +44,7 @@ const routes: Routes = [
 {path:'poste',component:PostComponent},
 
 {path:'appointment',component:HomeComponent},
-{path:'evenment',component:EventComponent},
+
 {path:'invit',component:InvitComponent},
 {path:'don',component:DonComponent},
 {path:'login',component:LoginComponent},

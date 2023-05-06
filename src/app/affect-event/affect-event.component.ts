@@ -45,7 +45,7 @@ export class AffectEventComponent  implements OnInit {
   }
   affecter() {
     this.invitationservice
-      .addinvitationToEvent(this.tempEvent.idEvent, this.InvitId)
+      .addinvitationToEvent(this.tempEvent.idEvent,this.InvitId)
       .subscribe((r) => {
         if (typeof r === 'number') {
           this.newStudentAssigned.emit(this.tempEvent);
