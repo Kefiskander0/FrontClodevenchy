@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mon projet Angular</title>
+	<style>
+		/* CSS pour centrer le tableau */
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 80%;
+			max-width: 800px;
+			margin: 0 auto;
+			border: 1px solid black;
+		}
+
+		th, td {
+			padding: 8px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		th {
+			background-color: #f2f2f2;
+		}
+	</style>
+</head>
+<body>
+	<!-- Navbar -->
+	<nav>
+		<!-- contenu de la navbar -->
+	</nav>
+
+	<!-- Sidebar -->
+	<aside>
+		<!-- contenu de la sidebar -->
+	</aside>
+
+	<!-- Contenu principal -->
+	<main>
+		<div class="container">
+			<table>
+				<thead>
+					<tr>
+                        <th>Type</th>
+                        <th>Image</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+                    <tr *ngFor="let p of dons" >
+                   
+                        <td>{{p.type}}</td>
+                        <td>{{p.image }}</td>
+          
+                        <td>
+							<button class="btn btn-primary" (click)="afficherModifierFormulaire = true; donSelectionnee = p">
+								<i class="far fa-edit"></i> <!-- icône de modification -->
+								<span class="sr-only">Modifier</span>
+								<img src="https://cdn-icons-png.flaticon.com/512/565/565655.png" width="16" height="16">
+
+							  </button>
+							  <button *ngIf="p.id != null" class="btn btn-danger" (click)="deletepost(p.id)">
+								<i class="fas fa-times"></i> <!-- icône de suppression -->
+								<span class="sr-only">Supprimer</span>
+								<img src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png" width="16" height="16">
+
+							  </button>
+							  
+						  </td>
+				</tbody>
+			</table>
+			<button class="btn btn-success" (click)="afficherFormulaire = true">Ajouter Don</button>
+            <div *ngIf="afficherFormulaire">
+                <h2>Ajouter un Don</h2>
+                <form #ajouterDonForm="ngForm" (submit)="addDon(ajouterDonForm)">
+					
+                  <div>
+                    <label for="image">Image</label>
+                    <input type="text" id="image" name="image" [(ngModel)]="nouvelledon.image" required>
+                  </div>
+				  <div>
+					<label for="type">Type de Don</label>
+					<input type="text" id="type" name="type" [(ngModel)]="nouvelledon.type">
+				  </div>
+				  
+                  <div>
+                    <label for="postId">Post ID:</label>
+  <input type="text" id="postId" name="postId" ngModel required>
+                  </div>
+				  <div>
+					<label for="userId">User ID:</label>
+					<input type="text" id="userId" name="userId" ngModel required>
+				</div>
+                  
+                  <button type="submit"  class="btn btn-primary">Ajouter</button>
+                  
+                  <button class="btn btn-primary" (click)="annuler()">Annuler</button>
+				 
+
+              
+                </form>
+              </div>
+			  <form *ngIf="afficherModifierFormulaire" #form="ngForm">
+                <div class="form-group">
+                   <h2>Modifier votre Don</h2>>
+				   <label for="image"> Image </label>
+				   <input type="text" id="image" name="image" *ngIf="donSelectionnee" [(ngModel)]="donSelectionnee.image">
+                </div>
+				<div class="form-group">
+					<label for="type">Type de Don</label>
+					<input type="text" id="type" name="type" *ngIf="donSelectionnee" [(ngModel)]="donSelectionnee.type">
+				  </div>
+               
+                <button type="submit" class="btn btn-primary" (click)="modifierDon(form); fermerFormulaire()">Modifier</button>
+				
+
+                <button type="button" class="btn btn-primary" (click)=" annulermodifier()">Annuler</button>
+              </form>
+		</div>
+	</main>
+
+	<!-- Scripts Angular -->
+	<!-- scripts pour l'application Angular -->
+
+</body>
+</html>

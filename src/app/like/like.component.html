@@ -1,0 +1,132 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/dd9af7210e.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="like.component.css">
+  <title>Posts </title>
+</head>
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <section class="post">
+        <header>List of posts</header>
+        <form >
+          <div class="content">
+            <img  src="assets/images/Logo.png" alt="logo">
+            <img style="width: 35px;"src="assets/images/images.png" (click)="gotorecherche()"> 
+
+			
+          </div>
+          <div class="list-container">
+            <ul class="list">
+                <ul>
+                    <li class="list-header">
+                          <span class="header-text">nom</span>
+                          <span class="header-text">Description</span>
+                          <span class="header-text">Date creation</span>
+                    </li>    
+                </ul>
+              
+              
+                <li *ngFor="let p of posts">
+             
+                <div class="options" (click)="afficherModifierFormulaire = true; postSelectionnee = p">
+                 
+                  <div text-align= "center">{{p.nom}}</div>
+                 
+                  <div text-align= "center">{{p.description }}</div>
+                  <div text-align= "center">{{p.datecreation | date: 'yyyy-MM-dd' }}</div>
+
+                </div>
+                <div>
+                  <button *ngIf="p.id != null" class="btn btn-danger" (click)="deletepost(p.id)">
+                    <i class="fas fa-times"></i> <!-- icône de suppression -->
+                    <span class="sr-only">Supprimer</span>
+                    <img src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png" width="16" height="16">
+
+                  
+                  </button>
+                  <div>
+                   
+                  
+                  
+
+                  <button class="btn btn-icon">
+                  
+                    <img width="16" height="16" (click)="gotodons()" src="assets/images/zz.png" alt="">
+                </button>
+           
+                
+              
+
+                  
+
+
+                
+                </div>
+
+               </div>
+            </ul>
+         
+          </div>
+        </form>
+
+
+        
+      </section>
+
+      
+     
+    </div>
+  </div >
+
+  
+    
+    <form *ngIf="afficherModifierFormulaire" #form="ngForm" class="container">
+      
+      <div class="wrapper">
+
+        <section class="post">
+          <header>Modifier votre posts</header>
+          <br>
+          <br>
+          <br>
+          <br>
+        
+          <label style="font-weight: bold;" for="nom" class="form-label">Nom du post</label>
+          <div>
+          <input type="text" class="form-input" id="nom" name="nomEquipe" *ngIf="postSelectionnee" [(ngModel)]="postSelectionnee.nom">
+        </div>
+        <div >
+        <label style="font-weight: bold;" for="description" class="form-label">Description</label>
+      </div>
+      <div>
+        <input type="text" id="description" name="description" *ngIf="postSelectionnee" [(ngModel)]="postSelectionnee.description">
+      </div>
+      
+      <br>
+      <br>
+      <div>
+
+        
+        <button type="submit"  (click)="modifierPost(form); fermerFormulaire()">Modifier</button>
+
+      </div>
+
+      <br>
+      <br>
+      <button type="button" class="form-button" (click)=" annulermodifier()">Annuler</button>
+
+      </section>
+   </div>
+    </form>
+
+
+
+ 
+  
+</body>
+</html>

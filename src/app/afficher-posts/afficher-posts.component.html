@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/dd9af7210e.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="afficher-posts.component.css">
+  <title>Posts </title>
+</head>
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <section class="post">
+        <header>Create Post</header>
+        <form #modifierPostForm="ngForm" >
+          <div class="content">
+            <img  src="assets/images/Logo.png" alt="logo">
+			
+          </div>
+
+
+         
+          <pre>
+
+
+
+			<input class="cadre" placeholder={{nouvellepost}} spellcheck="false" required type="text" id="nom" name="nom"  [(ngModel)]="nouvellepost.nom"  >
+			</pre>
+		  <textarea placeholder="What's on your mind ?" spellcheck="false" required id="description" name="description" [(ngModel)]="nouvellepost.description"></textarea>
+          <div class="options">
+            <p>Add to Your Post</p>
+            <ul class="list">
+              <li><img   src="assets/images/gallery.svg" alt=""></li>
+              <li><img src="assets/images/tag.svg" alt=""></li>
+              <li><img src="assets/images/emoji.svg" alt=""></li>
+              <li><img src="assets/images/mic.svg" alt=""></li>
+              <li><img  (onclick)="modifierPost(modifierPostForm)" src="assets/images/zz.png" alt=""></li>
+            </ul>
+          </div>
+          <button type="submit"  class="btn btn-primary">{{1}}</button>
+          
+        </form>
+      </section>
+</div>
+</div>
+
+</body>
+</html>
