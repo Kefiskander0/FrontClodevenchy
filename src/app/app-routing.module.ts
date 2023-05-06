@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { AnalitycsComponent } from './analitycs/analitycs.component';
+import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home.component';
 import { JobComponent } from './job/job.component';
 import { MapsComponent } from './maps/maps.component';
@@ -15,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { EventComponent } from './event/event.component';
 import { InvitComponent } from './invit/invit.component';
 import { DonComponent } from './don/don.component';
+import { AlarmComponent } from './alarm/alarm.component';
 
 const routes: Routes = [
   {
@@ -35,14 +37,17 @@ const routes: Routes = [
 {path:'invit',component:InvitComponent},
 {path:'don',component:DonComponent},
 {path:'login',component:LoginComponent},
-     
+{ path: 'alarm', component: AlarmComponent },
+
      
     ]
     
-  }, 
+  },
 
+  { path: 'auth', component: AuthComponent },
   { path: 'landing', component: LandingComponent },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

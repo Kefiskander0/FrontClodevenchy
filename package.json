@@ -27,6 +27,8 @@
     "chart.js": "^4.3.0",
     "file-saver": "^2.0.5",
     "jspdf": "^2.5.1",
+    "parse5": "^7.1.2",
+    "parse5-sax-parser": "^7.0.0",
     "pdfkit": "^0.13.0",
     "pdfmake": "^0.2.7",
     "rxjs": "~7.5.0",

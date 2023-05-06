@@ -1,0 +1,29 @@
+<button  type="button" style=" position: absolute; top: 50%; left: 50%;" class="btn btn-secondary" (click)="alarmShow()">Appointment</button>
+ 
+
+<!-- popup -->
+
+<div class="modal" tabindex="-1" role="dialog" *ngIf="showalarmmodal" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+         
+        
+        </div>
+        <div class="modal-body custom-modal-body">
+  
+         <h2  class="text-center mb-4">Voulez-vous activer une alarme?</h2>
+         <h2  class="text-left mb-4" style="color: darkgrey;">cette alarme se rappellera par mail avant 24 heures</h2>
+
+  
+        
+  </div>
+  <div class="modal-footer">
+    <button  type="button" class="btn btn-secondary" (click)="activateAlarm()">OUI</button>
+    <button  type="button" class="btn btn-primary" (click)="dontactivateAlarm()">NON</button>
+
+  
+  </div>
+  </div>
+  </div>
+  </div>

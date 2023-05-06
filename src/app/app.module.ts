@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LayoutComponent } from './layout/layout.component';
 import { AnalitycsComponent } from './analitycs/analitycs.component';
+import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home.component';
 import { JobComponent } from './job/job.component';
 import { CyptoComponent } from './cypto/cypto.component';
@@ -22,11 +23,16 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Add this line
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { AlarmComponent } from './alarm/alarm.component';
 import { GoogleChartsModule } from 'angular-google-charts';
-
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    LayoutComponent,
+    AnalitycsComponent,
+    AuthComponent,
     HeaderComponent,
     FooterComponent,
     LayoutComponent,
@@ -39,10 +45,16 @@ import { GoogleChartsModule } from 'angular-google-charts';
     ShopComponent,
     ReclamationComponent,
     CalandrierComponent,
-    LandingComponent
+    LandingComponent,
+    AlarmComponent
   ],
   imports: [
     GoogleChartsModule,
+    MatIconModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     MatIconModule,
     MatInputModule,
     FormsModule,
@@ -53,7 +65,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
     BrowserAnimationsModule
   ],
   exports:[
-    MatIconModule, MatInputModule
+    MatIconModule, MatInputModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
