@@ -21,6 +21,7 @@ export class ProfilComponent {
   retrieveResonse: any;
   message: string = "";
   imageName: any = " ";
+  imageCertificate: any = " ";
   name : string ="";
   phone : string ="";
   mail : string ="";
@@ -43,7 +44,18 @@ export class ProfilComponent {
       var output :any  = document.getElementById('user_image');
       output.src = reader.result;
       this.imageName = reader.result!.toString();
+    }
+    reader.readAsDataURL(event.target.files[0]);
 
+  }
+
+  public onFileChangedCertificate(event: any) {
+
+    var reader = new FileReader();
+    reader.onload =  ()  => {
+      var output :any  = document.getElementById('certificate_image');
+      output.src = reader.result;
+      this.imageCertificate = reader.result!.toString();
     }
     reader.readAsDataURL(event.target.files[0]);
 
@@ -55,6 +67,7 @@ export class ProfilComponent {
     user.mailAddress=this.mail;
     user.password="";
     user.userPhone=this.phone;
+    user.certificate=this.imageCertificate;
     user.location=this.locat;
     user.userName=this.name;
     user.verified=true;
@@ -82,6 +95,7 @@ export class ProfilComponent {
       this.roles = user.roles;
       this.name = user.user.userName;
       this.imageName = user.user.imageProfile;
+      this.imageCertificate = user.user.certificate;
       this.mail=user.user.mailAddress;
       this.phone=user.user.userPhone;
       this.locat=user.user.location;

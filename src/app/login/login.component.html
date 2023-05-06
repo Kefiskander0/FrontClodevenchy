@@ -10,34 +10,10 @@
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <input placeholder="UserName" type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true} " class="form-control" required minlength="4" #first="ngModel" id="userName">
-                <div *ngIf="first.invalid" style="color: red;">
-                    <div *ngIf="first.hasError('required')">
-                        Nom obligatoire
-                    </div>
-                    <div *ngIf="first.errors?.['minlength']">
-                        Minimum quatre caractéres
-                    </div>
-                </div>
+                <input placeholder="UserName" type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true} " class="form-control" id="userName">
+                <input placeholder="Email" type="email" [(ngModel)]="MailAddress" [ngModelOptions]="{standalone: true} " class="form-control" id="mailAddress">
+                <input placeholder="Password" type="password" [(ngModel)]="Password" [ngModelOptions]="{standalone: true} " class="form-control" id="password ">
 
-                <input placeholder="Email" type="email" [(ngModel)]="MailAddress" [ngModelOptions]="{standalone: true} " class="form-control" #email="ngModel" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="mailAddress">
-                <div *ngIf="email.invalid" style="color: red;">
-                    <div *ngIf="email.hasError('required')" class="">
-                        Email obligatoire
-                    </div>
-                    <div *ngIf="email.errors?.['pattern']">
-                        Enter a valid Email Address
-                    </div>
-                </div>
-                <input placeholder="Password" type="password" [(ngModel)]="Password" [ngModelOptions]="{standalone: true} " class="form-control" #passwordInput="ngModel" required pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$" id="password ">
-                <div *ngIf="passwordInput.invalid " style="color: red; ">
-                    <div *ngIf="passwordInput.hasError('required')">
-                        Password obligatoire
-                    </div>
-                    <div *ngIf="passwordInput.errors?.['pattern']">
-                        Password length should be 8-6 characters and contain numbers, letters and special characters!
-                    </div>
-                </div>
                 <div class="social-container ">
                     <div class="role-container ">
                         <form>
