@@ -1821,48 +1821,102 @@
         </div>
         <!-- end page title -->
 
+        <div class="row">
+          <div class="col-xxl-12">
+            <div class="card card-height-100">
+              <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">All Appointments</h4>
+              </div><!-- end card header -->
+
+              <!-- card body -->
+              <div class="card-body">
+                <form [formGroup]="filterFrom">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Filter by helper/organization</mat-label>
+                    <input type="text"
+                           aria-label="Helper/Organization"
+                           matInput
+                           formControlName="filter"
+                           (keyup)="applyFilter()"
+                    >
+                  </mat-form-field>
+
+                </form>
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
+                  <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef> Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="lieu">
+                    <th mat-header-cell *matHeaderCellDef> Lieu </th>
+                    <td mat-cell *matCellDef="let element"> {{element.lieu}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="helper">
+                    <th mat-header-cell *matHeaderCellDef> Helper </th>
+                    <td mat-cell *matCellDef="let element"> {{element.helper?.userName}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="organization">
+                    <th mat-header-cell *matHeaderCellDef> Organization </th>
+                    <td mat-cell *matCellDef="let element"> {{element.organization?.userName}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                      <button type="button" class="btn btn-danger" (click)="deleteAppointment(element.id)">Delete</button>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                               showFirstLastButtons
+                               aria-label="Select page of appointments">
+                </mat-paginator>
 
 
-          <div class="row">
-            <div class="col-xxl-12">
-              <div class="card card-height-100">
-                <div class="card-header align-items-center d-flex">
-                  <h4 class="card-title mb-0 flex-grow-1">All Appointments</h4>
-                </div><!-- end card header -->
+              </div>
+              <!-- end card body -->
+            </div><!-- end card -->
 
-                <!-- card body -->
-                <div class="card-body">
-                  <table class="table">
-                    <thead>
-                    <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Lieu</th>
-                      <th scope="col">Helper ID</th>
-                      <th scope="col">Organization ID</th>
-                    </tr>
-                    </thead>
-                    <tbody *ngIf="appointments">
-                    <tr *ngFor="let appointment of appointments">
-                      <td>{{appointment.id}}</td>
-                      <td>{{appointment.date}}</td>
-                      <td>{{appointment.lieu}}</td>
-                      <td>{{appointment.helperId}}</td>
-                      <td>{{appointment.organizationId}}</td>
-                      <td><button type="button" class="btn btn-danger">Delete</button></td>
-                    </tr>
-                    </tbody>
-                  </table>
-
-
-                </div>
-                <!-- end card body -->
-              </div><!-- end card -->
-
-            </div>
           </div>
-        
+        </div>
 
+        <div class="row">
+          <div class="col-xxl-12">
+            <div class="card card-height-100">
+              <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Scheduled Appointments By Month</h4>
+              </div><!-- end card header -->
+
+              <!-- card body -->
+              <div class="card-body">
+
+                <canvas
+                  *ngIf="monthlyScheduledAppointments"
+                  baseChart
+                  [data]="monthlyScheduledAppointments"
+                  [type]="'line'"
+                  [options]="chartOptions"
+                >
+                </canvas>
+
+              </div>
+              <!-- end card body -->
+            </div><!-- end card -->
+
+          </div>
+        </div>
       </div>
       <!-- container-fluid -->
     </div>

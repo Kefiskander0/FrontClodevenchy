@@ -18,19 +18,19 @@ export class ResetPwdSmsComponent {
 
   resetDone(){
     console.log(this.code);
-    
+
     let bodyData = {
       phone: this.actRoute.snapshot.paramMap.get('phone'),
       code: this.code,
       password:this.password
     };
 
-    this.http.post("http://localhost:8083/resetPasswordSMS", bodyData).subscribe((resultData: any)=>{
+    this.http.post("http://localhost:8080/resetPasswordSMS", bodyData).subscribe((resultData: any)=>{
       console.log(resultData);
       this.toastr.success('Password changed successfully', 'Well done',{timeOut: 3000});
-      this.router.navigateByUrl("/login");     
+      this.router.navigateByUrl("/login");
     });
- 
+
   }
 
 }

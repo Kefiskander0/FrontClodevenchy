@@ -10,18 +10,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ActivatedComponent  implements OnInit {
   token: string ="";
 
-  constructor(private activatedRoute : ActivatedRoute, private http: HttpClient, private router: Router) { 
+  constructor(private activatedRoute : ActivatedRoute, private http: HttpClient, private router: Router) {
 
   }
 
 ngOnInit(): void {
   this.token = this.activatedRoute.snapshot.queryParamMap.get('token')|| " ";
   console.log(this.token);
-  this.http.put(`http://localhost:8083/activate/${this.token}`,{},{}).subscribe((resultData: any)=>{
+  this.http.put(`http://localhost:8080/activate/${this.token}`,{},{}).subscribe((resultData: any)=>{
     console.log(resultData);
-   
+
 
   });
-    
+
   }
 }

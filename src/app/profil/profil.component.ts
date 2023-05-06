@@ -33,7 +33,7 @@ export class ProfilComponent {
   username?: string;
 
 
-  
+
 
   constructor(private Storage: TokenStorageService, private router: Router, private httpClient: HttpClient,private storageService: TokenStorageService, private toastr: ToastrService) { }
   public onFileChanged(event: any) {
@@ -50,7 +50,7 @@ export class ProfilComponent {
     reader.readAsDataURL(event.target.files[0]);
 
   }
-  
+
   save(): void {
     const user = new User();
     user.imageProfile= this.imageName;
@@ -62,18 +62,18 @@ export class ProfilComponent {
     user.userName=this.name;
     user.verified=true;
 
-    
+
 
     console.log(user);
-    this.httpClient.put(`http://localhost:8083/update/${this.idUser}`, user ).subscribe((resultData: any)=>{
-      console.log(resultData);     
+    this.httpClient.put(`http://localhost:8080/update/${this.idUser}`, user ).subscribe((resultData: any)=>{
+      console.log(resultData);
       this.storageService.saveUser(resultData);
-     
-    });
-    
- 
 
-    
+    });
+
+
+
+
   }
   ngOnInit(): void {
     console.log(this.user.user.userName);
@@ -89,10 +89,10 @@ export class ProfilComponent {
       this.locat=user.user.location;
       this.certif=user.user.certificate;
     }
-  
 
 
-  
+
+
 
   }
 
@@ -102,15 +102,15 @@ export class ProfilComponent {
       "newpassword" : this.newpassword,
       "oldpassword": this.oldpassword
     }
-    if(this.confirmpasswoed == this.newpassword){ 
-      this.httpClient.put(` http://localhost:8083/changepassword/${this.idUser}`, body ).subscribe((resultData: any)=>{
+    if(this.confirmpasswoed == this.newpassword){
+      this.httpClient.put(` http://localhost:8080/changepassword/${this.idUser}`, body ).subscribe((resultData: any)=>{
         console.log(resultData.statusCode);
         if(resultData.statusCode == 200){
           this.toastr.success('Password changed successfully', 'Well done',{timeOut: 3000});
         }
         else if(resultData.statusCode == 400){
           this.toastr.error('Your old password is incorrect', ' ERROR',{timeOut: 3000});}
-       
+
      });
   }
   else{
@@ -124,9 +124,9 @@ export class ProfilComponent {
 
   logout(){
     this.Storage.signOut();
-    
+
     this.router.navigateByUrl("/login");
-  
+
   }
 
 }

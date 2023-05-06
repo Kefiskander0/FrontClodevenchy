@@ -24,9 +24,9 @@ export class LoginComponent implements OnInit  {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
- 
 
-  
+
+
 
   constructor(private router: Router,private http: HttpClient, private auth : AuthService,private storageService: TokenStorageService  ) { }
 
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit  {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
     }
-    
+
   }
 
 
@@ -47,20 +47,20 @@ export class LoginComponent implements OnInit  {
 
   showSignIn() {
     document.getElementById('container')!.classList.remove("right-panel-active");
-    
+
   }
 
-  
+
   loginUser(){
     console.log(this.userName);
     console.log(this.password);
-    
+
     let bodyData = {
       userName: this.userName,
       password: this.password,
     };
 
-    this.http.post("http://localhost:8083/authenticate", bodyData).subscribe((resultData: any)=>{
+    this.http.post("http://localhost:8080/authenticate", bodyData).subscribe((resultData: any)=>{
       this.storageService.saveToken(resultData.jwtToken);
       this.storageService.saveUser(resultData);
       this.isLoginFailed = false;
@@ -74,21 +74,21 @@ export class LoginComponent implements OnInit  {
       }
      else{
       this.router.navigateByUrl("/profil");
-     } 
-      
-     
+     }
 
-    }, 
+
+
+    },
     (error: any )=> {
       this.errorMessage = error;
       console.error('There was an error!', error);
 
     }
-    
+
     );
- 
+
   }
-  
+
   reloadPage(): void {
     window.location.reload();
   }
@@ -103,10 +103,10 @@ export class LoginComponent implements OnInit  {
       "mailAddress" : this.MailAddress,
       "password" : this.Password,
       "role" : this.role
-    
+
     }
 
-    this.http.post("http://localhost:8083/registerNewUser", bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
+    this.http.post("http://localhost:8080/registerNewUser", bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
     {
       console.log(resultData);
       alert("User Registered Successfully Check your email to verify your account");
@@ -115,23 +115,23 @@ export class LoginComponent implements OnInit  {
       
 
   }
-  
+
 
   changeRole(e : any) {
-   
+
     this.role.roleName=e.target.value;
     console.log(this.role);
-   
+
       }
 
 
   signInWithGoogle(){
     this.auth.googleSignIn();
-    
+
   }
 
 
 
-  
- 
+
+
 }

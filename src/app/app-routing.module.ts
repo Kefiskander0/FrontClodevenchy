@@ -23,6 +23,8 @@ import { AlarmeComponent } from './alarme/alarme.component';
 import { BackComponent } from './back/back.component';
 import { ProfilComponent } from './profil/profil.component';
 import { ResetPwdSmsComponent } from './reset-pwd-sms/reset-pwd-sms.component';
+import {AppointmentComponent} from "./appointment/appointment.component";
+import {UserAppointmentsComponent} from "./user-appointments/user-appointments.component";
 
 
 const routes: Routes = [
@@ -30,13 +32,14 @@ const routes: Routes = [
     path: '', component: HomeComponent, children: [
 {path:'home',component:HomeComponent},
 {path:'reclamation',component:ReclamationComponent},
+{path:'appointments',component:AppointmentComponent},
 {path:'like',component:LikeComponent},
 {path:'poste',component:PostComponent},
 {path:'appointment',component:HomeComponent},
 {path:'event',component:EventComponent},
 {path:'invit',component:InvitComponent},
 {path:'don',component:DonComponent},
-{path:'login', component:LoginComponent},
+{path:'login',component:LoginComponent},
 { path: 'ResetPwd/:mailAddress', component: ResetPwdComponent },
 { path: 'forgetPassword', component: ForgetPasswordComponent },
 { path: 'activate', component: ActivatedComponent },
@@ -49,9 +52,10 @@ const routes: Routes = [
 {path:'back',component: BackComponent},
 { path: 'profil', component: ProfilComponent },
 { path: 'restSms/:phone', component: ResetPwdSmsComponent },
-     
+{ path: 'user-appointments', component: UserAppointmentsComponent },
+
 ]
-    
+
 },
 
 { path: 'auth', component: AuthComponent },

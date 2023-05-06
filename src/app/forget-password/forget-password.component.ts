@@ -20,7 +20,7 @@ export class ForgetPasswordComponent {
 
   resetPwd(){
     console.log(this.mailAddress);
-    
+
     let bodyData = {
       mailAddress : this.mailAddress,
     };
@@ -29,29 +29,29 @@ export class ForgetPasswordComponent {
     };
 
     if(this.mailAddress != ""){
-    this.http.post("http://localhost:8083/checkEmail", bodyData).subscribe((resultData: any)=>{
+    this.http.post("http://localhost:8080/checkEmail", bodyData).subscribe((resultData: any)=>{
       console.log(resultData);
       this.router.navigate(['ResetPwd',this.mailAddress ]);
-     
+
       alert("check your email!");
-     
+
 
     });
-  
+
   }
   else if(this.phone !="") {
-    this.http.post(" http://localhost:8083/checkSMS", data).subscribe((resultData: any)=>{
+    this.http.post(" http://localhost:8080/checkSMS", data).subscribe((resultData: any)=>{
       console.log(resultData);
-      this.toastr.success('Check ur phone', 'You recived the code',{timeOut: 3000});   
+      this.toastr.success('Check ur phone', 'You recived the code',{timeOut: 3000});
       this.router.navigate(['restSms',this.phone ]);
-     
-      
 
-          
+
+
+
 
     });
 
-  
+
 }
 
 

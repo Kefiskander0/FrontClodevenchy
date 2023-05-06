@@ -1,0 +1,227 @@
+<div>
+  <!doctype html>
+  <html lang="en" data-layout="horizontal" data-topbar="dark" data-sidebar-size="lg" data-sidebar="light" data-sidebar-image="none" data-preloader="disable">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Mirrored from themesbrand.com/velzon/html/saas/pages-profile-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 Apr 2023 01:01:38 GMT -->
+  <div class="layout-wrapper landing">
+    <nav class="navbar navbar-expand-lg navbar-landing fixed-top" id="navbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="17">
+          <img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light" height="17">
+        </a>
+        <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="mdi mdi-menu"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+            <li class="nav-item">
+              <a class="nav-link" href="#hero">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="user-appointments">Appointments</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#plans">Plans</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#reviews">Reviews</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#team">Team</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+
+          <div class="" *ngIf="!isLoggedIn">
+            <a [routerLink]="['/login']" class=" btn btn-soft-primary "><i class="ri-user-3-line align-bottom me-1 "></i> Login & Register</a>
+          </div>
+
+
+          <div class="dropdown" *ngIf="isLoggedIn">
+
+            <div class="dropdown-content">
+              <a routerLink="/profil">Settings</a>
+              <a routerLink="/login">Logout</a>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+      <div class="page-content">
+        <div class="container-fluid">
+
+          <div class="row" *ngIf="!isLoggedIn">
+              Please login
+          </div>
+
+          <div class="row" *ngIf="isLoggedIn">
+            <div class="col-xxl-6">
+              <div class="card card-height-100">
+                <div class="card-header align-items-center d-flex">
+                  <h4 class="card-title mb-0 flex-grow-1">New Appointment</h4>
+                </div><!-- end card header -->
+
+                <!-- card body -->
+                <div class="card-body">
+                  <form [formGroup]="newAppointmentForm">
+                    <mat-form-field appearance="fill" class="d-block">
+                      <mat-label>Organization</mat-label>
+                      <mat-select formControlName="organizationControl">
+                        <mat-option *ngFor="let organization of organizations" [value]="organization.id">
+                          {{organization.userName}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" appearance="fill" class="d-block">
+                      <mat-label>Lieu</mat-label>
+                      <input matInput  value="" formControlName="lieuControl">
+                    </mat-form-field>
+
+                    <mat-form-field class="d-block">
+                      <input matInput [ngxMatDatetimePicker]="picker"
+                             [min]="minDate"
+                             placeholder="Choose a date"
+                             formControlName="dateControl">
+                      <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                      <ngx-mat-datetime-picker #picker [showSeconds]="false"></ngx-mat-datetime-picker>
+                    </mat-form-field>
+                    <button type="button" class="btn btn-info" (click)="createAppointment()">Create Appointment</button>
+                  </form>
+
+
+
+                </div>
+                <!-- end card body -->
+              </div><!-- end card -->
+            </div>
+          </div>
+
+          <div class="row" *ngIf="isLoggedIn">
+            <div class="col-xxl-12">
+              <div class="card card-height-100">
+                <div class="card-header align-items-center d-flex">
+                  <h4 class="card-title mb-0 flex-grow-1">My Appointments</h4>
+                </div><!-- end card header -->
+
+                <!-- card body -->
+                <div class="card-body">
+                  <form [formGroup]="filterFrom">
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>Filter by organization</mat-label>
+                      <input type="text"
+                             aria-label="Organization"
+                             matInput
+                             formControlName="filter"
+                             (keyup)="applyFilter()"
+                      >
+                    </mat-form-field>
+
+                  </form>
+                  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
+                    <ng-container matColumnDef="id">
+                      <th mat-header-cell *matHeaderCellDef> ID </th>
+                      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="date">
+                      <th mat-header-cell *matHeaderCellDef> Date </th>
+                      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="lieu">
+                      <th mat-header-cell *matHeaderCellDef> Lieu </th>
+                      <td mat-cell *matCellDef="let element"> {{element.lieu}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="helper">
+                      <th mat-header-cell *matHeaderCellDef> Helper </th>
+                      <td mat-cell *matCellDef="let element"> {{element.helper?.userName}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="organization">
+                      <th mat-header-cell *matHeaderCellDef> Organization </th>
+                      <td mat-cell *matCellDef="let element"> {{element.organization?.userName}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="delete">
+                      <th mat-header-cell *matHeaderCellDef></th>
+                      <td mat-cell *matCellDef="let element">
+                        <button type="button" class="btn btn-danger" (click)="deleteAppointment(element.id)">Delete</button>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                                 showFirstLastButtons
+                                 aria-label="Select page of appointments">
+                  </mat-paginator>
+
+
+                </div>
+                <!-- end card body -->
+              </div><!-- end card -->
+            </div>
+          </div>
+
+        </div>
+        <!-- container-fluid -->
+      </div>
+      <!-- End Page-content -->
+
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-6">
+              <script>
+                document.write(new Date().getFullYear())
+              </script> © Velzon.
+            </div>
+            <div class="col-sm-6">
+              <div class="text-sm-end d-none d-sm-block">
+                Design & Develop by Themesbrand
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!--preloader-->
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/libs/node-waves/waves.min.js"></script>
+    <script src="assets/libs/feather-icons/feather.min.js"></script>
+    <script src="assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="assets/js/plugins.js"></script>
+
+    <!-- profile-setting init js -->
+    <script src="assets/js/pages/profile-setting.init.js"></script>
+
+    <!-- App js -->
+    <script src="assets/js/app.js"></script>
+
+
+    <!-- Mirrored from themesbrand.com/velzon/html/saas/pages-profile-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 Apr 2023 01:01:39 GMT -->
+
+
+  </div>
