@@ -15,7 +15,8 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./invit-list.component.css']
 })
 export class InvitListComponent implements OnInit {
-  invitation: Invitation[] = [];
+
+  invitations: Invitation[] = [];
   static = { Accepted: 0, Refused: 0, InProgress: 0 };
   p: number = 1;
 
@@ -26,12 +27,11 @@ export class InvitListComponent implements OnInit {
   TypeToast = '';
   i!: Invitation
   closeResult!: string;
-  public invitations!: Invitation;
+  public invitation!: Invitation;
   invit: Invitation = {
     idInvitation: 0,
-    name: null!,
-    helperInvited: null!,
     dateInvitation: null!,
+    helperInvited: null!,
     status: null!,
     archive: false,
     event: null,
@@ -62,7 +62,7 @@ export class InvitListComponent implements OnInit {
     this.invitationservice.getListInvitService().subscribe((result) => {
       console.log(result);
 
-      this.invitation = result as Invitation[];
+      this.invitations = result as Invitation[];
       this.static.Accepted = result.filter(
         (r: any) => r.status === 'Accepted'
       ).length;

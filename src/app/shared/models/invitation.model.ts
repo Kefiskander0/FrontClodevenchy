@@ -4,10 +4,10 @@ import { Status } from "./status";
 export class Invitation{
 
      idInvitation!:number;
-	 name:any;
+     dateInvitation!: Date;
 	 helperInvited:any
-	 dateInvitation!: Date;
      status! : Status;
      archive!: boolean;
-    event!:any;
+     event!:any;
 }
+

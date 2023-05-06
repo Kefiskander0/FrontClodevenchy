@@ -17,7 +17,6 @@ export class InvitationformComponent implements OnInit {
 
   invitation: Invitation = {
     idInvitation: 0,
-    name: null!,
     helperInvited: null!,
     dateInvitation: null!,
     status: null!,
@@ -25,7 +24,7 @@ export class InvitationformComponent implements OnInit {
     event: null,
   };
 
-  
+
 idInvitation!: number;
   invitationForm!: NgForm;
   currentDate = Date.now();
@@ -51,29 +50,15 @@ idInvitation!: number;
       }
     });
   }
-  //onSubmit() {
-    //if (!this.editable) {
-      //this.invitservice
-        //.addInvitService(this.invitation)
-        //.subscribe(() => this.router.navigate(['/f']));
-    //} //this.invitservice.updateInvit(this.idInvitation,this.invitation).subscribe(
-      //()=>{
-        //this.toastr.success('invitation'+this.invitation.name+' updated succesfully', 'Success')
-        //this.router.navigate(['/f'])
-     // }, error => (err: string) => {
-       // console.log("err" + err);
-      //  this.toastr.error('something went wrong !','Error');
-      //}
-    //)
     onSubmit() {
       if (!this.editable) {
         this.invitservice
           .addInvitService(this.invitation)
-          .subscribe(() => this.router.navigate(['/invit']));
+          .subscribe(() => this.router.navigate(['/l']));
       } else {
         this.invitservice
           .updateInvitService(this.invitation)
-          .subscribe(() => this.router.navigate(['/invit']));
+          .subscribe(() => this.router.navigate(['/l']));
       }
     }
 
