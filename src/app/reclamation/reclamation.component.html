@@ -1,7 +1,17 @@
 
 <button  type="button" style=" position: absolute;
 top: 50%;
-left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamation</button>
+left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamer</button>
+<button  type="button" style=" position: absolute;
+top: 50%;
+left: 60%;" class="btn btn-secondary" (click)="openPopupReclamationlist()">mes reclamations </button>
+
+<button class="btn btn-light" class="chatbotModalButton" (click)="openPopupchatbot()" style=" position: absolute;
+top: 60%; left: 70%;">
+  <img src="../../assets/images/chatbotopen.png"></button>
+
+ 
+
 
 <div class="modal" tabindex="-1" role="dialog" *ngIf="showModal" style="display: block;">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -13,19 +23,19 @@ left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamati
         <div class="modal-body custom-modal-body">
           <div class="row justify-content-center">
             <div class="col-md-3 text-center mb-3">
-              <button type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupSignal()">
+              <button *ngIf="!alreadySignaled"  type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupSignal()">
                 <img src="../../assets/images/signal.png" alt="Signal" class="img-fluid mb-3">
                 <div>Signaler un problème</div>
               </button>
             </div>
             <div class="col-md-3 text-center mb-3">
-              <button type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupFeedback()">
+              <button *ngIf="!alreadyFeedbacked" type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupFeedback()">
                 <img src="../../assets/images/feedback.png" alt="Feedback" class="img-fluid mb-3">
                 <div>Donner un feedback</div>
               </button>
             </div>
             <div class="col-md-3 text-center mb-3">
-              <button type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupBlock()">
+              <button  *ngIf="!alreadyBlocked" type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupBlock()">
                 <img src="../../assets/images/block.png" alt="Block" class="img-fluid mb-3">
                 <div>Bloquer un utilisateur</div>
               </button>
@@ -38,6 +48,13 @@ left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamati
             </div>
           </div>
         </div>
+
+
+
+
+
+
+        
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="closePopupReclamation()">Fermer</button>
         </div>
@@ -48,7 +65,56 @@ left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamati
 
 
 
-        <!-- SIGNAL and BLOCK POPUP -->
+<!-- lister reclamations popup -->
+
+<div class="modal" tabindex="-1" role="dialog" *ngIf="showModallistReclamation" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" style="color: white; ">Que voulez-vous consulter?</h5>
+       
+      </div>
+      <div class="modal-body custom-modal-body">
+        <div class="row justify-content-center">
+          <div class="col-md-3 text-center mb-3" >
+            <button type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupSignallist()">
+              <img src="../../assets/images/signal.png" alt="Signal" class="img-fluid mb-3">
+              <div> Vos signaux</div>
+            </button>
+          </div>
+          <div class="col-md-3 text-center mb-3">
+            <button type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupFeedbackslist()">
+              <img src="../../assets/images/feedback.png" alt="Feedback" class="img-fluid mb-3">
+              <div>Vos feedbacks</div>
+            </button>
+          </div>
+          <div class="col-md-3 text-center mb-3">
+            <button type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupBlockslist()">
+              <img src="../../assets/images/block.png" alt="Block" class="img-fluid mb-3">
+              <div>Vos blocage</div>
+            </button>
+          </div>
+          <div class="col-md-3 text-center mb-3">
+            <button type="button" class="btn btn-outline-primary w-100 h-100 p-3" (click)="openPopupRatelist()">
+              <img src="../../assets/images/rate.png" alt="Rate" class="img-fluid mb-3">
+              <div>Vos avis</div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePopupReclamationlist()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+        <!-- SIGNAL and BLOCK POPUP make -->
 
         <div class="modal" tabindex="-1" role="dialog" *ngIf="showSignalPopup" style="display: block;">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -75,7 +141,7 @@ left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamati
 
           
 
-           <!-- SIGNAL and BLOCK POPUP -->
+           <!-- FEEDBACK create -->
 
            <div class="modal" tabindex="-1" role="dialog" *ngIf="showFeedBackModal" style="display: block;">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -99,7 +165,7 @@ left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamati
           </div>
           
 
-          <!-- RATING POPUP -->
+          <!-- RATING POPUP make-->
 
           <div class="modal" tabindex="-1" role="dialog" *ngIf="showRatingModal" style="display: block;">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -110,7 +176,7 @@ left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamati
                 </div>
               
                 <div class="star-rating">
-                    <mat-icon *ngFor="let icon of icons" (click)="rate(icon)" [ngClass]="{ 'selected': icon <= this.reclamationToCreate.rateLevel }" style="padding-right: 20px;">star</mat-icon>
+                    <mat-icon *ngFor="let icon of icons" (click)="rate(icon)" [ngClass]="{ 'selected': this.rates.length!=0 && icon <= this.reclamationToCreate.rateLevel }" style="padding-right: 20px;">star</mat-icon>
                   </div>
                 
                 <div class="modal-footer">
@@ -122,3 +188,253 @@ left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamati
           </div>
 
 
+<!-- list signals -->
+
+          <div class="modal" tabindex="-1" role="dialog" *ngIf="showSignalPopuplist" style="display: block;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title" style="color: white;">Voici vos signals</h5>
+                
+                </div>
+                <div class="modal-body">
+                 
+              
+                  <div class="timeline">
+                    <div class="timeline-event" *ngFor="let signal of signals">
+                      <div class="timeline-event-icon" style=" background-color: white;">
+                        <i class=" fa fa-exclamation-triangle " style="color: rgb(199, 196, 6);"></i>
+                      </div>
+                      <div class="timeline-event-content" >
+                        <h4>{{ signal.to.userName }}</h4>
+                        <p style="color: rgb(12, 12, 12);">{{ signal.raison }}</p>
+                        <p class="timeline-event-date" >{{ signal.createdOn }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="closePopupSignalList()">Annuler</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+<!-- list blocks -->
+
+      
+<div class="modal" tabindex="-1" role="dialog" *ngIf="showBlockPopuplist" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" style="color: white;">Vous êtes bloqué(e)s par : </h5>
+      
+      </div>
+      <div class="modal-body">
+       
+    
+        <div class="timeline">
+          <div class="timeline-event" *ngFor="let block of blocks">
+            <div class="timeline-event-icon" style=" background-color: white;"  *ngIf="block.to.id ===3" >
+              <i class=" fa fa-ban " style="color: rgb(218, 47, 47);"></i>
+            </div>
+            <div class="timeline-event-content" *ngIf="block.to.id ===3" >
+              <h4>{{ block.to.userName }}</h4>
+              <p style="color: rgb(12, 12, 12);">{{ block.raison }}</p>
+              <p class="timeline-event-date" >{{ block.createdOn }}</p>
+              
+            </div>
+          </div>
+        </div>
+        
+
+
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-secondary" (click)="closePopupBlocksList()">Annuler</button>
+        <br>
+        <button class="btn btn-light" (click)="openPopupBlockedbyme()">Personnes bloquées par moi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- blocked by me list -->
+
+
+<div class="modal" tabindex="-1" role="dialog" *ngIf="showBlockedbyme" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" style="color: white;">Vous avez bloqué(e)s : </h5>
+      
+      </div>
+      <div class="modal-body">
+       
+    
+        <div class="timeline">
+          <div class="timeline-event" *ngFor="let block of blocks">
+            <div class="timeline-event-icon" style=" background-color: white;"  *ngIf="block.to.id ===3" >
+              <i class=" fa fa-ban " style="color: rgb(218, 47, 47);"></i>
+            </div>
+            <div class="timeline-event-content" *ngIf="block.to.id ===3" >
+              <h4>{{ block.to.userName }}</h4>
+              <p style="color: rgb(12, 12, 12);">{{ block.raison }}</p>
+              <p class="timeline-event-date" >{{ block.createdOn }}</p>
+              <button class="btn btn-light" (click)="deleteReclamation(block.id)">
+              <i class=" fa fa-unlock "  style="color: rgb(218, 47, 47);"></i></button>
+            </div>
+          </div>
+        </div>
+        
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePopupBlockedByMeList()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- list feedbacks -->
+
+
+<div class="modal" tabindex="-1" role="dialog" *ngIf="showFeedbackPopuplist" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" style="color: white;">Voici vos feedbacks: </h5>
+      
+      </div>
+      <div class="modal-body">
+       
+    
+        <div class="timeline">
+          <div class="timeline-event" *ngFor="let feedback of feedBacks">
+            <div class="timeline-event-icon" style=" background-color: white;">
+              <i class=" fa fa-check " style="color: rgb(27, 141, 23);"></i>
+            </div>
+            <div class="timeline-event-content" >
+              <h4>{{ feedback.to.userName }}</h4>
+              <p style="color: rgb(12, 12, 12);">{{ feedback.feedback }}</p>
+              <p class="timeline-event-date" >{{ feedback.createdOn }}</p>
+              <button class="btn btn-light" *ngIf="feedback.from.id==2" (click)="deleteReclamation(feedback.id)">
+                <i class=" fa fa-trash "  style="color: rgb(218, 47, 47);"></i></button>
+                <button class="btn btn-light"  *ngIf="feedback.from.id==2"  (click)="openupdatetext(feedback)">
+                  <i class=" fa fa-edit "  style="color: rgb(47, 170, 218);"></i></button>
+                  <div class="form-group" *ngIf="updatefeedbacktime ">
+                    <label for="reason">Feedback:</label>
+                    <textarea class="form-control" id="reason" rows="3" [(ngModel)]="reclamationToUpdate.feedback"></textarea>
+                    <button class="btn btn-light" >
+                      <i class=" fa fa-check " (click)="updateReclamation(null)" style="color: rgb(47, 170, 218);"></i></button>
+                  </div>
+            </div>
+          </div>
+        </div>
+        
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePopupFeedbacksList()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- list avis -->
+
+    
+<div class="modal" tabindex="-1" role="dialog" *ngIf="showRatePopuplist" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" style="color: white;">Vous êtes évalués à:</h5>
+      
+      </div>
+      <div class="modal-body">
+       
+    
+       
+        <div class="star-rating">
+          <mat-icon *ngFor="let icon of icons"  [ngClass]="{ 'selected': this.rates.length!=0&& icon <= this.rates[0].to.rateAverage }" style="padding-right: 20px;">star</mat-icon>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePopupRateList()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- chatbot -->
+
+
+<div class="modal" tabindex="-1" role="dialog" *ngIf="showModalchatbot" style="display: block;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+       
+      
+      </div>
+      <div class="modal-body custom-modal-body">
+
+       <h2  class="text-center mb-4">START A NEW CONVERSATION</h2>
+
+
+
+       <ng-container *ngFor="let message of messages">
+        <div class="message" [ngClass]="{ 'from': message.author === 'bot', 'to': message.author === 'user' }">
+          {{ message.content }}
+        </div>
+      </ng-container>
+      <label *ngIf="messages.length == 0; else dialogInfo" for="nameField" class="chat-bot-label">Chat Bot</label>
+      <input [(ngModel)]="value" (keyup.enter)="sendMessage()" type="text" class="chat-bot-input" />
+      <button class="btn btn-light" (click)="sendMessage()" class="chatbotsendButton" (click)="openPopupchatbot()">
+        <img src="../../assets/images/send.png"></button>      
+      <ng-template #dialogInfo>
+        <span class="chat-bot-info float-right">Total messages: {{ messages.length }}</span>
+      </ng-template>
+      
+
+      
+</div>
+<div class="modal-footer">
+  <button  type="button" class="btn btn-secondary" (click)="closePopupchatbot()">Close</button>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<div style=" position: absolute;
+top: 70%;
+left: 70%;"  class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+  <div  class="toast-header">
+    <strong class="me-auto">{{toastheader}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div class="toast-body">
+    {{messageToasted}}
+  </div>
+</div>

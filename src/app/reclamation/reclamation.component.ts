@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Reclamation } from './reclamation';
-import { ReclamationService } from './reclamation.service';
+import { Message, ReclamationService } from './reclamation.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+declare var bootstrap: any;
+
+
 
 @Component({
   selector: 'app-reclamation',
@@ -10,10 +13,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ReclamationComponent implements OnInit {
 
+  
+
+  alreadySignaled:boolean=false
+  alreadyFeedbacked:boolean=false
+  alreadyBlocked:boolean=false
+
   reclamation:any={"raison":""}
-  signals: Reclamation[]=[];
-  feedBacks: Reclamation[]=[];
-  rates: Reclamation[]=[];
+  signals: any[]=[];
+  feedBacks: any[]=[];
+  rates: any[]=[];
+  blocks: any[]=[];
 
   page = 0;
   size = 10;
@@ -36,35 +46,61 @@ export class ReclamationComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
+    this.getAllSignals()
+    this.reclamationService.conversation.subscribe((val) => {
+      this.messages = this.messages.concat(val);
+    });
+    
+ 
+
     this.registerform = this.formBuilder.group({
       subject : ['',[Validators.required]],
     });
-    this.getAllFeedbacks()
+  //  this.getAllFeedbacks()
 
   }
 
   //gettings all signals
   getAllSignals(){
     this.reclamationService.getAllReclamation(this.page,this.size, "signal").subscribe(data=>{
-      this.signals=data;
+      console.log("data = = = ",data)
+
+      this.signals=  data.content.filter((reclamation : any)=>reclamation.to.id ===3&&  reclamation.isSignal);
+      this.blocks=  data.content.filter((reclamation : any)=> reclamation.to.id ===3&&  reclamation.isBlock);
+      this.feedBacks=  data.content.filter((reclamation : any)=> reclamation.to.id ===3 &&  reclamation.feedback!=null  &&  reclamation.feedback!="");
+      this.rates=  data.content.filter((reclamation : any)=> reclamation.to.id ===3 && reclamation.rateLevel);
+      
+    for (let index = 0; index < this.signals.length; index++) {
+     
+      if(this.signals[index].from.id===2 && this.signals[index].isSignal)
+      {this.alreadySignaled=true}
+      
+    }
+
+    for (let index = 0; index < this.feedBacks.length; index++) {
+     
+      if(this.feedBacks[index].from.id===2 && this.feedBacks[index].feedback!="")
+      {this.alreadyFeedbacked=true}
+    }
+
+
+    for (let index = 0; index < this.blocks.length; index++) {
+     
+      if(this.blocks[index].from.id===2 )
+      {this.alreadyBlocked=true}
+    }
+
+
+console.log("rate====", this.rates)
+      if(this.rates[0]!=null){
+        console.log("rate = = = ",this.rates[0].to.rateAverage)
+
+      }
     })
   }
 
-  //gettings all feedbacks
-  getAllFeedbacks(){
-    this.reclamationService.getAllReclamation(this.page,this.size, "feedBack").subscribe(data=>{
-      this.feedBacks=data;
-      console.log("data=",data)
-    })
-  }
-
-
-  //gettings all rates
-  getAllRates(){
-    this.reclamationService.getAllReclamation(this.page,this.size, "rate").subscribe(data=>{
-      this.rates=data;
-    })
-  }
+ 
 
 
   subject:String=""
@@ -77,16 +113,14 @@ export class ReclamationComponent implements OnInit {
       this.reclamationToCreate.feedback=this.filterBadWords(this.reclamationToCreate.feedback)
       if(this.reclamationToCreate.feedback.length!=0){
   
-        this.reclamationService.createReclamation(this.updateReclamation,1,2).subscribe(
+        this.reclamationService.createReclamation(this.updateReclamation,1,3).subscribe(
           response => {
-            this.registersucceed();
 
           },
           error => {
-            this.registerfailed();
           }
         );
-  
+        this.getAllSignals()
       }
   
     }else{
@@ -94,10 +128,8 @@ export class ReclamationComponent implements OnInit {
   
       this.reclamationService.updateReclamation(this.updateReclamation).subscribe(
         response => {
-          this.registersucceed();
         },
         error => {
-          this.registerfailed();
         }
       );
   
@@ -110,46 +142,59 @@ export class ReclamationComponent implements OnInit {
 deleteReclamation(id:number){
 this.reclamationService.deleteReclamation(id).subscribe(
   response => {
-
-    this.registersucceed()
+    this.showToast('success', 'Votre demande a été confirmée')
+    this.getAllSignals()
   },
   error => {
-   this.registerfailed()
+
   }
 );
+this.closePopupBlockedByMeList()
 }
 
 
+updatefeedbacktime:boolean=false
+openupdatetext(reclamation:any){
+  this.reclamationToUpdate=reclamation
+this.updatefeedbacktime=true
+}
 
 //updating reclamation (feedBack)
-updateReclamation(){
+updateReclamation(reclamation:any){
+  this.updatefeedbacktime=false
+ if(reclamation!=null){
+  this.reclamationToUpdate=reclamation
+ }
+console.log("relcamation: ", this.reclamationToUpdate)
+
+
 
   if(this.reclamationToUpdate.feedback.length!=0){
     this.reclamationToUpdate.feedback=this.filterBadWords(this.reclamationToUpdate.feedback)
     if(this.reclamationToUpdate.feedback.length!=0){
 
-      this.reclamationService.updateReclamation(this.updateReclamation).subscribe(
+      this.reclamationService.updateReclamation(this.reclamationToUpdate).subscribe(
         response => {
-          this.registersucceed();
+          this.showToast('success', 'Votre demande a été confirmée')
+
+          this.getAllSignals()
+          
         },
         error => {
-          this.registerfailed();
+
         }
       );
+
+    }else{
+      this.showToast('error', " Pouvez vous insérer des mot plus douces s'il vous plaît ?  ")
 
     }
 
   }else{
 
+    
+        this.showToast('error', " Pouvez vous rédiger quelque chose s'il vous plaît ?  ")
 
-    this.reclamationService.updateReclamation(this.updateReclamation).subscribe(
-      response => {
-        this.registersucceed();
-      },
-      error => {
-        this.registerfailed();
-      }
-    );
 
   }
 
@@ -158,16 +203,6 @@ updateReclamation(){
   
 
 
-public registersucceed() {
-// this.toaster.success("succeed !")
-
-}
-
-public registerfailed() {
-
-// this.toaster.error('Failed ! ');
-
-}
 
  badWords = ['badword1', 'badword2', 'badword3'];
  filterBadWords(text: string): string {
@@ -188,6 +223,19 @@ openPopupReclamation() {
 
 closePopupReclamation() {
   this.showModal = false;
+}
+
+
+showModallistReclamation = false;
+openPopupReclamationlist() {
+  this.showModallistReclamation = true;
+
+}
+
+
+
+closePopupReclamationlist() {
+  this.showModallistReclamation = false;
 }
 
 
@@ -216,19 +264,35 @@ closePopupSignal() {
 }
 
 confirmSignal(){
-this.reclamationToCreate.raison=this.filterBadWords(this.reclamationToCreate.raison)
-console.log("feeeeeeed", this.reclamationToCreate)
-if(this.reclamationToCreate.raison!="" || this.reclamationToCreate.feedback!="" || this.reclamationToCreate.rateLevel!=-1){
-this.reclamationService.createReclamation(this.reclamationToCreate,1,2).subscribe(data=>{
-this.reclamationToCreate=new Reclamation()
-console.log("receeee", this.reclamationToCreate)
-this.addToast('success', 'Success', 'You have successfully navigated to this component.');
-this.closePopupSignal()
-this.closePopupFeedback()
-})
+
+  console.log("reclamation========= ",this.reclamationToCreate)
+
+if(this.reclamationToCreate.raison=="" && this.reclamationToCreate.feedback=="" && this.reclamationToCreate.rateLevel==-1){
+
+  this.showToast('error', " Pouvez vous rédiger quelque chose s'il vous plaît ?  ")
+
 }else{
-  console.log("no passaran")
+  this.reclamationToCreate.raison=this.filterBadWords(this.reclamationToCreate.raison)
+  this.reclamationToCreate.feedback=this.filterBadWords(this.reclamationToCreate.feedback)
+  if(this.reclamationToCreate.raison!="" || this.reclamationToCreate.feedback!="" || this.reclamationToCreate.rateLevel!=-1){
+  this.reclamationService.createReclamation(this.reclamationToCreate,2,3).subscribe(data=>{
+  this.reclamationToCreate=new Reclamation()
+  this.closePopupSignal()
+  this.closePopupFeedback()
+  this.closePopupRating()
+  this.getAllSignals()
+  this.showToast('success', 'Votre demande a été confirmée')
+  })
+  }else{
+    this.showToast('error', " Pouvez vous insérer des mot plus douces s'il vous plaît ?  ")
+  
+  }
+
+
 }
+
+
+
 }
 
 
@@ -278,6 +342,8 @@ icons: number[] = [1, 2, 3, 4, 5];
 rate(value: number) {
   this.reclamationToCreate=new Reclamation();
   this.reclamationToCreate.rateLevel = value;
+  this.rates.push(this.reclamationToCreate)
+
 }
 
 
@@ -296,6 +362,137 @@ closePopupRating() {
 }
 
 
+//list
+
+//signals
+showSignalPopuplist = false;
+openPopupSignallist() {
+this.showSignalPopuplist=true
+this.closePopupReclamationlist()
+
+}
+
+closePopupSignalList() {
+  this.showSignalPopuplist = false;
+}
 
 
+//blocks list
+
+showBlockPopuplist = false;
+openPopupBlockslist() {
+this.showBlockPopuplist=true
+this.closePopupReclamationlist()
+
+}
+
+closePopupBlocksList() {
+  this.showBlockPopuplist = false;
+}
+
+
+
+//blocked by me list
+
+showBlockedbyme = false;
+openPopupBlockedbyme() {
+this.showBlockedbyme=true
+this.closePopupBlocksList()
+
+}
+
+closePopupBlockedByMeList() {
+  this.showBlockedbyme = false;
+}
+
+
+
+
+//feedback list
+
+showFeedbackPopuplist = false;
+openPopupFeedbackslist() {
+this.showFeedbackPopuplist=true
+this.closePopupReclamationlist()
+
+}
+
+closePopupFeedbacksList() {
+  this.showFeedbackPopuplist = false;
+}
+
+
+
+//ratelist
+
+showRatePopuplist = false;
+openPopupRatelist() {
+this.showRatePopuplist=true
+this.closePopupReclamationlist()
+
+}
+
+closePopupRateList() {
+  this.showRatePopuplist = false;
+}
+
+
+
+//chatbot
+
+
+messages: Message[] = [];
+  value: string="";
+ 
+  sendMessage() {
+    this.reclamationService.getBotAnswer(this.value);
+    this.value = '';
+  }
+
+  showModalchatbot = false;
+  openPopupchatbot() {
+    this.showModalchatbot = true;
+  }
+
+  closePopupchatbot() {
+    this.showModalchatbot = false;
+  }
+
+
+
+messageToasted=""
+toastheader=""
+  showToast(toastType: string, message: string) {
+    this.messageToasted=message
+    let toastElement :any = document.querySelector('.toast');
+    if (toastElement) {
+      // Get the toast element and set its classes and header text based on the type of toast
+      if (toastType === 'success') {
+        this.toastheader="Succès!"
+        toastElement.classList.remove('toast-error');
+        toastElement.classList.add('toast-success');
+        toastElement.querySelector('.toast-header strong').textContent = 'Success!';
+      } else if (toastType === 'error') {
+        this.toastheader="Erreur!"
+
+        toastElement.classList.remove('toast-success');
+        toastElement.classList.add('toast-error');
+        toastElement.querySelector('.toast-header strong').textContent = 'Error!';
+      }
+      
+      // Show the toast and hide it after 2 seconds
+      let toast = new bootstrap.Toast(toastElement);
+      toast.show();
+      setTimeout(() => {
+        toast.hide();
+      }, 2000);
+    }
+    
+  }
+
+ 
+  
+
+  
+  
 }

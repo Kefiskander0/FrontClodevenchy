@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { AnalitycsComponent } from './analitycs/analitycs.component';
-import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home.component';
 import { JobComponent } from './job/job.component';
 import { MapsComponent } from './maps/maps.component';
@@ -40,9 +39,8 @@ const routes: Routes = [
      
     ]
     
-  },
+  }, 
 
-  { path: 'auth', component: AuthComponent },
   { path: 'landing', component: LandingComponent },
 ];
 

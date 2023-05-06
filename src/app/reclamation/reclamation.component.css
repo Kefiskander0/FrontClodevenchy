@@ -47,3 +47,288 @@
 
     color: gold;
   }
+
+
+
+
+  .timeline {
+    position: relative;
+    margin: 20px 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .timeline:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 40px;
+    width: 2px;
+    margin-left: -1.5px;
+    background-color: #c0bebe;
+  }
+  
+  .timeline-event {
+    position: relative;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .timeline-event:before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #eee;
+  }
+  
+  .timeline-event-icon {
+    position: absolute;
+    top: 18px;
+    left: 28px;
+    font-size: 14px;
+    color: #fff;
+    /* background-color: #28a745; */
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+  }
+  
+  .timeline-event-content {
+    position: relative;
+    margin-left: 60px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 3px;
+  }
+  
+  .timeline-event-content h4 {
+    margin-top: 0;
+    color: #1f1f1f;
+    font-size: 18px;
+  }
+
+ 
+  
+  .timeline-event-content p {
+    margin-bottom: 0;
+  }
+  
+  .timeline-event-date {
+    font-size: 12px;
+    color: #999;
+  }
+  
+
+
+
+
+  .message {
+    border-radius: 50px;
+    margin: 0 15px 20px;
+    padding: 10px 20px;
+    position: relative;
+    font-size: 20px;
+  }
+  .message.to {
+    background-color: #2095FE;
+    color: #fff;
+    margin-left: 100px;
+    text-align: right;
+  }
+  .message.from {
+    background-color: #E5E4E9;
+    color: #363636;
+    margin-right: 100px;
+  }
+  .message.to + .message.to,
+  .message.from + .message.from {
+    margin-top: -10px;
+}
+
+
+/* CSS styles for beautifying the chat bot UI */
+.message {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 8px;
+  max-width: 70%;
+}
+
+.from {
+  background-color: #e6f2ff;
+}
+
+.to {
+  background-color: #d9edff;
+}
+
+.chat-bot-label {
+  font-weight: bold;
+}
+
+.chat-bot-input {
+  padding: 8px;
+  margin-top: 8px;
+  margin-right: 8px;
+  width: 70%;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.chat-bot-button {
+  margin-top: 8px;
+  margin-right: 8px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.chat-bot-info {
+  font-size: 14px;
+  color: #555;
+}
+
+
+.chatbotModalButton {
+  border-color: white;
+  background-color: white; 
+  color: white;
+  border: none;
+}
+.chatbotModalButton:hover {
+  /* Styles de survol du bouton */
+  background-color: white; 
+  color: white; 
+  border: none;
+}
+
+.chatbotsendButton {
+  margin-right:10px;border-color: white;
+  background-color: white; /* Nouvelle couleur de fond au survol */
+  color: white;
+  border: none;
+}
+.chatbotsendButton:hover {
+  /* Styles de survol du bouton */
+  background-color: white; /* Nouvelle couleur de fond au survol */
+  color: white; /* Nouvelle couleur du texte au survol */
+  /* Autres styles de survol... */
+  border: none;
+}
+
+
+
+.custom-modal-body {
+  width: 600;
+  height: 600;
+  max-height: 650px; /* You can adjust this value to set the desired maximum height for scrolling */
+  overflow-y: auto;
+}
+
+
+.text-center {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh; /* Ajuster en fonction de la hauteur souhaitée */
+}
+
+/* Ajouter une marge inférieure */
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+/* Changer la couleur du texte */
+h2 {
+  color: #333; /* Couleur de texte souhaitée */
+}
+
+/* Changer la taille de la police */
+h2 {
+  font-size: 24px; /* Taille de police souhaitée */
+}
+
+/* Ajouter une ombre au texte */
+h2 {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); /* Ajuster en fonction de l'ombre souhaitée */
+}
+
+/* Ajouter un effet de transition au survol */
+h2:hover {
+  color: #ffffff; /* Couleur de texte souhaitée au survol */
+}
+
+
+
+.toast {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  width: 300px;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.toast-header {
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px 5px 0 0;
+}
+
+.toast-header .close {
+  color: #fff;
+}
+
+.toast-body {
+  color: #000;
+}
+
+.toast-success {
+  border-color: #28a745;
+  background-color: #d4edda;
+}
+
+.toast-success .toast-header {
+  background-color: #28a745;
+}
+
+.toast-warning {
+  border-color: #ffc107;
+  background-color: #fff3cd;
+}
+
+.toast-warning .toast-header {
+  background-color: #ffc107;
+}
+
+.toast-error {
+  border-color: #f8d7da;
+  background-color: #f8d7da;
+}
+
+.toast-error .toast-header {
+  background-color: #dc3545;
+}
