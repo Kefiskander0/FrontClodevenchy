@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EventService } from 'src/app/shared/service/Event.service';
 import { Evenment } from '../shared/models/event.model';
 import { ToastrService } from 'ngx-toastr';
+import jsPDF from 'jspdf';
 
 
 @Component({
@@ -17,6 +18,8 @@ import { ToastrService } from 'ngx-toastr';
 export class EventComponent implements OnInit {
   submitted = false;
   modifSubmitted = false;
+
+  local!:string;
 
   event!: Evenment[];
   addevent!: Evenment;
@@ -50,6 +53,7 @@ export class EventComponent implements OnInit {
   ngOnInit(): void {
     this.getAllEvent();
     this.addevent=new Evenment()
+    this.local= new Date().toLocaleDateString();
   
   }
 
@@ -128,5 +132,22 @@ export class EventComponent implements OnInit {
       this.getAllEvent();
       this.form = false;
     });
+  }
+
+  openPDF(c:Evenment){  
+ 
+    let doc = new jsPDF();
+    doc.setFontSize(10);
+    doc.setFillColor(135, 124,45,0);
+    doc.text("organistation de Tunis",160,30);
+    doc.text("Fiche d'evenment",90,40);
+    doc.text("\n\n\n\n\n\n\n\n",2,11);
+    doc.text("",40,70);
+  doc.text("Fait à : "+ this.local,150,140);
+  doc.output('dataurlnewwindow');
+  doc.save('Attestation de '+c.name + " " +'.pdf')
+  this.toastr.success("Le pdf de l'Evenment : " +c.idEvent+' '+' est pret','Success');
+  
+  
   }
 }
