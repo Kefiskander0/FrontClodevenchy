@@ -101,7 +101,7 @@ export class EventComponent implements OnInit {
   }
 
   
-  deleteEvent(evenment: Evenment) {
+  deleteEvent(evenment: Evenment ) {
     if(confirm("Are you sure to delete "+evenment.name)) {
       this.eventservice.deleteEvent(evenment.idEvent).subscribe(
         {
@@ -120,8 +120,6 @@ export class EventComponent implements OnInit {
       
     }
   }
-
-
 
 
   addEvent() {

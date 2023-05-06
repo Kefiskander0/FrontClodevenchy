@@ -29,7 +29,7 @@ const routes: Routes = [
     path: '', component: HomeComponent, children: [
        //{ path: '', component: LayoutComponent },
 
-      { path: 'f', component: InvitationformComponent },
+      { path: 'modifier/:id', component: InvitationformComponent },
       { path: 'detailContrat/:id', component: InvitdefiComponent},
       {path:'a',component: AffectEventComponent},
       {path:'l',component: InvitListComponent},

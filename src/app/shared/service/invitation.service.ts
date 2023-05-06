@@ -51,7 +51,7 @@ export class InvitationService {
 
 
   updateInvitService(invitation: Invitation) {
-    return this.http.put(`${this.API_URL}/update`, invitation);
+    return this.http.put(`${this.API_URL}/update/`, invitation);
   }
 
   //deleteContratService(idcontrat: number) {

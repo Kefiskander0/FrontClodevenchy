@@ -47,9 +47,10 @@ export class EventService {
       const name = search;
       return this.http.get<Evenment[]>(this.API_URL+'/search/'+name, {params})
     }
-  
-  
-
+   
+    updateContratService(Evenment : Evenment) {
+      return this.http.put(`${this.API_URL}/Modify`, Evenment);
+    }
     deleteEvent(id: any) {
                console.log("service deletd id ",id)
       return this.http.delete(`${this.API_URL}/delete/${id}`)

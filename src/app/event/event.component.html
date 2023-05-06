@@ -87,10 +87,11 @@
                       <td>
                         <div class="d-flex gap-2">
                             <div class="edit">
-                                <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button>
+                                <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal"
+                                (click)="open(mymodal1,item.idEvent)">Edit</button>
                             </div>
                             <div class="remove">
-                                <button (click)="deleteEvent(item)"class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
+                                <button (click)="deleteEvent(item.idEvent)"class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button>
                             </div>
                         </div>
                       </td>
