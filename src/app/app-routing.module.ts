@@ -30,11 +30,13 @@ const routes: Routes = [
        //{ path: '', component: LayoutComponent },
 
       { path: 'modifier/:id', component: InvitationformComponent },
+         { path: 'ajouter', component: InvitationformComponent },
       { path: 'detailContrat/:id', component: InvitdefiComponent},
+      {path:'listinvit',component: InvitListComponent},
       {path:'a',component: AffectEventComponent},
-      {path:'l',component: InvitListComponent},
+     
       { path: 'maps', component: MapsComponent },
-      { path: 'calandrier', component: CalandrierComponent },
+      
       { path: 'shop', component: CheckoutComponent },
       {path:'evenment',component:EventComponent},
       

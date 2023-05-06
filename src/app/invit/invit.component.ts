@@ -135,41 +135,9 @@ export class InvitComponent implements OnInit {
       ];
     });
 
-    this.route.params.subscribe((param) => {
-      this.invitService
-        .displayInvitationByID(+param['id'])
-        .subscribe((r: any) => {
-          this.invitation = r as Invitation;
-          let dateFin: Date = new Date(r.dateFinContrat);
-          console.log(dateFin);
 
-          let difference = dateFin.getTime() - this.currentDate.getTime();
-          let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-          console.log(TotalDays);
-          if (TotalDays < 0) {
-            this.TypeToast = 'danger';
-            this.toastBody = `le contract a expirer`;
-            this.isNotifShowed = true;
-          } else if (TotalDays < 3) {
-            this.TypeToast = 'warning';
-            this.toastBody = `le contract va expirer dans ${TotalDays} jours ! `;
-            this.isNotifShowed = true;
-            //this.isNotifShowed = false;
-          }
-        });
-    });
+
   }
-
-
-
- 
- 
-  showConfirmationMessage(message: string) {
-    // Affichez le message de confirmation de votre choix ici.
-  }
-  
-
-
 
   //code stat//
   public initChartData(res: any): void {

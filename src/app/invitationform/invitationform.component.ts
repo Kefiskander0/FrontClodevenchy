@@ -54,11 +54,11 @@ idInvitation!: number;
       if (!this.editable) {
         this.invitservice
           .addInvitService(this.invitation)
-          .subscribe(() => this.router.navigate(['/l']));
+          .subscribe(() => this.router.navigate(['/listinvit']));
       } else {
         this.invitservice
           .updateInvitService(this.invitation)
-          .subscribe(() => this.router.navigate(['/l']));
+          .subscribe(() => this.router.navigate(['/listinvit']));
       }
     }
 

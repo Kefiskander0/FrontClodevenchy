@@ -36,12 +36,12 @@ export class InvitdefiComponent implements OnInit {
           console.log(TotalDays);
           if (TotalDays < 0) {
             this.TypeToast = 'danger'
-            this.toastBody = `le contract a expirer`;
+            this.toastBody = `l'invitation a expirer`;
             this.isNotifShowed = true;
           } else
             if (TotalDays < 3) {
               this.TypeToast = 'warning'
-              this.toastBody = `le contract va expirer dans ${TotalDays} jours ! `;
+              this.toastBody = `l'invitation va expirer dans ${TotalDays} jours ! `;
               this.isNotifShowed = true;
               //this.isNotifShowed = false;
             }
