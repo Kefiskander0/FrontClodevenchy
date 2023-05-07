@@ -161,9 +161,11 @@ form button{
   color: #fff;
   font-size: 18px;
   font-weight: 500;
-  color: #BCC0C4;
+  cursor: pointer;
+  background-color: #fff;
+  cursor: no-drop;
   border-radius: 7px;
-  background: #e9e6e2;
+ 
   transition: all 0.3s ease;
 }
 form textarea:valid ~ button{

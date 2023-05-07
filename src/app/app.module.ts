@@ -25,6 +25,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AlarmComponent } from './alarm/alarm.component';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { LikeComponent } from './like/like.component';
+import { AfficherPostsComponent } from './afficher-posts/afficher-posts.component';
+import { DonComponent } from './don/don.component';
+import { RechercheComponent } from './recherche/recherche.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +50,26 @@ import { GoogleChartsModule } from 'angular-google-charts';
     ReclamationComponent,
     CalandrierComponent,
     LandingComponent,
-    AlarmComponent
+    AlarmComponent,
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    LayoutComponent,
+    AnalitycsComponent,
+    AuthComponent,
+    HomeComponent,
+    JobComponent,
+    CyptoComponent,
+    MapsComponent,
+    CheckoutComponent,
+    ShopComponent,
+    ReclamationComponent,
+    CalandrierComponent,
+    LandingComponent,
+    LikeComponent,
+    AfficherPostsComponent,
+    DonComponent,
+    RechercheComponent,
   ],
   imports: [
     GoogleChartsModule,
@@ -62,7 +85,10 @@ import { GoogleChartsModule } from 'angular-google-charts';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,FormsModule
   ],
   exports:[
     MatIconModule, MatInputModule,

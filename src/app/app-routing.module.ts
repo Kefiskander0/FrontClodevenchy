@@ -17,6 +17,8 @@ import { EventComponent } from './event/event.component';
 import { InvitComponent } from './invit/invit.component';
 import { DonComponent } from './don/don.component';
 import { AlarmComponent } from './alarm/alarm.component';
+import { AfficherPostsComponent } from './afficher-posts/afficher-posts.component';
+import { RechercheComponent } from './recherche/recherche.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,14 @@ const routes: Routes = [
       {path:'home',component:HomeComponent},
 {path:'like',component:LikeComponent},
 {path:'poste',component:PostComponent},
+    { path: 'crypto', component: AnalitycsComponent },
+      { path: 'maps', component: MapsComponent },
+      { path: 'calandrier', component: CalandrierComponent },
+      { path: 'shop', component: CheckoutComponent },
+      { path: 'checkout', component: ReclamationComponent },
+      {path:'home',component:HomeComponent},
+{path:'like',component:LikeComponent},
+{path:'crypto',component:PostComponent},
 {path:'alarme',component: LoginComponent},
 {path:'appointment',component:HomeComponent},
 {path:'event',component:EventComponent},
@@ -39,6 +49,10 @@ const routes: Routes = [
 {path:'login',component:LoginComponent},
 { path: 'alarm', component: AlarmComponent },
 
+{ path: 'afficherpost', component: AfficherPostsComponent },
+{path:'login',component:LoginComponent},
+{ path: 'afficherpost/:id', component: AfficherPostsComponent },
+{ path: 'recherche', component: RechercheComponent }
      
     ]
     

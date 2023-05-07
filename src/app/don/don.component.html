@@ -1,1 +1,58 @@
-<p>don works!</p>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/dd9af7210e.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="don.component.css">
+  <title>Posts </title>
+</head>
+<body>
+	<div class="container">
+		<div class="wrapper">
+		  <section class="post">
+			<div *ngIf="afficherFormulaire"></div>
+			<header>What do you want to donate?</header>
+			<form #ajouterDonForm="ngForm" (submit)="ajouterDonToPost(ajouterDonForm)">
+			  <div class="content">
+				<img src="assets/images/Logo.png" alt="logo">
+				<table>
+				  <thead>
+					<tr>
+					  <th>Titre</th>
+					  <th>Description</th>
+					</tr>
+				  </thead>
+				</table>
+	  
+				<!-- formulaire d'ajout de don -->
+				
+			  </div>
+			  <div class="options">
+				<select [(ngModel)]="nouvelledon.type" class="cadre" name="donoptions">
+				  <option *ngFor="let entry of enumObject | keyvalue" [value]="entry.key">{{entry.value}}</option>
+				</select>
+			  </div>
+	  
+			  <div class="options">
+				<input type="file" (change)="onFileSelected($event)" name="file">
+			  </div>
+			  <div align-items="center">
+				<div style="display: flex; justify-content: center; align-items: center;">
+				  <img [src]="imageUrl" [style.width.px]="imageWidth" [style.height.px]="imageHeight" *ngIf="imageUrl">
+				</div>
+			  </div>
+	  
+			  <button type="submit" class="btn btn-primary">Donate</button>
+			  <button type="button" (click)="annuler()">Annuler</button>
+			</form>
+		  </section>
+		</div>
+	  </div>
+</body>
+
+</html> 
+
+<!-- table de posts -->
+
