@@ -33,5 +33,6 @@ export class LandingComponent implements OnInit {
     this.router.navigateByUrl("/login");
   
   }
+ 
 
 }

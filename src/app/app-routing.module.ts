@@ -23,11 +23,11 @@ import { AlarmeComponent } from './alarme/alarme.component';
 import { BackComponent } from './back/back.component';
 import { ProfilComponent } from './profil/profil.component';
 import { ResetPwdSmsComponent } from './reset-pwd-sms/reset-pwd-sms.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 
 const routes: Routes = [
-  {
-    path: '', component: HomeComponent, children: [
+  {path: '', component: HomeComponent, children: [
 {path:'home',component:HomeComponent},
 {path:'reclamation',component:ReclamationComponent},
 {path:'like',component:LikeComponent},
@@ -47,14 +47,15 @@ const routes: Routes = [
 { path: 'checkout', component: ReclamationComponent },
 {path:'alarme',component: AlarmeComponent},
 {path:'back',component: BackComponent},
-{ path: 'profil', component: ProfilComponent },
 { path: 'restSms/:phone', component: ResetPwdSmsComponent },
+{path:'admin',component: AdminUsersComponent},
      
 ]
     
 },
 
 { path: 'auth', component: AuthComponent },
+{ path: 'profil', component: ProfilComponent },
 { path: 'landing', component: LandingComponent },
 ];
 

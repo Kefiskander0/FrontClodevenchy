@@ -6,6 +6,7 @@ import { TokenStorageService } from '../shared/services/token-storage.service';
 import { Role } from '../shared/models/role';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { SocialAuthService, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 
 
 
@@ -27,7 +28,6 @@ export class LoginComponent implements OnInit  {
   userName: string ="";
   mailAddress: string ="";
   password: string ="";
-
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit  {
 
   
 
-  constructor(private router: Router,private formBuilder: FormBuilder,private http: HttpClient, private auth : AuthService,private storageService: TokenStorageService, private toastr: ToastrService  ) { }
+  constructor(private router: Router,private formBuilder: FormBuilder,private http: HttpClient, private auth : AuthService,private authService: SocialAuthService,private storageService: TokenStorageService, private toastr: ToastrService  ) { }
 
   user:any;
   loggedIn:any;
@@ -183,6 +183,26 @@ else {
 
 
 
+  signInWithFB(): void {
+    
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);  
+    this.authService.authState.subscribe((result:any) => {
+console.log(result.email);
+this.http.get(`http://localhost:8083/findbymail/${result.email}`).subscribe((resultData: any)=>{
+  console.log(resultData);
+  if(resultData){
+    sessionStorage.setItem('auth-user',JSON.stringify(resultData));
+    this.router.navigate(['/landing']);
+  }
+  else{
+    this.toastr.warning('User not found', 'You have to create an account',{timeOut: 3000});
+
+  }
+
+    });
   
- 
+    
+    
+  });
+}
 }

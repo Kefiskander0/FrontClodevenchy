@@ -40,7 +40,8 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import {NgToastModule} from 'ng-angular-popup';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
-
+import { FacebookLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 
 
@@ -54,6 +55,7 @@ import { FormsModule , ReactiveFormsModule } from '@angular/forms';
     MapsComponent,
     ShopComponent,
     ReclamationComponent,
+    AdminUsersComponent,
     CalandrierComponent,
     LandingComponent,
     AppComponent,
@@ -77,6 +79,7 @@ import { FormsModule , ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     ResetPwdSmsComponent,
     ProfilComponent,
+    AdminUsersComponent,
 
 
 
@@ -87,6 +90,7 @@ import { FormsModule , ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     BrowserModule,
     NgToastModule,
+    SocialLoginModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     ToastrModule.forRoot(),
@@ -98,8 +102,22 @@ import { FormsModule , ReactiveFormsModule } from '@angular/forms';
     provideFirestore(() => getFirestore())
   ],
   providers: [
-   
-  ],
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('1397775311055450')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
