@@ -42,6 +42,7 @@ import {NgToastModule} from 'ng-angular-popup';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { FacebookLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 
@@ -92,6 +93,7 @@ import { AdminUsersComponent } from './admin-users/admin-users.component';
     NgToastModule,
     SocialLoginModule,
     AppRoutingModule,
+    NgxPaginationModule,
     AngularFireModule.initializeApp(environment.firebase),
     ToastrModule.forRoot(),
     ToastNoAnimationModule.forRoot(),

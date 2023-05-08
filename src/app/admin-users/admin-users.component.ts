@@ -13,6 +13,7 @@ import { Role } from '../shared/models/role';
   styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent {
+
   constructor(private router: Router,private http: HttpClient,private toastr: ToastrService , private Storage: TokenStorageService ) { }
   role = new Role();
   username: string ="";
@@ -27,6 +28,7 @@ export class AdminUsersComponent {
     console.log(this.isoptionsDisplayed);
   }
    listUsers:any = [];
+   p:any;
 
   getAllUsers(){
     this.http.get("http://localhost:8083/getAll").subscribe((resultData)=>{
@@ -129,5 +131,7 @@ else {
     this.router.navigateByUrl("/login");
   
   }
+
+  
 
 }

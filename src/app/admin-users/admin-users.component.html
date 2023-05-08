@@ -1773,8 +1773,10 @@
                                                     <th scope="col" class="text-center">Actions</th>
                                                 </tr>
                                             </thead>
+
                                             <tbody id="file-list">
-                                                <tr class="odd" *ngFor="let u of listUsers">
+                                                <tr class="odd" *ngFor="let u of listUsers | paginate: 
+                                                { itemsPerPage: 3, currentPage: p }">
                                                     <td class="  control" tabindex="0" style="display: none;"></td>
                                                     <td class="sorting_1">
                                                         <div class="d-flex justify-content-start align-items-center user-name">
@@ -1806,35 +1808,14 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                <pagination-controls (pageChange)="p = $event" class="float-right">
+                                                </pagination-controls>
                                             </tbody>
                                         </table>
+
                                     </div>
-                                    <ul id="pagination" class="pagination pagination-lg"></ul>
-                                    <div class="align-items-center mt-2 row g-3 text-center text-sm-start">
-                                        <div class="col-sm">
-                                            <div class="text-muted">Showing<span class="fw-semibold">4</span> of <span class="fw-semibold">125</span> Results
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-auto">
-                                            <ul class="pagination pagination-separated pagination-sm justify-content-center justify-content-sm-start mb-0">
-                                                <li class="page-item disabled">
-                                                    <a href="#" class="page-link">←</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link">1</a>
-                                                </li>
-                                                <li class="page-item active">
-                                                    <a href="#" class="page-link">2</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link">3</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link">→</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
