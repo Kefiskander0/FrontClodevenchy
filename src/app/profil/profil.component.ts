@@ -110,6 +110,7 @@ export class ProfilComponent {
   }
 
 
+  
   changePwd(): void {
     let body = {
       "newpassword" : this.newpassword,
@@ -127,7 +128,9 @@ export class ProfilComponent {
      });
   }
   else{
-    this.toastr.error('You have to write the same passwords', ' ERROR',{timeOut: 3000});
+   // this.toastr.error('You have to write the same passwords', ' ERROR',{timeOut: 3000});
+   this.toast.error({detail: "Error Message", summary: "You have to write the same passwords",duration:3000});
+
   }
 
 

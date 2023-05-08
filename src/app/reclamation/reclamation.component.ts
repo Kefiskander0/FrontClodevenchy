@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Reclamation } from './reclamation';
 import { Message, ReclamationService } from './reclamation.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TokenStorageService } from '../shared/services/token-storage.service';
 declare var bootstrap: any;
 
 
@@ -42,11 +43,10 @@ export class ReclamationComponent implements OnInit {
 
 
   constructor(private reclamationService:ReclamationService,
-    private formBuilder : FormBuilder,
+    private formBuilder : FormBuilder,  private storageService: TokenStorageService
     ) { }
 
   ngOnInit(): void {
-
     this.getAllSignals()
     this.reclamationService.conversation.subscribe((val) => {
       this.messages = this.messages.concat(val);
@@ -80,14 +80,14 @@ export class ReclamationComponent implements OnInit {
 
     for (let index = 0; index < this.feedBacks.length; index++) {
      
-      if(this.feedBacks[index].from.id===2 && this.feedBacks[index].feedback!="")
+      if(this.feedBacks[index].from.id===this.storageService.getUser().user.id && this.feedBacks[index].feedback!="")
       {this.alreadyFeedbacked=true}
     }
 
 
     for (let index = 0; index < this.blocks.length; index++) {
      
-      if(this.blocks[index].from.id===2 )
+      if(this.blocks[index].from.id===this.storageService.getUser().user.id  )
       {this.alreadyBlocked=true}
     }
 
@@ -113,7 +113,7 @@ console.log("rate====", this.rates)
       this.reclamationToCreate.feedback=this.filterBadWords(this.reclamationToCreate.feedback)
       if(this.reclamationToCreate.feedback.length!=0){
   
-        this.reclamationService.createReclamation(this.updateReclamation,1,3).subscribe(
+        this.reclamationService.createReclamation(this.updateReclamation,this.storageService.getUser().user.id ,3).subscribe(
           response => {
 
           },
@@ -275,7 +275,7 @@ if(this.reclamationToCreate.raison=="" && this.reclamationToCreate.feedback=="" 
   this.reclamationToCreate.raison=this.filterBadWords(this.reclamationToCreate.raison)
   this.reclamationToCreate.feedback=this.filterBadWords(this.reclamationToCreate.feedback)
   if(this.reclamationToCreate.raison!="" || this.reclamationToCreate.feedback!="" || this.reclamationToCreate.rateLevel!=-1){
-  this.reclamationService.createReclamation(this.reclamationToCreate,2,3).subscribe(data=>{
+  this.reclamationService.createReclamation(this.reclamationToCreate,this.storageService.getUser().user.id ,3).subscribe(data=>{
   this.reclamationToCreate=new Reclamation()
   this.closePopupSignal()
   this.closePopupFeedback()

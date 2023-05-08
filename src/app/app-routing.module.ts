@@ -59,7 +59,7 @@ const routes: Routes = [
 { path: 'recherche', component: RechercheComponent }
      
     ]
-    
+     
   },
 { path: 'ResetPwd/:mailAddress', component: ResetPwdComponent },
 { path: 'forgetPassword', component: ForgetPasswordComponent },

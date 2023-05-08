@@ -20,7 +20,7 @@ export class AuthService  {
     return this.fireauth.signInWithPopup(new GoogleAuthProvider).then(res => {
  
       console.log(res.user?.email);
-      this.http.get(`http://localhost:8083/findbymail/${res.user?.email}`).subscribe((resultData: any)=>{
+      this.http.get(`http://localhost:8080/findbymail/${res.user?.email}`).subscribe((resultData: any)=>{
         console.log(resultData);
         if(resultData){
           this.router.navigate(['/landing']);
