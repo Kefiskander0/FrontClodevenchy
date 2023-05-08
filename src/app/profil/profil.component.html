@@ -224,14 +224,7 @@
                                                                 <input type="text" class="form-control" id="firstnameInput" placeholder="Enter your firstname" value={{user.user.userName}} [(ngModel)]="name" [ngModelOptions]="{standalone: true} ">
                                                             </div>
                                                         </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-6">
-                                                            <div class="mb-3">
-                                                                <label for="lastnameInput" class="form-label">Last
-                                                                Name</label>
-                                                                <input type="text" class="form-control" id="lastnameInput" placeholder="Enter your lastname" value="Adame">
-                                                            </div>
-                                                        </div>
+
                                                         <!--end col-->
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
@@ -259,17 +252,15 @@
                                                         <!--end col-->
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
+                                                                <label for="experienceYear" class="form-label">Certificate</label>
+                                                                <img src={{imageCertificate}} class="" id="certificate_image" style="  width: 900px; height: 1000px;
+                                                                    height:200px;">
+                                                                <input (change)="onFileChangedCertificate($event)" id="image" name="image" type="file" class="custom-file-input" required="" hidden>
+                                                                <label for="image" class="buttonX">Upload certificate</label>
+                                                            </div>
+                                                        </div>
 
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-12">
-                                                            <div class="mb-3">
-                                                                <label for="certificateInput" class="form-label">Certificate
-                                                          </label>
-                                                                <input type="text" class="form-control" id="CertificateInput" placeholder="Enter your Certificate" value={{user.user.certificate}} [(ngModel)]="certif" [ngModelOptions]="{standalone: true} ">
-                                                            </div>
-                                                        </div>
+
 
 
                                                         <div class="col-lg-12">
@@ -1448,4 +1439,4 @@
         <!-- Mirrored from themesbrand.com/velzon/html/saas/pages-profile-settings.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 Apr 2023 01:01:39 GMT -->
 
 
-    </div>
+    </div>if

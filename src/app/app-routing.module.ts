@@ -28,11 +28,11 @@ import { ProfilComponent } from './profil/profil.component';
 import { ResetPwdSmsComponent } from './reset-pwd-sms/reset-pwd-sms.component';
 import {AppointmentComponent} from "./appointment/appointment.component";
 import {UserAppointmentsComponent} from "./user-appointments/user-appointments.component";
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 
 const routes: Routes = [
-  {
-    path: '', component: HomeComponent, children: [
+  {path: '', component: HomeComponent, children: [
 {path:'home',component:HomeComponent},
 {path:'reclamation',component:ReclamationComponent},
 {path:'appointments',component:AppointmentComponent},
@@ -71,10 +71,11 @@ const routes: Routes = [
 { path: 'checkout', component: ReclamationComponent },
 {path:'alarme',component: AlarmeComponent},
 {path:'back',component: BackComponent},
-{ path: 'profil', component: ProfilComponent },
 { path: 'restSms/:phone', component: ResetPwdSmsComponent },
+{path:'admin',component: AdminUsersComponent},
 { path: 'user-appointments', component: UserAppointmentsComponent },
 { path: 'auth', component: AuthComponent },
+{ path: 'profil', component: ProfilComponent },
 { path: 'landing', component: LandingComponent }
 ]
 

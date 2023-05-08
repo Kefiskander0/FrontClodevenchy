@@ -29,7 +29,7 @@ export class UserAppointmentsComponent implements OnInit, OnDestroy, AfterViewIn
   organizationControl = new FormControl('', Validators.required);
   lieuControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
   dateControl = new FormControl(this.minDate);
-
+ 
   constructor(private appointmentService: AppointmentService, private storageService: TokenStorageService) {
     this.filterFrom = new FormGroup({
       filter: new FormControl('')
@@ -71,6 +71,7 @@ export class UserAppointmentsComponent implements OnInit, OnDestroy, AfterViewIn
       .getAllOrganizations()
       .subscribe((response) => {
         this.organizations = response;
+        console.log("orgaaaaaaaaa", this.organizations)
       });
   }
 
@@ -96,7 +97,7 @@ export class UserAppointmentsComponent implements OnInit, OnDestroy, AfterViewIn
   }
 
   get currentUserId() {
-    return this.isLoggedIn ? this.storageService.getUser().user.idUser : null;
+    return this.isLoggedIn ? this.storageService.getUser().user.id : null;
   }
 
   now(): Date {

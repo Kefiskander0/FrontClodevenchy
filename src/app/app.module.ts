@@ -61,6 +61,13 @@ import { DonComponent } from './don/don.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { LayoutComponent } from './layout/layout.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import {NgToastModule} from 'ng-angular-popup';
+import { FacebookLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+
+
+
 
 @NgModule({
   declarations: [
@@ -95,6 +102,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
     CheckoutComponent,
     ShopComponent,
     ReclamationComponent,
+    AdminUsersComponent,
     CalandrierComponent,
     LandingComponent,
     AlarmComponent,
@@ -126,8 +134,12 @@ import { CheckoutComponent } from './checkout/checkout.component';
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientModule,
+    ReactiveFormsModule,
     BrowserModule,
+    NgToastModule,
+    SocialLoginModule,
     AppRoutingModule,
+    NgxPaginationModule,
     AngularFireModule.initializeApp(environment.firebase),
     ToastrModule.forRoot(),
     ToastNoAnimationModule.forRoot(),
@@ -157,8 +169,22 @@ import { CheckoutComponent } from './checkout/checkout.component';
     BrowserAnimationsModule, MatTableModule
   ],
   providers: [
-
-  ],
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('1397775311055450')
+          }
+        ],
+        onError: (err:any) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
