@@ -22,6 +22,7 @@
     background-color: #dc3545 !important;
   }
   
+  
 
 
   
@@ -29,26 +30,59 @@
     padding: 40px;
     display: inline-flex;
     align-items: center;
+    display: inline-flex;
+    align-items: center;
+    font-size: 60px; 
   }
-  .star-rating mat-icon {
-    padding: 40px;
-    padding-right: 90px;
-    font-size: 100px;
+  .star-rating span {
+    padding-right: 20px; /* adjust this value as needed */
     color: #ccc;
     cursor: pointer;
   }
+  .star-rating span.selected {
+    color: gold;
+  }
+  .star-rating span:hover {
+    color: gold;
+    cursor: pointer;
+  }  
+  .star-rating mat-icon {
+    /* padding: 40px;
+    padding-right: 10px;
+    font-size: 100%;
+    color: #ccc;
+    cursor: pointer;
+    display: inline-flex;
+  align-items: center;
+  font-size: 40px; */
+  width: 60px;
+  height: 60px;
+  padding-right: 10px;
+  font-size: 100%;
+  color: #ccc;
+  cursor: pointer;
+  }
   .star-rating mat-icon.selected {
-    padding: 40px;
+    /* padding: 40px; */
 
     color: gold;
+    
+    
   }
   .star-rating mat-icon:hover {
-    padding: 40px;
+    /* padding: 40px;
 
+    color: gold; */
     color: gold;
+    cursor: pointer;
   }
 
-
+  .star-rating mat-icon {
+    padding-right: 10px;
+    font-size: 100%;
+    color: #ccc;
+    cursor: pointer;
+  }
 
 
   .timeline {
@@ -205,9 +239,9 @@
 
 
 .chatbotModalButton {
-  border-color: white;
+  border-color: rgb(151, 150, 150);
   background-color: white; 
-  color: white;
+  color: rgb(153, 153, 153);
   border: none;
 }
 .chatbotModalButton:hover {

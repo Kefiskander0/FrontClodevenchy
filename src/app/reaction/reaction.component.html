@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/dd9af7210e.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="reaction.component.css">
+  <title>Posts </title>
+</head>
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <section class="post">
+        <header>List of posts</header>
+        <form >
+          <div class="content">
+            <img  src="assets/images/Logo.png" alt="logo" (click)="gotomain()">
+         
+
+			
+          </div>
+          <div class="list-container">
+            <ul class="list">
+                <ul>
+                    <li class="list-header">
+                          <span class="header-text">nom</span>
+                          <span class="header-text">Description</span>
+                          <span class="header-text">Date creation</span>
+                    </li>    
+                </ul>
+              
+              
+                <li *ngFor="let p of posts">
+             
+                <div class="options" >
+                 
+                  <div text-align="center">{{ p?.nom }}</div>
+                  <div text-align="center">{{ p?.description }}</div>
+                  <div text-align="center">{{ p?.datecreation | date: 'yyyy-MM-dd' }}</div>
+            
+                </div>
+                     
+                <button class="btn btn-primary" (click)="like(p.id)">
+                  <img src="assets/images/likes.png" style="width:30px;height:30px;">
+
+                </button>
+                
+                <button class="btn btn-primary" (click)="dislike(p.id)">
+                  <img src="assets/images/like-dislike-icon-1.jpg " style="width:30px;height:30px;" >
+                 
+                </button>
+                
+                
+                <div>
+                 
+                  <div>
+                   
+                  
+                  
+
+           
+                
+              
+
+                  
+
+
+                
+                </div>
+
+               </div>
+            </ul>
+         
+          </div>
+        </form>
+
+
+        
+      </section>
+
+      
+     
+    </div>
+  </div >
+
+  
+   
+
+
+ 
+  
+</body>
+</html>

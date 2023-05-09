@@ -14,29 +14,17 @@ import { Router } from '@angular/router';
 })
 
 export class LikeComponent implements OnInit {
- id_Selected_post:number | undefined;
-  afficherDons: boolean = false;
-  dons: Don[] = [];
-  view: 'table' | 'form' = 'table';
+ 
   afficherFormulaire: boolean = false;
   postSelectionnee: Post | null = null;
   afficherModifierFormulaire: boolean = false;
   
   posts: Post[]= [];
-  nouvellepost: Post = {
-    id: null,
-    nom: '',
-    description:'',
-    datecreation:null,
-    dons:null,
-    user:null
-
-  };
+ 
  
   constructor(private postService: PostService, private donService: DonService, private router: Router) {
-    this.dons = [];
+   
     this.posts = [];
-    this.view = 'table';
     this.postSelectionnee = new Post();
    
    }
@@ -44,38 +32,8 @@ export class LikeComponent implements OnInit {
    ngOnInit(): void {
     this.postService.getPostsByUserId(1).subscribe(posts => {
       this.posts = posts;
-       posts.forEach(post => {
-      if (post.id != null) {
-        this.postService.setIdCommand(post.id!);
-        console.log('IdCommand:', this.postService.getIdCommand());
-      }
-    });
+     
   });
-  }
-  addPost(form: NgForm): void {
-  
-    const nouvellepost: Post= {
-      id:null,
-      nom: form.value.nom,
-      description: form.value.description,
-      datecreation: form.value.datecreation,
-      dons:form.value.dons,
-      user: form.value.id
-    };
-    
-    this.postService.addPost(nouvellepost).subscribe(post => {
-      this.posts.push(post);
-      form.resetForm();
-      this.afficherFormulaire = false;
-      this.postSelectionnee = post;  
-      this.postService.setIdCommand(post.id); 
-      console.log('IdCommand:', this.postService.getIdCommand());
-    });
-    this.router.navigate(['/like']);
-  }
-  annuler() {
-    this.afficherFormulaire = false;
-    this.view = 'table';
   }
   deletepost(id: number): void {
     if (id !== null) {
@@ -92,14 +50,15 @@ export class LikeComponent implements OnInit {
       description: this.postSelectionnee?.description,
       datecreation: this.postSelectionnee?.datecreation,
       dons: this.postSelectionnee?.dons,
-      user: this.postSelectionnee?.user
+      user: this.postSelectionnee?.user,
+      likes:[]
     };
   
     this.postService.updatePost(postModifiee).subscribe(post => {
       const index = this.posts.findIndex(p => p.id === post.id);
       this.posts[index] = post;
       this.postSelectionnee = post;
-      this.view = 'table';
+     
     });
   
     this.afficherModifierFormulaire = true;
@@ -110,25 +69,9 @@ export class LikeComponent implements OnInit {
   }
   annulermodifier() {
     this.afficherModifierFormulaire = false;
-  this.view = 'table';
+  
   }
-  fetchDons(): void {
-    const postId = 1;
-    this.donService.getDonsByPostId(postId).subscribe(dons => {
-      this.dons = dons;
-    });
-  }
-  onClickDons() {
-    this.getDonsByUserId();
-    this.afficherDons = true;
-  }
-getDonsByUserId() {
-   const userId=1;
-    this.donService.getDonsByUserId(userId).subscribe(
-      dons => this.dons = dons
-    );
-  }
-getPsotById(id: number): void {
+ getPsotById(id: number): void {
   if (id !== null) {
     this.postService.getPostsById(id).subscribe(() => {
       this.posts = this.posts.filter(post => post.id !== id);
@@ -149,5 +92,7 @@ gotorecherche(){
 
 
 }
-
+gotoreaction(){
+  this.router.navigate(['/reaction']);
+}
 }

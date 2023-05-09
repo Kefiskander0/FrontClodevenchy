@@ -65,7 +65,8 @@ import {NgToastModule} from 'ng-angular-popup';
 import { FacebookLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import { FrontSideBarComponent } from './front-side-bar/front-side-bar.component';
+import { ReactionComponent } from './reaction/reaction.component';
 
 
 
@@ -125,6 +126,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AfficherPostsComponent,
     DonComponent,
     RechercheComponent,
+    FrontSideBarComponent,
+    ReactionComponent,
   ],
   imports: [
     GoogleChartsModule,

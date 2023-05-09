@@ -6,6 +6,7 @@ import {Appointment, CreateAppointment, Organization} from "../appointment/appoi
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatPaginator} from "@angular/material/paginator";
 import {AppointmentService} from "../appointment/appointment.service";
+import { AlarmServiceService } from '../alarm/alarm-service.service';
 
 @Component({
   selector: 'app-user-appointments',
@@ -30,7 +31,8 @@ export class UserAppointmentsComponent implements OnInit, OnDestroy, AfterViewIn
   lieuControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
   dateControl = new FormControl(this.minDate);
  
-  constructor(private appointmentService: AppointmentService, private storageService: TokenStorageService) {
+  constructor(private appointmentService: AppointmentService,
+     private storageService: TokenStorageService, private alarmService: AlarmServiceService) {
     this.filterFrom = new FormGroup({
       filter: new FormControl('')
     });
@@ -116,7 +118,8 @@ export class UserAppointmentsComponent implements OnInit, OnDestroy, AfterViewIn
       date: this.dateControl.value,
       lieu: this.lieuControl.value,
       helperId: this.currentUserId,
-      organizationId: this.organizationControl.value
+      organizationId: this.organizationControl.value,
+      alarmActivated:this.alarmActivated
     };
     console.log("createAppointment:", createAppointment);
     this.appointmentService
@@ -132,4 +135,41 @@ export class UserAppointmentsComponent implements OnInit, OnDestroy, AfterViewIn
         }
       );
   }
+
+
+
+
+
+
+  //////////////// alarm part /////////////
+
+  alarmShow(){
+
+    this.showalarmmodal=true
+  }
+
+  alarmdisappear(){
+
+    this.showalarmmodal=false
+  }
+
+
+
+  showalarmmodal:boolean=false
+  alarmActivated:boolean=false
+  activateAlarm(){
+
+   this.alarmActivated=true
+   this.createAppointment()
+   this.alarmdisappear()
+
+  }
+
+  dontactivateAlarm(){
+   this.alarmActivated=false
+   this.createAppointment()
+   this.alarmdisappear()
+
+  }
+
 }

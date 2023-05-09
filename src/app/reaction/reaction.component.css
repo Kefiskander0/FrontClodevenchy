@@ -11,6 +11,7 @@ body{
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  min-width: auto;
   background: linear-gradient(#84a4bb, #2e5bac);
 }
 ::selection{
@@ -18,7 +19,7 @@ body{
   background: #1a81ff;
 }
 .container{
-  width: 375px;
+  width: 400px;
   height: 600px;
   overflow: hidden;
   background: #fff;
@@ -34,7 +35,7 @@ body{
   display: flex;
 }
 .container .wrapper section{
-  width: 375px;
+  width: 400px;
   background: #fff;
 }
 .container img{
@@ -160,11 +161,9 @@ form button{
   color: #fff;
   font-size: 18px;
   font-weight: 500;
-  cursor: pointer;
   color: #BCC0C4;
-  cursor: no-drop;
   border-radius: 7px;
-  background: #e2e5e9;
+  background: #e9e6e2;
   transition: all 0.3s ease;
 }
 form textarea:valid ~ button{
@@ -293,23 +292,48 @@ form textarea:valid ~ button:hover{
     white-space: pre-line;
 }
 
-.cadre {
+.options .cadre {
   border-width: 0.4px  black;
   padding: 3px;
 }
+.list-container {
+  height: 500px;
+  overflow: auto; 
+}
 
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  .team-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .team-list li {
-    background-color: #2196f3;
-    background-image: linear-gradient(to bottom, #2196f3, #0277bd);
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  text-align: center;
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #ccc;
+}
+
+.header-text {
+  width: 33.33%;
+}
+
+.list-item {
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.mon-bouton {
+  background-color: transparent;
+  border: none; /* Supprimer la bordure */
+  color: white; /* Couleur du texte */
+  padding: 10px 10px; /* Ajouter de l'espace autour du texte */
+  text-align: center; /* Centrer le texte */
+  text-decoration: none; /* Supprimer les liens soulignés */
+  display: inline-block; /* Afficher en tant que bloc */
+  font-size: 10px; /* Taille de la police de caractères */
+  margin: 4px 2px; /* Ajouter de la marge */
+  cursor: pointer; /* Ajouter un curseur pointeur au survol */
+}

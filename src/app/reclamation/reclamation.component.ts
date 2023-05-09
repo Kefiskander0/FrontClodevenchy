@@ -1,9 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Reclamation } from './reclamation';
 import { Message, ReclamationService } from './reclamation.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { TokenStorageService } from '../shared/services/token-storage.service';
+import { AppointmentService } from '../appointment/appointment.service';
 declare var bootstrap: any;
+import {MatPaginator} from "@angular/material/paginator";
+import {MatTableDataSource} from "@angular/material/table";
+import {FormControl, FormGroup} from "@angular/forms";
 
 
 
@@ -43,60 +47,64 @@ export class ReclamationComponent implements OnInit {
 
 
   constructor(private reclamationService:ReclamationService,
-    private formBuilder : FormBuilder,  private storageService: TokenStorageService
+    private formBuilder : FormBuilder,  private storageService: TokenStorageService,
+    private appointmentService: AppointmentService
     ) { }
 
+    connectedUserId:any=0;
+    connectedUserType:any=""
   ngOnInit(): void {
+    this.connectedUserId=this.storageService.getUser().user.id
+    this.connectedUserType=this.storageService.getUser().user.role.roleName
+
+    this.reclamationToCreate.rateLevel = 0;
+
+    this.getAllOrganization()
     this.getAllSignals()
     this.reclamationService.conversation.subscribe((val) => {
       this.messages = this.messages.concat(val);
     });
-    
- 
 
     this.registerform = this.formBuilder.group({
       subject : ['',[Validators.required]],
     });
   //  this.getAllFeedbacks()
 
+  this.dataSource.filterPredicate = ((data, filter) => {
+    if (filter === '') {
+      return true;
+    }
+    const helperMatches = data.helper.userName.toLowerCase().includes(filter);
+    const organizationMatches = data.organization.userName.toLowerCase().includes(filter);
+    return helperMatches || organizationMatches;
+  });
+
   }
 
+
+organizations:any=[]
+dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
+@ViewChild(MatPaginator) paginator!: MatPaginator;
+displayedColumns = ['id', 'userName','reclamer'];
+  getAllOrganization(){
+    
+    this.appointmentService.getAllOrganizations().subscribe(data=>{
+     this.organizations=data
+     console.log("data",data)
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
+    })
+
+  }
+
+  reclamations:any=[]
   //gettings all signals
   getAllSignals(){
     this.reclamationService.getAllReclamation(this.page,this.size, "signal").subscribe(data=>{
       console.log("data = = = ",data)
-
-      this.signals=  data.content.filter((reclamation : any)=>reclamation.to.id ===3&&  reclamation.isSignal);
-      this.blocks=  data.content.filter((reclamation : any)=> reclamation.to.id ===3&&  reclamation.isBlock);
-      this.feedBacks=  data.content.filter((reclamation : any)=> reclamation.to.id ===3 &&  reclamation.feedback!=null  &&  reclamation.feedback!="");
-      this.rates=  data.content.filter((reclamation : any)=> reclamation.to.id ===3 && reclamation.rateLevel);
-      
-    for (let index = 0; index < this.signals.length; index++) {
-     
-      if(this.signals[index].from.id===2 && this.signals[index].isSignal)
-      {this.alreadySignaled=true}
-      
-    }
-
-    for (let index = 0; index < this.feedBacks.length; index++) {
-     
-      if(this.feedBacks[index].from.id===this.storageService.getUser().user.id && this.feedBacks[index].feedback!="")
-      {this.alreadyFeedbacked=true}
-    }
-
-
-    for (let index = 0; index < this.blocks.length; index++) {
-     
-      if(this.blocks[index].from.id===this.storageService.getUser().user.id  )
-      {this.alreadyBlocked=true}
-    }
-
-
-console.log("rate====", this.rates)
-      if(this.rates[0]!=null){
-        console.log("rate = = = ",this.rates[0].to.rateAverage)
-
-      }
+      this.reclamations=data
+    
+  
     })
   }
 
@@ -214,8 +222,46 @@ console.log("relcamation: ", this.reclamationToUpdate)
 
 
 showModal = false;
-openPopupReclamation() {
+idorgatoreclam:any=0
+openPopupReclamation(id:any) {
+ this.idorgatoreclam=id
   this.showModal = true;
+
+
+  this.signals=  this.reclamations.content.filter((reclamation : any)=>reclamation.to.id ===id&&  reclamation.isSignal);
+  this.blocks=  this.reclamations.content.filter((reclamation : any)=> reclamation.to.id ===id&&  reclamation.isBlock);
+  this.feedBacks=  this.reclamations.content.filter((reclamation : any)=> reclamation.to.id ===id &&  reclamation.feedback!=null  &&  reclamation.feedback!="");
+  this.rates=  this.reclamations.content.filter((reclamation : any)=> reclamation.to.id ===id&& reclamation.rateLevel);
+  
+  console.log("blocked by me", this.blocks)
+
+
+  for (let index = 0; index < this.signals.length; index++) {
+     
+    if(this.signals[index].from.id===this.storageService.getUser().user.id  && this.signals[index].isSignal)
+    {this.alreadySignaled=true}
+  }
+  console.log("signaled ? ",this.alreadySignaled)
+
+  for (let index = 0; index < this.feedBacks.length; index++) {
+   
+    if(this.feedBacks[index].from.id===this.storageService.getUser().user.id && this.feedBacks[index].feedback!="")
+    {this.alreadyFeedbacked=true}
+  }
+
+
+  for (let index = 0; index < this.blocks.length; index++) {
+   
+    if(this.blocks[index].from.id===this.storageService.getUser().user.id  )
+    {this.alreadyBlocked=true}
+  }
+
+
+console.log("rate====", this.rates)
+    if(this.rates[0]!=null){
+      console.log("rate = = = ",this.rates[0].to.rateAverage)
+
+    }
 
 }
 
@@ -226,10 +272,27 @@ closePopupReclamation() {
 }
 
 
-showModallistReclamation = false;
-openPopupReclamationlist() {
-  this.showModallistReclamation = true;
 
+showModallistReclamation = false;
+mysignals: any[]=[];
+myfeedBacks: any[]=[];
+myrates: any[]=[];
+myblocks: any[]=[];
+openPopupReclamationlist() {
+
+  this.mysignals=  this.reclamations.content.filter((reclamation : any)=>reclamation.to.id ===this.storageService.getUser().user.id&&  reclamation.isSignal);
+  this.myblocks=  this.reclamations.content.filter((reclamation : any)=> reclamation.to.id ===this.storageService.getUser().user.id&&  reclamation.isBlock);
+  this.myfeedBacks=  this.reclamations.content.filter((reclamation : any)=> reclamation.to.id ===this.storageService.getUser().user.id &&  reclamation.feedback!=null  &&  reclamation.feedback!="");
+  this.myrates=  this.reclamations.content.filter((reclamation : any)=> reclamation.to.id ===this.storageService.getUser().user.id&& reclamation.rateLevel);
+  this.blocks=  this.reclamations.content.filter((reclamation : any)=> reclamation.from.id ===this.storageService.getUser().user.id&&  reclamation.isBlock);
+
+console.log("yourbloooooocks", this.myblocks)
+  this.showModallistReclamation = true;
+  console.log("rate====", this.myrates)
+  if(this.rates[0]!=null){
+    console.log("rate = = = ",this.myrates[0].to.rateAverage)
+
+  }
 }
 
 
@@ -266,6 +329,9 @@ closePopupSignal() {
 confirmSignal(){
 
   console.log("reclamation========= ",this.reclamationToCreate)
+ 
+console.log("connected user :" ,this.storageService.getUser().user.id)
+console.log("to nik user :" ,this.idorgatoreclam)
 
 if(this.reclamationToCreate.raison=="" && this.reclamationToCreate.feedback=="" && this.reclamationToCreate.rateLevel==-1){
 
@@ -275,7 +341,7 @@ if(this.reclamationToCreate.raison=="" && this.reclamationToCreate.feedback=="" 
   this.reclamationToCreate.raison=this.filterBadWords(this.reclamationToCreate.raison)
   this.reclamationToCreate.feedback=this.filterBadWords(this.reclamationToCreate.feedback)
   if(this.reclamationToCreate.raison!="" || this.reclamationToCreate.feedback!="" || this.reclamationToCreate.rateLevel!=-1){
-  this.reclamationService.createReclamation(this.reclamationToCreate,this.storageService.getUser().user.id ,3).subscribe(data=>{
+  this.reclamationService.createReclamation(this.reclamationToCreate,this.storageService.getUser().user.id ,this.idorgatoreclam).subscribe(data=>{
   this.reclamationToCreate=new Reclamation()
   this.closePopupSignal()
   this.closePopupFeedback()
@@ -334,7 +400,7 @@ removeToast(toast: any) {
 
 //RATING
 
-currentRate = 6;
+currentRate = 0;
 isPopupVisible = false;
 rating: number = 0;
 icons: number[] = [1, 2, 3, 4, 5];
@@ -492,7 +558,12 @@ toastheader=""
 
  
   
+  ratingValue!: number;
 
+  onRatingChange(event:any) {
+    this.ratingValue = event;
+    console.log('Note : ', this.ratingValue);
+  }
   
   
 }

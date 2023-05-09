@@ -1,18 +1,75 @@
-   <!-- Begin page -->
-   <div id="layout-wrapper">
 
-    <button  type="button" style=" position: absolute;
-    top: 50%;
-    left: 50%;" class="btn btn-secondary" (click)="openPopupReclamation()">Reclamer</button>
-    <button  type="button" style=" position: absolute;
-    top: 50%;
-    left: 60%;" class="btn btn-secondary" (click)="openPopupReclamationlist()">mes reclamations </button>
+
+
+
+<app-front-side-bar></app-front-side-bar>
+
+<br><br><br><br><br>
+<!-- Begin page -->
+   <div id="layout-wrapper">
+<div class="container">
+   <button  type="button" 
+    class="btn btn-secondary" *ngIf="connectedUserType=='organisation'" (click)="openPopupReclamationlist()">mes reclamations </button>
     
-    <button class="btn btn-light" class="chatbotModalButton" (click)="openPopupchatbot()" style=" position: absolute;
-    top: 60%; left: 70%;">
+    <button class="btn btn-light" class="chatbotModalButton" (click)="openPopupchatbot()" 
+    >
       <img src="../../assets/images/chatbotopen.png"></button>
     
-     
+    
+<br><br><br>
+
+
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userName">
+          <th mat-header-cell *matHeaderCellDef> Username </th>
+          <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reclamer">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            
+            <button type="button" class="btn btn-secondary" (click)="openPopupReclamation(element.id)">Reclamer</button>
+            
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Select page of appointments">
+      </mat-paginator>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     
     <div class="modal" tabindex="-1" role="dialog" *ngIf="showModal" style="display: block;">
@@ -180,7 +237,11 @@
                     <div class="star-rating">
                         <mat-icon *ngFor="let icon of icons" (click)="rate(icon)" [ngClass]="{ 'selected': this.rates.length!=0 && icon <= this.reclamationToCreate.rateLevel }" style="padding-right: 20px;">star</mat-icon>
                       </div>
-                    
+                      <!-- <mat-form-field>
+                        <mat-label>Note</mat-label>
+                        <mat-rating #ratingValue aria-label="Note" max="5" (ratingChange)="onRatingChange($event)"></mat-rating>
+                      </mat-form-field>
+                     -->
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" (click)="closePopupRating()">Annuler</button>
                       <button type="button" class="btn btn-primary" (click)="confirmSignal()">Confirmer</button>
@@ -203,7 +264,7 @@
                      
                   
                       <div class="timeline">
-                        <div class="timeline-event" *ngFor="let signal of signals">
+                        <div class="timeline-event" *ngFor="let signal of mysignals">
                           <div class="timeline-event-icon" style=" background-color: white;">
                             <i class=" fa fa-exclamation-triangle " style="color: rgb(199, 196, 6);"></i>
                           </div>
@@ -240,11 +301,11 @@
            
         
             <div class="timeline">
-              <div class="timeline-event" *ngFor="let block of blocks">
-                <div class="timeline-event-icon" style=" background-color: white;"  *ngIf="block.to.id ===3" >
+              <div class="timeline-event" *ngFor="let block of myblocks">
+                <div class="timeline-event-icon" style=" background-color: white;"   >
                   <i class=" fa fa-ban " style="color: rgb(218, 47, 47);"></i>
                 </div>
-                <div class="timeline-event-content" *ngIf="block.to.id ===3" >
+                <div class="timeline-event-content"  >
                   <h4>{{ block.to.userName }}</h4>
                   <p style="color: rgb(12, 12, 12);">{{ block.raison }}</p>
                   <p class="timeline-event-date" >{{ block.createdOn }}</p>
@@ -283,10 +344,10 @@
         
             <div class="timeline">
               <div class="timeline-event" *ngFor="let block of blocks">
-                <div class="timeline-event-icon" style=" background-color: white;"  *ngIf="block.to.id ===3" >
+                <div class="timeline-event-icon" style=" background-color: white;"  >
                   <i class=" fa fa-ban " style="color: rgb(218, 47, 47);"></i>
                 </div>
-                <div class="timeline-event-content" *ngIf="block.to.id ===3" >
+                <div class="timeline-event-content"  >
                   <h4>{{ block.to.userName }}</h4>
                   <p style="color: rgb(12, 12, 12);">{{ block.raison }}</p>
                   <p class="timeline-event-date" >{{ block.createdOn }}</p>
@@ -322,7 +383,7 @@
            
         
             <div class="timeline">
-              <div class="timeline-event" *ngFor="let feedback of feedBacks">
+              <div class="timeline-event" *ngFor="let feedback of myfeedBacks">
                 <div class="timeline-event-icon" style=" background-color: white;">
                   <i class=" fa fa-check " style="color: rgb(27, 141, 23);"></i>
                 </div>
@@ -330,9 +391,9 @@
                   <h4>{{ feedback.to.userName }}</h4>
                   <p style="color: rgb(12, 12, 12);">{{ feedback.feedback }}</p>
                   <p class="timeline-event-date" >{{ feedback.createdOn }}</p>
-                  <button class="btn btn-light" *ngIf="feedback.from.id==2" (click)="deleteReclamation(feedback.id)">
+                  <button class="btn btn-light" *ngIf="feedback.from.id==connectedUserId" (click)="deleteReclamation(feedback.id)">
                     <i class=" fa fa-trash "  style="color: rgb(218, 47, 47);"></i></button>
-                    <button class="btn btn-light"  *ngIf="feedback.from.id==2"  (click)="openupdatetext(feedback)">
+                    <button class="btn btn-light"  *ngIf="feedback.from.id==connectedUserId"  (click)="openupdatetext(feedback)">
                       <i class=" fa fa-edit "  style="color: rgb(47, 170, 218);"></i></button>
                       <div class="form-group" *ngIf="updatefeedbacktime ">
                         <label for="reason">Feedback:</label>
@@ -372,7 +433,7 @@
         
            
             <div class="star-rating">
-              <mat-icon *ngFor="let icon of icons"  [ngClass]="{ 'selected': this.rates.length!=0&& icon <= this.rates[0].to.rateAverage }" style="padding-right: 20px;">star</mat-icon>
+              <mat-icon *ngFor="let icon of icons"  [ngClass]="{ 'selected': this.myrates.length!=0&& icon <= this.myrates[0].to.rateAverage }" style="padding-right: 20px;">star</mat-icon>
             </div>
     
     

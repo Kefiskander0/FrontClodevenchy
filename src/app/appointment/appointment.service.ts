@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {Observable} from "rxjs";
 import {Appointment, CreateAppointment, MonthlyScheduledAppointmentCount, Organization} from "./appointment";
 
-@Injectable({providedIn: 'root'})
+@Injectable({providedIn: 'root'}) 
 export class AppointmentService {
 
   private readonly appointmentsUrl = "http://localhost:8080/appointments";
@@ -33,7 +33,7 @@ export class AppointmentService {
   getAllOrganizations(): Observable<Organization[]> {
     return this.http.get<Organization[]>(this.appointmentsUrl + '/organizations');
   }
-
+ 
   createAppointment(createAppointment: CreateAppointment): Observable<Appointment> {
     return this.http.post<Appointment>(this.appointmentsUrl, createAppointment);
   }

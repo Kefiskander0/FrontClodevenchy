@@ -5,7 +5,7 @@ import {AppointmentService} from "./appointment.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {FormControl, FormGroup} from "@angular/forms";
 import {MatPaginator} from "@angular/material/paginator";
-import {ChartData, ChartOptions} from "chart.js";
+import {ChartData, ChartOptions} from "chart.js"; 
 
 @Component({
   selector: 'app-appointment',

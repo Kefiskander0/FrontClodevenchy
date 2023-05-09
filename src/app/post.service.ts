@@ -19,6 +19,17 @@ export class PostService {
     this.idCommand = id;
 }
 
+likePoost(postId: number, userId: number): Observable<void> {
+  const url = `${this.API_URL}/posts/${postId}/likeees/${userId}`;
+
+  return this.httpClient.post<void>(url, {});
+}
+
+dislikePoost(postId: number, userId: number): Observable<void> {
+  const url = `${this.API_URL}/posts/${postId}/dissss/${userId}`;
+  return this.httpClient.post<void>(url, {});
+}
+
   public getIdCommand(): number | null {
     return this.idCommand;
   }
@@ -28,8 +39,8 @@ export class PostService {
   retrieveAllPost(): Observable<Post[]> {
     return this.httpClient.get<Post[]>(this.API_URL + this.ENDPOINT_POST);
   }
-  addPost(post: Post) {
-    return this.httpClient.post<any>(this.API_URL + '/addpost', post);
+  addPost(post: Post,id:any) {
+    return this.httpClient.post<any>(`${this.API_URL}/addpost/${id}`, post);
   }
   deletepost(id: number): Observable<void> {
     const url = `${this.API_URL}/deletePost/${id}`;

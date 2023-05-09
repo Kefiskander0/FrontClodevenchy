@@ -32,7 +32,7 @@ import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 
 const routes: Routes = [
-  {path: '', component: HomeComponent, children: [
+  {path: '', component: LoginComponent},
 {path:'home',component:HomeComponent},
 {path:'reclamation',component:ReclamationComponent},
 {path:'appointments',component:AppointmentComponent},
@@ -56,11 +56,11 @@ const routes: Routes = [
 { path: 'afficherpost', component: AfficherPostsComponent },
 {path:'login',component:LoginComponent},
 { path: 'afficherpost/:id', component: AfficherPostsComponent },
-{ path: 'recherche', component: RechercheComponent }
+{ path: 'recherche', component: RechercheComponent },
      
-    ]
+   // ]
      
-  },
+  //},
 { path: 'ResetPwd/:mailAddress', component: ResetPwdComponent },
 { path: 'forgetPassword', component: ForgetPasswordComponent },
 { path: 'activate', component: ActivatedComponent },

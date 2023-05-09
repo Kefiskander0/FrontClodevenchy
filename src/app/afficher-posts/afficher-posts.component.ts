@@ -36,7 +36,9 @@ nouvellepost: Post = {
   description:'',
   datecreation:null,
   dons:null,
-  user:null
+  user:null,
+  likes:[],
+
 
 };
 
@@ -68,25 +70,25 @@ constructor(private postService: PostService, private donService: DonService, pr
     
 }
 
-addPost(form: NgForm): void {
+// addPost(form: NgForm): void {
 
-  const nouvellepost: Post= {
-    id:null,
-    nom: form.value.nom,
-    description: form.value.description,
-    datecreation: form.value.datecreation,
-    dons:form.value.dons,
-    user: form.value.id
-  };
+//   const nouvellepost: Post= {
+//     id:null,
+//     nom: form.value.nom,
+//     description: form.value.description,
+//     datecreation: form.value.datecreation,
+//     dons:form.value.dons,
+//     user: form.value.id
+//   };
 
-  this.postService.addPost(nouvellepost).subscribe(post => {
-    this.posts.push(post);
-    form.resetForm();
-    this.afficherFormulaire = false;
-    this.postSelectionnee = post;  
-  });
-  this.router.navigate(['/like']);
-}
+//   // this.postService.addPost(nouvellepost).subscribe(post => {
+//   //   this.posts.push(post);
+//   //   form.resetForm();
+//   //   this.afficherFormulaire = false;
+//   //   this.postSelectionnee = post;  
+//   // });
+//   this.router.navigate(['/like']);
+// }
 annuler() {
   this.afficherFormulaire = false;
   this.view = 'table';
@@ -99,26 +101,26 @@ deletepost(id: number): void {
     });
   }
 }
-modifierPost(form: NgForm): void {
-  const postModifiee: Post = {
-    id: this.postSelectionnee?.id,
-    nom: this.postSelectionnee?.nom,
-    description: this.postSelectionnee?.description,
-    datecreation: this.postSelectionnee?.datecreation,
-    dons: this.postSelectionnee?.dons,
-    user: this.postSelectionnee?.user
-  };
+// modifierPost(form: NgForm): void {
+//   const postModifiee: Post = {
+//     id: this.postSelectionnee?.id,
+//     nom: this.postSelectionnee?.nom,
+//     description: this.postSelectionnee?.description,
+//     datecreation: this.postSelectionnee?.datecreation,
+//     dons: this.postSelectionnee?.dons,
+//     user: this.postSelectionnee?.user
+//   };
 
-  this.postService.updatePost(postModifiee).subscribe(post => {
-    const index = this.posts.findIndex(p => p.id === post.id);
-    this.posts[index] = post;
-    this.postSelectionnee = post;
-    this.view = 'table';
-  });
+//   this.postService.updatePost(postModifiee).subscribe(post => {
+//     const index = this.posts.findIndex(p => p.id === post.id);
+//     this.posts[index] = post;
+//     this.postSelectionnee = post;
+//     this.view = 'table';
+//   });
 
-  this.afficherModifierFormulaire = true;
+//   this.afficherModifierFormulaire = true;
 
-} 
+// } 
 fermerFormulaire() {
   this.afficherModifierFormulaire = false;
 }

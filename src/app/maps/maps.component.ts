@@ -5,6 +5,8 @@ import { NgForm } from '@angular/forms';
 import { Don } from '../don';
 import { DonService } from '../don.service';
 import { Router } from '@angular/router';
+import { TokenStorageService } from '../shared/services/token-storage.service';
+import { User } from '../shared/models/user';
 
 @Component({
   selector: 'app-maps',
@@ -27,11 +29,14 @@ afficherDons: boolean = false;
     description:'',
     datecreation:null,
     dons:null,
-    user:null
+    user:null,
+    likes:[],
+
 
   };
  
-  constructor(private postService: PostService, private donService: DonService, private router: Router) {
+  constructor(private postService: PostService, private donService: DonService,
+     private router: Router,  private storageService: TokenStorageService) {
     this.dons = [];
     this.posts = [];
     this.view = 'table';
@@ -53,10 +58,12 @@ afficherDons: boolean = false;
       description: form.value.description,
       datecreation: form.value.datecreation,
       dons:form.value.dons,
-      user: form.value.id
+      likes:[],
+      user: this.storageService.getUser().user.id
     };
 
-    this.postService.addPost(nouvellepost).subscribe(post => {
+    console.log("post: ",this.nouvellepost)
+    this.postService.addPost(nouvellepost,this.storageService.getUser().user.id).subscribe(post => {
       this.posts.push(post);
       form.resetForm();
       this.afficherFormulaire = false;
@@ -86,7 +93,9 @@ afficherDons: boolean = false;
       description: this.postSelectionnee?.description,
       datecreation: this.postSelectionnee?.datecreation,
       dons: this.postSelectionnee?.dons,
-      user: this.postSelectionnee?.user
+      user: this.postSelectionnee?.user,
+      likes:[],
+
     };
   
     this.postService.updatePost(postModifiee).subscribe(post => {

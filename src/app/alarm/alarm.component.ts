@@ -13,7 +13,7 @@ export class AlarmComponent implements OnInit {
   constructor(private alarmService: AlarmServiceService) { }
 
   ngOnInit(): void {
-
+ 
   }
   switchValue: boolean = false;
 
@@ -21,6 +21,11 @@ export class AlarmComponent implements OnInit {
   alarmShow(){
 
     this.showalarmmodal=true
+  }
+
+  alarmdisappear(){
+
+    this.showalarmmodal=false
   }
 
 
@@ -35,13 +40,14 @@ this.showalarmmodal=false
 this.alarmService.createAppointment(this.appointment).subscribe(a=>{
   console.log("appointment", this.appointment)
 })
+this.alarmdisappear()
   }
 
   dontactivateAlarm(){
     this.appointment.alarmActivated=false
     this.switchValue=false
     this.showalarmmodal=false
-
+    this.alarmdisappear()
   }
 
 
