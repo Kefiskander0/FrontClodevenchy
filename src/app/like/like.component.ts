@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { Don } from '../don';
 import { DonService } from '../don.service';
 import { Router } from '@angular/router';
+import { TokenStorageService } from '../shared/services/token-storage.service';
 
 
 @Component({
@@ -22,15 +23,16 @@ export class LikeComponent implements OnInit {
   posts: Post[]= [];
  
  
-  constructor(private postService: PostService, private donService: DonService, private router: Router) {
+  constructor(private postService: PostService, private donService: DonService,
+     private router: Router,   private storageService: TokenStorageService) {
    
     this.posts = [];
     this.postSelectionnee = new Post();
    
-   }
+   } 
 
    ngOnInit(): void {
-    this.postService.getPostsByUserId(1).subscribe(posts => {
+    this.postService.getPostsByUserId(this.storageService.getUser().user.id).subscribe(posts => {
       this.posts = posts;
      
   });
@@ -71,18 +73,8 @@ export class LikeComponent implements OnInit {
     this.afficherModifierFormulaire = false;
   
   }
- getPsotById(id: number): void {
-  if (id !== null) {
-    this.postService.getPostsById(id).subscribe(() => {
-      this.posts = this.posts.filter(post => post.id !== id);
-      this.postSelectionnee = null;
-      
-    });
-    
-  }
-  //this.router.navigate(['/afficherpost', id]);
 
-}
+  
 gotodons() {
   this.router.navigate(['/don']);
 }

@@ -29,6 +29,7 @@ import { ResetPwdSmsComponent } from './reset-pwd-sms/reset-pwd-sms.component';
 import {AppointmentComponent} from "./appointment/appointment.component";
 import {UserAppointmentsComponent} from "./user-appointments/user-appointments.component";
 import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { ReactionComponent } from './reaction/reaction.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
 {path:'poste',component:PostComponent},
 { path: 'crypto', component: AnalitycsComponent },
 { path: 'maps', component: MapsComponent },
+{ path: 'reaction', component: ReactionComponent },
 { path: 'calandrier', component: CalandrierComponent },
 { path: 'shop', component: CheckoutComponent },
 { path: 'checkout', component: ReclamationComponent },

@@ -6,6 +6,7 @@ import { Don } from '../don';
 import { DonService } from '../don.service';
 import { Router } from '@angular/router';
 import { Like } from '../shared/models/like';
+import { TokenStorageService } from '../shared/services/token-storage.service';
 
 @Component({
   selector: 'app-reaction',
@@ -18,13 +19,14 @@ export class ReactionComponent implements OnInit {
   posts: Post[]= [];
  
  
-  constructor(private postService: PostService, private donService: DonService, private router: Router) {
+  constructor(private postService: PostService, private donService: DonService,
+     private router: Router,   private storageService: TokenStorageService) {
    
     this.posts = [];
   }
 
   ngOnInit(): void {
-    this.postService.getPostsByUserId(1).subscribe(posts => {
+    this.postService.getPostsByUserId(this.storageService.getUser().user.id).subscribe(posts => {
       this.posts = posts;
       posts.forEach(post => {
         if (post.id != null) {
@@ -35,7 +37,7 @@ export class ReactionComponent implements OnInit {
     });
   }
   like(postId: number | null | undefined): void {
-    const userId = 1;
+    const userId = this.storageService.getUser().user.id;
     if (postId !== null && postId !== undefined) {
       console.log('postId:', postId);
       const index = this.posts.findIndex(p => p.id === postId);
@@ -45,7 +47,7 @@ export class ReactionComponent implements OnInit {
           if (this.posts[index]?.likes) {
             this.posts[index].likes.push(new Like());
             console.log('post liked:', this.posts[index]);
-            window.alert('Vous avez liké le post du  "${nomPost}" !' ); // Ajout de la fenêtre de confirmation avec le nom du post
+            window.alert('Vous avez liké le post du '+nomPost ); // Ajout de la fenêtre de confirmation avec le nom du post
           }
         },
         error => {
@@ -56,7 +58,7 @@ export class ReactionComponent implements OnInit {
   }
 
   dislike(postId: number | null | undefined): void {
-    const userId = 1;
+    const userId = this.storageService.getUser().user.id;
     if (postId !== null && postId !== undefined) {
       console.log('postId:', postId);
       const index = this.posts.findIndex(p => p.id === postId);
@@ -66,7 +68,7 @@ export class ReactionComponent implements OnInit {
           if (this.posts[index]?.likes) {
             this.posts[index].likes.pop();
             console.log('post disliked:', this.posts[index]);
-            window.alert('Vous avez disliké le post du "${nomPost}" ! '); // Ajout de la fenêtre de confirmation avec le nom du post
+            window.alert('Vous avez disliké le post du '+nomPost ); // Ajout de la fenêtre de confirmation avec le nom du post
           }
         },
         error => {

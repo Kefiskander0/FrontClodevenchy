@@ -26,10 +26,10 @@
           
 		  <pre>
         <input class="cadre" placeholder="Name of post" spellcheck="false" required type="text" id="nom" name="nom" [(ngModel)]="nouvellepost.nom">
-        <div *ngIf="!nouvellepost.nom">Please enter a name for your post</div>
+        <div *ngIf="!nouvellepost.nom" style="color:red">Please enter a name for your post</div>
 			</pre>
 		  <textarea placeholder="What's on your mind ?" spellcheck="false" required id="description" name="description" [(ngModel)]="nouvellepost.description"></textarea>
-      <div *ngIf="!nouvellepost.description">Please enter a description for your post</div>
+      <div *ngIf="!nouvellepost.description" style="color:red">Please enter a description for your post</div>
           <div class="options">
             <p>Add to Your Post</p>
             <ul class="list">
